@@ -23,11 +23,18 @@ def main(request):
   return HttpResponse(template.render())
 
 def testing(request):
-  a = 10
-  b = 20
-  
+  mymembers = Member.objects.all().values()
   template = loader.get_template('template.html')
   context = {
-    'fruits': ['Apple', 'Banana', 'Cherry'],   
+    'mymembers': mymembers,
+  }
+  return HttpResponse(template.render(context, request))
+  
+  
+def member_fees_summary(request):
+  mymembers = Member.objects.all().values()
+  template = loader.get_template('member_fees_summary.html')
+  context = {
+    'mymembers': mymembers,
   }
   return HttpResponse(template.render(context, request))

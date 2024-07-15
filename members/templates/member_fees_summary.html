@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Cycling Club - List of all members
+{% endblock %}
+
+
+{% block content %}
+  <div class="mycard">
+    <h1>Fees Summary</h1>
+    <ul>
+      {% for x in mymembers %}
+        <li onclick="window.location = 'details/{{ x.id }}'">{{ x.firstname }} {{ x.lastname }}, {{x.member_fees}} EUR</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}

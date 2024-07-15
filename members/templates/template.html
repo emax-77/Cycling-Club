@@ -1,11 +1,36 @@
-<!DOCTYPE html>
 <html>
+<head>
+<style>
+.myDiv {
+  border: 5px solid blue;
+  background-color: lightgreen;
+  text-align: center;
+  padding: 5px;
+  table.style.width = "auto";
+  
+}
+</style>
+</head>
 <body>
 
-<h1>This is a test page</h1>
-<p>toto je len pokus</p>
-<p>toto je 2. pokus</p>
-
+<div class="myDiv">
+    <table>
+        <tr>
+            <th>FIRST NAME </th>
+            <th>LAST NAME </th>
+            <th>FEE </th>
+        </tr>
+        {% for x in mymembers %}
+          <tr>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td>{{ x.member_fees}}</td>
+        {% endfor %}
+          </tr>
+    </table>
+</div>
 
 </body>
-</html> 
+</html>
+
+  

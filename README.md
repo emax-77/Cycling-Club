@@ -7,7 +7,9 @@ remarks for myself only / as I'm still beginner in Django :)
 
 15.7 - Pridane polia do tabulky Members (subor models.py) - nezabudnut ulozit subor (!) a spustit prikaz: py manage.py makemigrations members , nasledne druhy prikaz: py manage.py migrate
 
-15.7 Pridane pole PSC do tabulky Members
+15.7 Pridany HTML subor member_fees_summary.html do templates
+
+
 
 
 
