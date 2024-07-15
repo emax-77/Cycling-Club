@@ -6,6 +6,7 @@ class Member(models.Model):
   phone = models.CharField(max_length=255, null=True)
   joined_date = models.DateField(null=True)
   address = models.CharField(max_length=255,null=True)
+  zipcode = models.CharField(max_length=255,null=True)
   city = models.CharField(max_length=255,null=True)
   country = models.CharField(max_length=255,null=True)
   member_fees = models.IntegerField(null=True)
