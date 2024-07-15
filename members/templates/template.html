@@ -3,11 +3,7 @@
 <style>
 .myDiv {
   border: 5px solid blue;
-  background-color: lightgreen;
-  text-align: center;
-  padding: 5px;
-  table.style.width = "auto";
-  
+  background-color: lightgreen;  
 }
 </style>
 </head>
@@ -15,13 +11,15 @@
 
 <div class="myDiv">
     <table>
-        <tr>
-            <th>FIRST NAME </th>
-            <th>LAST NAME </th>
-            <th>FEE </th>
+        <tr align ="left">
+            <th>Id </th>
+            <th>Name </th>
+            <th>Last Name </th>
+            <th>Fee </th>
         </tr>
         {% for x in mymembers %}
           <tr>
+            <td>{{ x.id }}
             <td>{{ x.firstname }}</td>
             <td>{{ x.lastname }}</td>
             <td>{{ x.member_fees}}</td>
@@ -29,6 +27,11 @@
           </tr>
     </table>
 </div>
+
+
+<h3>Total sum is {{ sum_fees }} EUR</h3>
+
+<a href="/">HOME</a>
 
 </body>
 </html>

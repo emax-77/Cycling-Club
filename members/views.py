@@ -24,9 +24,11 @@ def main(request):
 
 def testing(request):
   mymembers = Member.objects.all().values()
+  sum_fees = sum([x['member_fees'] for x in mymembers])
   template = loader.get_template('template.html')
   context = {
     'mymembers': mymembers,
+    'sum_fees': sum_fees,
   }
   return HttpResponse(template.render(context, request))
   
