@@ -16,10 +16,10 @@
 <div class="myDiv">
     <table>
         <tr align ="left">
-            <th>Id </th>
-            <th>Name </th>
+            <th>Id nr.</th>
+            <th>First Name </th>
             <th>Last Name </th>
-            <th>Fee </th>
+            <th>Member Fees </th>
         </tr>
         {% for x in mymembers %}
           <tr>
@@ -40,7 +40,7 @@
           <th>Id </th>
           <th>Date </th>
           <th>Event Name </th>
-          <th>Description </th>
+          <th>Note </th>
           <th>Amount </th>
       </tr>
       {% for x in myexpenses %}
@@ -55,12 +55,18 @@
   </table>
 </div>
 
-<h3>Total sum is {{ sum_fees }} EUR</h3>
+<h3>Total amount collected from Club Members is {{ sum_fees }} EUR</h3>
+<h3>Total amount of all expenses is {{ sum_expenses }} EUR </h3>
 
-{% with naklady=30 %}
+<h1>There is {{ cashier }} EUR in cash treasury now</h1>
 
-<h1>Naklady su {{ naklady }} celkovy ostatok je {{ sum_fees}} </h1>
-{% endwith %}
+{% if cashier > 0 %}
+  <p>sme v baliku :)</p>
+{% elif cashier < 0 %}
+  <p>sme v riti :( </p>
+{% else %}
+  <p>mame nulu !</p>
+{% endif %}
 
 <a href="/">HOME</a>
 </body>
