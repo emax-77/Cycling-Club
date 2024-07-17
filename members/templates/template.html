@@ -13,6 +13,8 @@
 </head>
 <body>
 
+<h1 style="text-align: center;">Member Fees</h1>
+
 <div class="myDiv">
     <table>
         <tr align ="left">
@@ -32,7 +34,7 @@
     </table>
 </div>
 
-<br>
+<h1 style="text-align: center;">Club Expenses</h1>
 
 <div class="myDiv2">
   <table>
@@ -55,18 +57,21 @@
   </table>
 </div>
 
-<h3>Total amount collected from Club Members is {{ sum_fees }} EUR</h3>
-<h3>Total amount of all expenses is {{ sum_expenses }} EUR </h3>
+<div style="text-align: center;">
+  <h1>Summary</h1>
 
-<h1>There is {{ cashier }} EUR in cash treasury now</h1>
+  <h3>Total amount collected from Club Members is {{ sum_fees }} EUR</h3>
+  <h3>Total amount of all expenses is {{ sum_expenses }} EUR </h3>
+  <h1>There is {{ cashier }} EUR in cash treasury now</h1>
 
-{% if cashier > 0 %}
-  <p>sme v baliku :)</p>
-{% elif cashier < 0 %}
-  <p>sme v riti :( </p>
-{% else %}
-  <p>mame nulu !</p>
-{% endif %}
+  {% if cashier > 0 %}
+    <p>sme v baliku :)</p>
+  {% elif cashier < 0 %}
+    <p>sme v riti :( </p>
+  {% else %}
+    <p>mame nulu !</p>
+  {% endif %}
+</div>
 
 <a href="/">HOME</a>
 </body>
