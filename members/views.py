@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import Member
+from .models import Expenses
 
 def members(request):
   mymembers = Member.objects.all().values()
@@ -24,11 +25,13 @@ def main(request):
 
 def testing(request):
   mymembers = Member.objects.all().values()
+  myexpenses = Expenses.objects.all().values()
   sum_fees = sum([x['member_fees'] for x in mymembers])
   template = loader.get_template('template.html')
   context = {
     'mymembers': mymembers,
     'sum_fees': sum_fees,
+    'myexpenses': myexpenses,
   }
   return HttpResponse(template.render(context, request))
   
