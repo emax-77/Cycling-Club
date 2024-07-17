@@ -32,6 +32,7 @@ def testing(request):
   }
   return HttpResponse(template.render(context, request))
   
+
   
 def member_fees_summary(request):
   mymembers = Member.objects.all().values()

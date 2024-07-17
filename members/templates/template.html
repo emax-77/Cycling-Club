@@ -28,11 +28,14 @@
     </table>
 </div>
 
-
 <h3>Total sum is {{ sum_fees }} EUR</h3>
 
-<a href="/">HOME</a>
+{% with naklady=30 %}
 
+<h1>Naklady su {{ naklady }} celkovy ostatok je {{ sum_fees}} </h1>
+{% endwith %}
+
+<a href="/">HOME</a>
 </body>
 </html>
 

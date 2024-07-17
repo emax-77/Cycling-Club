@@ -9,6 +9,9 @@ remarks for myself only / as I'm still beginner in Django :)
 
 15.7 Pridany HTML subor member_fees_summary.html do templates
 
+17.7 pridany debug toolbar
+
+
 
 
 
