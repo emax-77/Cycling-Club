@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
   My Cycling Club
@@ -6,10 +7,8 @@
 
 {% block content %}
   <div class="main">
-    <h1>Cyclo-Tourist Club Tvrdosin</h1>
-
-    <h3>Members list and Club Cashier</h3>
+    <h1>Cyclo-Tourist Club Tvrdosin / Members list and Club Cashier</h1>
   
-    <p>Check the list of our <a href="members/">members</a></p>
+    <img src="{% static 'img8.jpg' %}", alt="Hynek pri Dunaji SK">
   </div>
 {% endblock %}
