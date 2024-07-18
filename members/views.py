@@ -38,13 +38,24 @@ def testing(request):
     'cashier': cashier,
   }
   return HttpResponse(template.render(context, request))
+
+def template2(request):  
+  template = loader.get_template('template2.html')
+  return HttpResponse(template.render())
   
 
-  
 def member_fees_summary(request):
   mymembers = Member.objects.all().values()
+  myexpenses = Expenses.objects.all().values()
+  sum_fees = sum([x['member_fees'] for x in mymembers])
+  sum_expenses = sum([x['amount'] for x in myexpenses])
+  cashier = sum_fees - sum_expenses
   template = loader.get_template('member_fees_summary.html')
   context = {
     'mymembers': mymembers,
+    'sum_fees': sum_fees,
+    'myexpenses': myexpenses,
+    'sum_expenses': sum_expenses,
+    'cashier': cashier,
   }
   return HttpResponse(template.render(context, request))
