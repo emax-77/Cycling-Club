@@ -41,13 +41,13 @@ def member_fees_summary(request):
   myexpenses = Expenses.objects.all().values()
   sum_fees = sum([x['member_fees'] for x in mymembers])
   sum_expenses = sum([x['amount'] for x in myexpenses])
-  cashier = sum_fees - sum_expenses
+  cash_balance = sum_fees - sum_expenses
   template = loader.get_template('member_fees_summary.html')
   context = {
     'mymembers': mymembers,
     'sum_fees': sum_fees,
     'myexpenses': myexpenses,
     'sum_expenses': sum_expenses,
-    'cashier': cashier,
+    'cash_balance': cash_balance,
   }
   return HttpResponse(template.render(context, request))
