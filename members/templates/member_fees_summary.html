@@ -61,16 +61,16 @@
 <div style="text-align: center;">
   <h1>Summary 2024</h1>
 
-  <h3>Total amount collected from Club Members is {{ sum_fees }} EUR</h3>
-  <h3>Total amount of all expenses is {{ sum_expenses }} EUR </h3>
+  <h3>Total amount collected from Club Members in 2024 is {{ sum_fees }} EUR</h3>
+  <h3>Total amount of all expenses in 2024 is {{ sum_expenses }} EUR </h3>
   <h1>There is {{ cashier }} EUR in cash treasury now</h1>
 
   {% if cashier > 0 %}
     <p>sme v baliku, zvysne peniaze prepijeme :) </p>
   {% elif cashier < 0 %}
-    <p>sme v prdeli, buducorocne clenske treba zvysit :) </p>
+    <p>sme v prdeli, buducorocne clenske treba navysit :) </p>
   {% else %}
-    <p>mame v pokladni nulu !</p>
+    <p> ziaden strach, mame v pokladni nulu !</p>
   {% endif %}
 </div>
 
