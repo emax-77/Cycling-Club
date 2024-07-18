@@ -7,12 +7,13 @@ It looks like I need to replace it completely, as there are clashes with the res
 remarks for myself only / as I'm still beginner in Django :)
 
 15.7 Pridane polia do tabulky Members (models.py)  
-15.7 Pridany HTML subor member_fees_summary.html do templates
+15.7 Pridana zalozka member_fees_summary.html do templates
 17.7 pridany debug toolbar, admin settings update
 17.7 pridana nova tabulka Expenses 
 18.7 update na memeber_fees_sumary, vytvorena dlasia testovacia stranka template2
 18.7 pridany vzor na login - zatial na testovacej stranke templates2.html - otazka je ci je vobec potrebny kedze s databazou manipuluje iba predseda klubu a pokladnik - uvidime casom
-18.7 predpriprava na obrazky - pip install pillow 
+18.7 pridana zalozka Galeria (gallery.html)
+
 
 
 

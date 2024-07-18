@@ -30,6 +30,10 @@ def testing(request):
 def template2(request):  
   template = loader.get_template('template2.html')
   return HttpResponse(template.render())
+
+def gallery(request):
+  template = loader.get_template('gallery.html')
+  return HttpResponse(template.render())
   
 
 def member_fees_summary(request):
