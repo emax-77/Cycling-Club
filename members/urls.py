@@ -9,5 +9,6 @@ urlpatterns = [
     path('template2/', views.template2, name='template2'),
     path('member_fees_summary/', views.member_fees_summary, name='members_fees_summary'),
     path('gallery/', views.gallery, name='gallery'),
+    path('club_events/', views.club_events, name='club_events'),
     
 ]

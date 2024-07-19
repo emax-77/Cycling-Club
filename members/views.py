@@ -35,6 +35,9 @@ def gallery(request):
   template = loader.get_template('gallery.html')
   return HttpResponse(template.render())
   
+def club_events(request):
+  template = loader.get_template('club_events.html')
+  return HttpResponse(template.render())
 
 def member_fees_summary(request):
   mymembers = Member.objects.all().values()

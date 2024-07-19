@@ -8,6 +8,7 @@
 {% block content %}
   <div class="mycard">
     <h1>Members</h1>
+    <h4 style="text-align: center; color: rgb(222, 2, 2);">click name for details</h4>
     <ul>
       {% for x in mymembers %}
         <li onclick="window.location = 'details/{{ x.id }}'">{{ x.firstname }} {{ x.lastname }}</li>
