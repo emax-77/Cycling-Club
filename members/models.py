@@ -1,3 +1,4 @@
+from time import timezone
 from django.db import models
 
 class Member(models.Model):
@@ -17,3 +18,15 @@ class Expenses(models.Model):
   event_name = models.CharField(max_length=255,null=True)
   purpose = models.CharField(max_length=255,null=True)
   amount = models.IntegerField(null=True)
+
+class ClubEvents(models.Model):
+  event_name = models.CharField(max_length=255, null=True)
+  event_date = models.DateField(null=True)
+  event_members = models.CharField(max_length=255, null=True)
+
+class EventSubscribe(models.Model):
+  name = models.CharField(max_length=100, null=True)
+  email = models.EmailField(unique=True, max_length=100)
+  event =  models.CharField(max_length=255, null=True)
+
+
