@@ -73,7 +73,7 @@ def event_subscribe(request):
         event = request.POST.get('event', None)
 
         if not name or not email:
-            messages.error(request, "You must type legit name and email to subscribe to a Newsletter")
+            messages.error(request, "You must type name and/or email to subscribe to an Event")
             return redirect("/")
 
         subscribe_user = EventSubscribe.objects.filter(email=email).first()
