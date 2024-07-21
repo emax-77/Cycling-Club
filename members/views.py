@@ -6,6 +6,7 @@ from .models import Member
 from .models import Expenses
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+from .models import ClubEvents
 from .models import EventSubscribe
 
 def members(request):
@@ -41,8 +42,12 @@ def gallery(request):
   return HttpResponse(template.render())
   
 def club_events(request):
+  myevents = ClubEvents.objects.all().values()
   template = loader.get_template('club_events.html')
-  return HttpResponse(template.render())
+  context = {
+    'myevents': myevents,
+  }
+  return HttpResponse(template.render(context, request))
 
 def club_treasury(request):
   mymembers = Member.objects.all().values()
@@ -71,10 +76,6 @@ def event_subscribe(request):
             messages.error(request, "You must type legit name and email to subscribe to a Newsletter")
             return redirect("/")
 
-        #if get_user_model().objects.filter(email=email).first():
-        #    messages.error(request, f"Found registered user with associated {email} email. You must login to subscribe or unsubscribe.")
-        #   return redirect(request.META.get("HTTP_REFERER", "/")) 
-
         subscribe_user = EventSubscribe.objects.filter(email=email).first()
         if subscribe_user:
             messages.error(request, f"{email} email address is already subscriber.")
@@ -92,7 +93,7 @@ def event_subscribe(request):
         subscribe_model_instance.event = event
 
         subscribe_model_instance.save()
-        messages.success(request, f'{email} email was successfully subscribed to our newsletter!')
+        messages.success(request, f'{email} member was successfully subscribed to event!')
         return redirect(request.META.get("HTTP_REFERER", "/"))
     
 #@user_is_superuser

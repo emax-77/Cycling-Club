@@ -16,7 +16,9 @@ remarks for myself only:
 18.7 dolezity fix na club_treasury  - pomaly zacinam chapat ten JavaScript co som sem natiahol z W3schoools.com :)
 19.7 pridana zalozka club_events.html  - tu budu planovane akcie cykloklubu a registracia clenov na tieto akcie - skusim nieco podobne ako ked sa prihlasuje na odber noviniek ?
 21.7 vytvorene tabulky ClubEvents a EventsSubscribe
-21.7 vytvoreny prihlasovaci formular (footer.html) pre club_events.html
+21.7 vytvoreny prihlasovaci formular (footer.html) pre club_events.html - prihlasovanie zatial nefunguje - dorobit
+
+
 
 
 

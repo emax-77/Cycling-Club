@@ -6,10 +6,41 @@
 
 {% block content %}
   <div class="main">
+    <h1> List of events and event registration </h1>
+    <br>
+    <div>
+      <style>
+        table, td, th {
+          border: 1px solid black;
+        }
+        
+        table {
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td {
+          text-align: center;
+        }
+        </style>
+      <table>
+        <tr style="position:relative;">
+            <th>Id </th>
+            <th>Event Name </th>
+            <th>Event Date </th>
+            <th>Event Members </th>
+        </tr>
+        {% for x in myevents %}
+          <tr>
+            <td>{{ x.id }}
+            <td>{{ x.event_name }}</td>
+            <td>{{ x.event_date }}</td>
+            <td>{{ x.event_members}}</td>
+        {% endfor %}
+          </tr>
+    </table>
+    </div>
 
-    <br>
-    <br>
-    <h1> Tu bude zoznam planovanych akcii a prihlasovanie sa na jednotlive akcie </h1>
     <br>
     <br>
 
