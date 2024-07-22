@@ -18,7 +18,7 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 21.7 vytvorene tabulky ClubEvents a EventsSubscribe, vytvoreny prihlasovaci formular (footer.html) pre club_events.html - prihlasovanie zatial nefunguje - dorobit
 
-22.7 update na gallery - skusil som lightbotx z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahravat ich cez admina ako objekty do databazy ?
+22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahravat ich cez admina ako objekty do databazy ?
 
 
 
