@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+{% load static %}
+
+{% block title %}
+  Gallery
+{% endblock %}
+
+{% block content %}
+
+<style>
+  .container img {
+  height: 100%;
+  width: 100%;
+}
+</style>
+
+<div class="container">
+
+    <h1 style="color:blue; text-align: center;"> 2023 Cycling Tour: In the footsteps of ancestors - SK/HU/RO/SRB </h1>
+    <img src="{% static 'img1.jpg' %}", alt="Tvrdosin city hall">
+    <img src="{% static 'img2.jpg' %}", alt="HU/SRB border crossing">
+    <img src="{% static 'img3.jpg' %}", alt="Petrovaradin fortress - city of Novi Sad">
+    <img src="{% static 'img5.jpg' %}", alt="druzba SK/SRB">
+
+    
+
+  </div>
+{% endblock %}
