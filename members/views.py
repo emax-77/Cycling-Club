@@ -1,6 +1,7 @@
 from pyexpat.errors import messages
 from django.http import HttpResponse
 from django.shortcuts import redirect
+from django.shortcuts import render
 from django.template import loader
 from .models import Member
 from .models import Expenses
@@ -8,6 +9,7 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .models import ClubEvents
 from .models import EventSubscribe
+from .models import Product 
 
 def members(request):
   mymembers = Member.objects.all().values()
@@ -38,8 +40,12 @@ def template2(request):
   return HttpResponse(template.render())
 
 def gallery(request):
+  products = Product.objects.all() 
   template = loader.get_template('gallery.html')
-  return HttpResponse(template.render())
+  context = {
+    'products': products,
+  }
+  return HttpResponse(template.render(context, request))
   
 def club_events(request):
   myevents = ClubEvents.objects.all().values()
@@ -95,6 +101,7 @@ def event_subscribe(request):
         subscribe_model_instance.save()
         messages.success(request, f'{email} member was successfully subscribed to event!')
         return redirect(request.META.get("HTTP_REFERER", "/"))
+    
     
 #@user_is_superuser
 def newsletter(request):
