@@ -29,7 +29,7 @@ class EventSubscribe(models.Model):
   email = models.EmailField(unique=True, max_length=100)
   event =  models.CharField(max_length=255, null=True)
 
-class Product(models.Model): 
+class ClubPicture(models.Model): 
     name = models.CharField(max_length=255) 
     description = models.TextField() 
     image = models.ImageField(upload_to='products/') 
