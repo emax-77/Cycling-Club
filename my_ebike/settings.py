@@ -134,8 +134,8 @@ STATICFILES_DIRS = [
 ]
 
 # Media files (uploaded user files)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = '/'
+MEDIA_ROOT = BASE_DIR / ""
 # Default primary key field type
 
 
