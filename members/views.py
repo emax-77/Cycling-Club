@@ -26,6 +26,14 @@ def details(request, id):
     'mymember': mymember,
   }
   return HttpResponse(template.render(context, request))
+
+def picture_detail(request, id):
+  club_pictures = Member.objects.get(id=id)
+  template = loader.get_template('picture_detail.html')
+  context = {
+    'club_pictures': club_pictures,
+  }
+  return HttpResponse(template.render(context, request))
   
 def main(request):
   template = loader.get_template('main.html')
@@ -81,26 +89,16 @@ def event_subscribe(request):
         if not name or not email:
             messages.error(request, "You must type name and/or email to subscribe to an Event")
             return redirect("/")
+        
+        event_sub = EventSubscribe(name=name, email=email, event=event)
+        event_sub.save()
 
-        subscribe_user = EventSubscribe.objects.filter(email=email).first()
-        if subscribe_user:
-            messages.error(request, f"{email} email address is already subscriber.")
-            return redirect(request.META.get("HTTP_REFERER", "/"))  
+        return HttpResponse("Data successfully inserted!")
+    else:
+        return HttpResponse("Invalid request method.")
+       
 
-        try:
-            validate_email(email)
-        except ValidationError as e:
-            messages.error(request, e.messages[0])
-            return redirect("/")
-
-        subscribe_model_instance = EventSubscribe()
-        subscribe_model_instance.name = name
-        subscribe_model_instance.email = email
-        subscribe_model_instance.event = event
-
-        subscribe_model_instance.save()
-        messages.success(request, f'{email} member was successfully subscribed to event!')
-        return redirect(request.META.get("HTTP_REFERER", "/"))
+        
     
     
 #@user_is_superuser

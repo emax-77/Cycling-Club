@@ -33,14 +33,20 @@
 	<h2 style="text-align: center; color: blue;">Club Pictures 2023</h2>
 	
 	<ul class="product-list"> 
-		{% for picture in club_pictures %} 
+		{% for picture in club_pictures %}
 			<li class="product-item"> 
 				<a href="#"> 
-					<img src="{{ picture.image.url }}" alt="{{ picture.name }}" width="200"> 
+					<img src="{{ picture.image.url }}" alt="{{ picture.name }}" width="200">
+					<li onclick="window.location = 'picture_detail/{{ picture.id }}'">{{ picture.name }}</li>
+
 				</a> 
 				<h2>{{ picture.name }}</h2> 
-				<p>{{ picture.description }}</p> 
-			</li> 
+				<p>{{ picture.description }}</p>  
+		    </li> 
+
 		{% endfor %} 
+		
+
+
 	</ul> 
 {% endblock %}

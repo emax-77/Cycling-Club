@@ -1,9 +1,10 @@
 <footer>  
     <div>
         <section>
-                <form action="club_events.html", method="post"
+                <form method="post" action="{% url 'event_subscribe' %}">
+                    {% csrf_token %}
                     <p>Signing up for a club event</p>
-                    <input id="name" name="name" class="form-control" placeholder="Your Name"/>
+                    <input id="name" name="name" placeholder="Your Name"/>
                     <input id="email" name="email" type="email" placeholder="Email address"/>
                     <input id="event" name="event" placeholder="Club Event"/>
                     <button type="submit" value="Submit">Submit</button>       
