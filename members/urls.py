@@ -13,7 +13,7 @@ urlpatterns = [
     #path('subscribe', views.subscribe, name='subscribe'),
     path("newsletter", views.newsletter, name="newsletter"),
     path('gallery/picture_detail/<int:id>', views.picture_detail, name='picture_detail'),
-    path('event-subscribe/', views.event_subscribe, name='event_subscribe'),
+    #path('event-subscribe/', views.event_subscribe, name='event_subscribe'),
     
     
 ]

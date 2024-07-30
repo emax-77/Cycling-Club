@@ -19,7 +19,6 @@ class ClubPictureAdmin(admin.ModelAdmin):
   
 admin.site.register(Member, MemberAdmin)
 admin.site.register(Expenses, ExpensesAdmin)
-#admin.site.register(CustomUser)
 admin.site.register(EventSubscribe, EventSubscribeAdmin)
 admin.site.register(ClubEvents, ClubEventsAdmin)
 admin.site.register(ClubPicture, ClubPictureAdmin)

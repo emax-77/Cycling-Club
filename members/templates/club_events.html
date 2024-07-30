@@ -6,7 +6,7 @@
 
 {% block content %}
   <div class="main">
-    <h1> List of events and event registration </h1>
+    <h1> List of Events </h1>
     <br>
     <div>
       <style>
@@ -28,7 +28,7 @@
             <th>Id </th>
             <th>Event Name </th>
             <th>Event Date </th>
-            <th>Event Members </th>
+            <th>Event Description </th>
         </tr>
         {% for x in myevents %}
           <tr>
@@ -41,12 +41,45 @@
     </table>
     </div>
     <br>
-    <br>
+ 
+    <div class="main">
+      {% include 'footer.html' %}
+    </div>
+
     <br>
 
-    {% include 'footer.html' %}
     
 
   </div>
-{% endblock %}
+  <div class="main">
+    <h1> Members registered for the club event </h1>
+    <table>
+      <tr style="position:relative;">
+          <th>Id </th>
+          <th>Name </th>
+          <th>Email </th>
+          <th>Event </th>
+      </tr>
+      {% for member in members_subscribed_for_event %}
+        <tr>
+          <td>{{ member.id }}
+          <td>{{ member.name }}</td>
+          <td>{{ member.email }}</td>
+          <td>{{ member.event}}</td>
+      {% endfor %}
+        </tr>
+  </table>
+  </div>
+
+  <br>
+  <br>
+
+  <div style="background-color: rgba(0, 0, 0, 0.2); text-align: center;">
+    <p>© {% now "Y" %} Copyright: Cycling Club Tvrdosin</p>
+  </div>
+
+
+  
+
+  {% endblock %}
 {% include '/footer.html' %}

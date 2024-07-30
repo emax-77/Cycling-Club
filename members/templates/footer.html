@@ -1,7 +1,7 @@
 <footer>  
     <div>
         <section>
-                <form method="post" action="{% url 'event_subscribe' %}">
+                <form method="post" action="{% url 'club_events' %}">
                     {% csrf_token %}
                     <p>Signing up for a club event</p>
                     <input id="name" name="name" placeholder="Your Name"/>
@@ -11,10 +11,5 @@
                 </form>
         </section>
     </div>
-    <br>
-    <br>
-    <br>
-    <div style="background-color: rgba(0, 0, 0, 0.2); text-align: center;">
-        <p>© {% now "Y" %} Copyright: Cycling Club Tvrdosin</p>
-    </div>
+    
 </footer>

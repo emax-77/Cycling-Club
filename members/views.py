@@ -55,14 +55,6 @@ def gallery(request):
   }
   return HttpResponse(template.render(context, request))
   
-def club_events(request):
-  myevents = ClubEvents.objects.all().values()
-  template = loader.get_template('club_events.html')
-  context = {
-    'myevents': myevents,
-  }
-  return HttpResponse(template.render(context, request))
-
 def club_treasury(request):
   mymembers = Member.objects.all().values()
   myexpenses = Expenses.objects.all().values()
@@ -79,23 +71,62 @@ def club_treasury(request):
   }
   return HttpResponse(template.render(context, request))
 
-
-def event_subscribe(request):
-    if request.method == 'POST':
+def club_events(request):
+  myevents = ClubEvents.objects.all().values()
+  members_subscribed_for_event = EventSubscribe.objects.all().values()
+  template = loader.get_template('club_events.html')
+  if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
         event = request.POST.get('event', None)
 
-        if not name or not email:
-            messages.error(request, "You must type name and/or email to subscribe to an Event")
+        if not name or not email or not event:
+            messages.error(request, "You must fill all 3 fields to subscribe to an Event")
             return redirect("/")
         
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
 
-        return HttpResponse("Data successfully inserted!")
+        context = {
+          'myevents': myevents,
+          'members_subscribed_for_event': members_subscribed_for_event,
+        }
+
+        return HttpResponse(template.render(context, request))
+  else:
+        context = {
+          'myevents': myevents,
+          'members_subscribed_for_event': members_subscribed_for_event,
+        }
+        return HttpResponse(template.render(context, request))
+    #return HttpResponse("Invalid request method.")
+
+
+  
+
+
+'''def event_subscribe(request):
+    members_subscribed_for_event = EventSubscribe.objects.all().values()
+    template = loader.get_template('club_events.html')
+    if request.method == 'POST':
+        name = request.POST.get('name', None)
+        email = request.POST.get('email', None)
+        event = request.POST.get('event', None)
+
+        if not name or not email or not event:
+            messages.error(request, "You must fill all 3 fields to subscribe to an Event")
+            return redirect("/")
+        
+        event_sub = EventSubscribe(name=name, email=email, event=event)
+        event_sub.save()
+
+        context = {
+          'members_subscribed_for_event': members_subscribed_for_event,
+        }
+
+        return HttpResponse(template.render(context, request))
     else:
-        return HttpResponse("Invalid request method.")
+        return HttpResponse("Invalid request method.")'''
        
 
         
