@@ -18,11 +18,14 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 21.7 vytvorene tabulky ClubEvents a EventsSubscribe, vytvoreny prihlasovaci formular (cez footer.html) pre club_events.html
 
-22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahravat ich cez admina ako objekty do databazy ?
+22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahrat ako objekty do databazy ?
 
 23.7 vytvorena tabulka ClubPicture, obrazky vlozene do nej
 
-30.7 funguje prihlasovanie clenov na akcie no zrejme bude treba upravit databazy aby to malo hlavu a patu a doladit chyby pri prihlasovani
+30.7 funguje prihlasovanie clenov na akcie
+
+31.7 funguju vsetky sekcie, treba sa pohrat s designom a vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description). Doladit mozne chyby pri prihlasovani clenov na akcie
+
 
 
 
