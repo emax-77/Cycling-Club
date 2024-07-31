@@ -10,10 +10,5 @@ urlpatterns = [
     path('club_treasury/', views.club_treasury, name='club_treasury'),
     path('gallery/', views.gallery, name='gallery'),
     path('club_events/', views.club_events, name='club_events'),
-    #path('subscribe', views.subscribe, name='subscribe'),
-    path("newsletter", views.newsletter, name="newsletter"),
-    path('gallery/picture_detail/<int:id>', views.picture_detail, name='picture_detail'),
-    #path('event-subscribe/', views.event_subscribe, name='event_subscribe'),
-    
     
 ]
