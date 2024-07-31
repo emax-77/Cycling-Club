@@ -28,14 +28,14 @@
             <th>Id </th>
             <th>Event Name </th>
             <th>Event Date </th>
-            <th>Event Description </th>
+            
         </tr>
         {% for x in myevents %}
           <tr>
             <td>{{ x.id }}
             <td>{{ x.event_name }}</td>
             <td>{{ x.event_date }}</td>
-            <td>{{ x.event_members}}</td>
+           
         {% endfor %}
           </tr>
     </table>

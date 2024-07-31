@@ -20,9 +20,10 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahravat ich cez admina ako objekty do databazy ?
 
-23.7 vytvorena tabulka ClubPicture, obrazky vlozene do nej, este dotianut samotne prehliadanie -  nahlad/zvacsenie
+23.7 vytvorena tabulka ClubPicture, obrazky vlozene do nej
 
 30.7 funguje prihlasovanie clenov na akcie no zrejme bude treba upravit databazy aby to malo hlavu a patu a doladit chyby pri prihlasovani
+
 
 
 

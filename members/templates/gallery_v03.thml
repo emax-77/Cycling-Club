@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block content %}
+	<meta charset="UTF-8"> 
 	<title>Picture Gallery</title> 
 	<style> 
 		/* Add CSS styles for flex container and items */
-		.picture-list { 
+		.product-list { 
 			display: flex; 
 			flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
 			justify-content: space-between; /* Space items evenly along the main axis */
@@ -16,7 +17,7 @@
 			padding: 0; 
 		} 
 
-		.picture-item { 
+		.product-item { 
 			flex: 1; /* Grow to fill available space evenly */
 			max-width: 30%; /* Limit item width to avoid overcrowding */
 			margin: 10px; /* Add spacing between items */
@@ -24,18 +25,28 @@
 			padding: 10px; 
 			text-align: center; 
 		} 
+
 	</style> 
-  
+</head> 
+<body> 
+ 
 	<h2 style="text-align: center; color: blue;">Club Pictures 2023</h2>
 	
-	<ul class="picture-list"> 
+	<ul class="product-list"> 
 		{% for picture in club_pictures %}
-			<li class="picture-item"> 
-				<a href="{{ picture.image.url }}" target="_blank"> 
+			<li class="product-item"> 
+				<a href="#"> 
 					<img src="{{ picture.image.url }}" alt="{{ picture.name }}" width="200">
+					<li onclick="window.location = 'picture_detail/{{ picture.id }}'">{{ picture.name }}</li>
+
 				</a> 
 				<h2>{{ picture.name }}</h2> 
-			</li> 
+				<p>{{ picture.description }}</p>  
+		    </li> 
+
 		{% endfor %} 
-	</ul>
+		
+
+
+	</ul> 
 {% endblock %}
