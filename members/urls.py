@@ -10,5 +10,8 @@ urlpatterns = [
     path('club_treasury/', views.club_treasury, name='club_treasury'),
     path('gallery/', views.gallery, name='gallery'),
     path('club_events/', views.club_events, name='club_events'),
+    #path('<path:path>', views.catch_all_view),
+
+    
     
 ]

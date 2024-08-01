@@ -94,7 +94,8 @@ def club_events(request):
     
 
 
-  
+#def catch_all_view(request, path):
+#    return render(request, '404.html', status=404)  
 
 
 
