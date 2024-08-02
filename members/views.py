@@ -1,7 +1,7 @@
 from pyexpat.errors import messages
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import render
+#from django.shortcuts import redirect
+#from django.shortcuts import render
 from django.template import loader
 from .models import Member
 from .models import Expenses
@@ -71,10 +71,6 @@ def club_events(request):
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
         event = request.POST.get('event', None)
-
-        if not name or not email or not event:
-            messages.error(request, "You must fill all 3 fields to subscribe to an Event")
-            return redirect("/")
         
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
@@ -94,8 +90,6 @@ def club_events(request):
     
 
 
-#def catch_all_view(request, path):
-#    return render(request, '404.html', status=404)  
 
 
 
