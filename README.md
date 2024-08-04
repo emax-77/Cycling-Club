@@ -1,6 +1,6 @@
 Cyclo-Tourist Club / Member and event management, club treasury
 
-This is my first Django project. In the beginning it should be a platform to manage members, club events and membership fees & expenses
+This is my first Django project. In the beginning it should be a platform to manage members, club events and club treasury.
 
 The core CSS/JS style is not mine - I took it from the Django tutorial project on W3schools.com as my CSS/JavaScript skills aren't good enough yet. However I'm trying though :)
 
@@ -18,13 +18,13 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 21.7 vytvorene tabulky ClubEvents a EventsSubscribe, vytvoreny prihlasovaci formular (cez footer.html) pre club_events.html
 
-22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, musim naist ine riesenie - nahrat ako objekty do databazy ?
+22.7 update na gallery - skusil som lightbox z W3Scholls.com  - takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, potrebne ine riesenie - nahrat ako objekty do databazy ?
 
 23.7 vytvorena tabulka ClubPicture, obrazky vlozene do nej
 
 30.7 funguje prihlasovanie clenov na akcie
 
-31.7 funguju vsetky sekcie, treba sa pohrat s designom a vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description). Doladit mozne chyby pri prihlasovani clenov na akcie
+31.7 funguju vsetky sekcie, treba sa pohrat s designom a vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description). 
 
 
 
