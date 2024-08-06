@@ -38,7 +38,22 @@ def testing(request):
   sum_fees = sum([x['member_fees'] for x in mymembers])
   sum_expenses = sum([x['amount'] for x in myexpenses])
   cash_balance = sum_fees - sum_expenses
-  fig = px.bar(x=["income", "outcome", "result"], y=[sum_fees, sum_expenses, cash_balance], title='Cycling club 2024')
+  fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury 2024')
+  fig.update_layout(
+    font_family="Courier New",
+    font_color="blue",
+    font_size=25,
+    title_font_family="Times New Roman",
+    title_font_color="red",
+    title_font_size=35,
+    title = {
+      'y':0.9,
+      'x':0.5,
+      'xanchor': 'center',
+      'yanchor': 'top'
+      }
+    
+  )
   fig.write_html('template.html', auto_open=True)
   template = loader.get_template('template.html')
   context = {'fig':fig,}
