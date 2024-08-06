@@ -1,8 +1,9 @@
 Cyclo-Tourist Club / Member and event management, club treasury
 
 This is my first Django project. In the beginning it should be a platform to manage members, club events and club treasury.
+SQLite database + Plotly (Pandas) for graphs.
 
-The core CSS/JS style is not mine - I took it from the Django tutorial project on W3schools.com as my CSS/JavaScript skills aren't good enough yet. However I'm trying though :)
+The base CSS/JS style is not mine - I took it from the Django tutorial project on W3schools.com as my CSS/JavaScript skills aren't good enough yet. However, to override some unnecessary base style, I also had to use custom CSS.
 
 remarks (for myself only) :
 
@@ -24,7 +25,17 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 30.7 funguje prihlasovanie clenov na akcie
 
-31.7 funguju vsetky sekcie, treba sa pohrat s designom a vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description). 
+31.7 funguju vsetky sekcie, treba sa pohrat s designom, mozno pridat grafy a nakoniec upratat: vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description) a stare adresare v ktorych boli obrazky predtym ako isli do databazy
+
+6.8 pouzitie grafickej kniznice Plotly (potrebne instalovat aj Pandas) pre zobrazenie grafov. Zatial na testovacej stranke
+
+
+
+
+
+
+
+
 
 
 

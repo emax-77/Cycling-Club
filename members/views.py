@@ -10,6 +10,7 @@ from django.core.exceptions import ValidationError
 from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
+import plotly.express as px
 
 def members(request):
   mymembers = Member.objects.all().values()
@@ -32,8 +33,17 @@ def main(request):
   return HttpResponse(template.render())
 
 def testing(request):
+  mymembers = Member.objects.all().values()
+  myexpenses = Expenses.objects.all().values()
+  sum_fees = sum([x['member_fees'] for x in mymembers])
+  sum_expenses = sum([x['amount'] for x in myexpenses])
+  cash_balance = sum_fees - sum_expenses
+  fig = px.bar(x=["income", "outcome", "result"], y=[sum_fees, sum_expenses, cash_balance], title='Cycling club 2024')
+  fig.write_html('template.html', auto_open=True)
   template = loader.get_template('template.html')
-  return HttpResponse(template.render())
+  context = {'fig':fig,}
+
+  return HttpResponse(template.render(context, request))
 
 def template2(request):  
   template = loader.get_template('template2.html')
