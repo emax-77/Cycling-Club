@@ -65,20 +65,4 @@
   </table>
 </div>
 
-<div style="text-align: center; color: blue;">
-  <h2>Total Summary 2024</h2>
-
-  <h2 style="color: brown;">There is {{ cash_balance }} EUR in cash treasury now</h2>
-  <h4>Total amount collected from Club Members in 2024 is {{ sum_fees }} EUR</h4>
-  <h4>Total amount of all expenses in 2024 is {{ sum_expenses }} EUR </h4>
-
-  {% if cash_balance > 0 %}
-    <p>sme v baliku, zvysne peniaze prepijeme :) </p>
-  {% elif cash_balance < 0 %}
-    <p>buducorocne clenske treba navysit :) </p>
-  {% else %}
-    <p> ziaden strach, mame v pokladni nulu !</p>
-  {% endif %}
-</div>
-
 {% endblock %}

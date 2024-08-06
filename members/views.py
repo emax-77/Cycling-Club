@@ -32,7 +32,7 @@ def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
 
-def testing(request):
+def balance_graph(request):
   mymembers = Member.objects.all().values()
   myexpenses = Expenses.objects.all().values()
   sum_fees = sum([x['member_fees'] for x in mymembers])
@@ -42,12 +42,17 @@ def testing(request):
   fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury 2024')
  
   graph = fig.to_html(full_html=False, default_height=500, default_width=700)
-  template = loader.get_template('template.html')
-  context = {'graph':graph} 
+  template = loader.get_template('balance_graph.html')
+  context = {'graph':graph,
+             'sum_fees': sum_fees,
+             'sum_expenses': sum_expenses,
+             'cash_balance': cash_balance        
+  } 
   return HttpResponse(template.render(context, request))
 
-
-
+def testing(request):  
+  template = loader.get_template('template.html')
+  return HttpResponse(template.render())
 
 def template2(request):  
   template = loader.get_template('template2.html')

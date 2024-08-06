@@ -27,7 +27,10 @@ Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol 
 
 31.7 funguju vsetky sekcie, treba sa pohrat s designom, mozno pridat grafy a nakoniec upratat: vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description) a stare adresare v ktorych boli obrazky predtym ako isli do databazy
 
-6.8 pouzitie grafickej kniznice Plotly (potrebne instalovat aj Pandas) pre zobrazenie grafov. Zatial na testovacej stranke
+6.8 Vytvorena zalozka balace_graph.html - pouzitie grafickej kniznice Plotly pre zobrazenie grafov (potrebne instalovat Plotly aj Pandas). 
+
+
+
 
 
 

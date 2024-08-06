@@ -1,0 +1,27 @@
+{% extends "master.html" %}
+
+{% block title %}
+  Balance Graph
+{% endblock %}
+
+{% block content %}
+<div style="text-align: center; color: blue;">
+    <h4>Total amount collected from Club Members in 2024 : {{ sum_fees }} EUR</h4>
+    <h4>Total amount of all expenses in 2024 : {{ sum_expenses }} EUR </h4>
+    {% if cash_balance > 0 %}
+    <h3 style="color: green;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+    {% elif cash_balance < 0 %}
+    <h3 style="color: red;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+    {% else %}
+    <h3 style="color: blue;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+    {% endif %} 
+</div>
+<div>
+    {% if graph %}
+    {{ graph|safe }}
+    {% else %}
+    <p>No graph was provided.</p>
+    {% endif %}
+</div>
+{% endblock %}
+
