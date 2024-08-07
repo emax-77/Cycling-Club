@@ -3,9 +3,12 @@ This is my first Django project. It's a platform to manage members, club events 
 The aim of the project is to create a simple application for management of club members, management of club treasury, publication of club events with the possibility of registration of members for individual club events.
 
 # Technology Stack
-- Frontend: HTML, CSS, JavaScript 
-- Backend: Django
+- Frontend: HTML, CSS, JavaScript and some Python scripts
+- Backend: Django, Python
 - Database: SQlite
+- Data visualization library: Plotly
+- Image processing library: Pillow
+
 
 # Installation
 ## Prerequisites
@@ -49,6 +52,7 @@ python manage.py runserver
 
 # The base CSS/JS style is not mine - I took it from the Django tutorial project on W3schools.com as my CSS/JavaScript skills aren't good enough yet. However, to override some unnecessary base style, I also had to use custom CSS.
 
+
 # O projekte:
 
 Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnenie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
@@ -87,7 +91,3 @@ Myslim si ze vsetky hlavne ciele projektu sa podarilo naplnit. Kedze sa vsak jed
 Sekundarnym cielom bolo naucit sa pracovat s Django co sa mi verim podarilo. Pochopil som T-M-V model, pracoval s databazami a podaril sa mi nejaky Backend. A prave na Backend by som sa chcel aj v dalsich projektoch zamerat.
 
 PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia iba k testovaniu funkcnosti systemu :)
-
-
-
-
