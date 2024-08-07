@@ -79,10 +79,10 @@ Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci form
 
 bonusove zalozky:
 
-4. Klubova galeria
+4. Klubova galeria:
 po pokusoch s roznymi typmi galerii som prisiel na to ze su komplikovane na spravu pokial sa v nich nachadzalo vacsie mnozstvo obrazkov. Tento problem som vyriesil vytvorenim databazy ClubPicture do ktorej sa obrazky jednoducho nahravaju cez Admin panel. 
 
-4. Graficka bilancia
+4. Graficka bilancia:
 Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomocou modulu Plotly.
 
 # Zaver:
