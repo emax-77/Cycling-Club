@@ -2,86 +2,48 @@ Cyclo-Tourist Club / Member and event management, club treasury
 
 This is my first Django project. It's a platform to manage members, club events and club treasury.
 
-You also need to install (with PIP) the following to make it work: Plotly and Pandas for graphs, Pillow for images and Django Debug Toolbar.
+You also need to install the following to make it work: Plotly and Pandas for graphs, Pillow for images and Django Debug Toolbar.
 
 The base CSS/JS style is not mine - I took it from the Django tutorial project on W3schools.com as my CSS/JavaScript skills aren't good enough yet. However, to override some unnecessary base style, I also had to use custom CSS.
 
-remarks (for myself only) :
+O projekte:
 
-15.7 Pridane polia do tabulky Members, pridana zalozka club_treasury.html
+Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov cyklokubu, spravu kubovej pokladnice, oznamovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
+Ako bonus je galeria cykloklubu a graf financnej bilancie klubu. 
 
-17.7 pridany debug toolbar (instalacia django debug toolbar), vytvorena tabulka Expenses 
+Navrh aplikacie:
 
-18.7 update na club_treasury, vytvorena dalasia testovacia stranka template2,  pridany vzor na login - zatial na testovacej stranke templates2.html - otazka je ci je vobec potrebny kedze s databazou manipuluje iba predseda klubu a pokladnik - uvidime casom.
-Pridana zalozka gallery.html - zatial iba zaklad - urobit z toho slideswow / lightbox ?
-Update na club_treasury  - pomaly zacinam chapat ten CSS/JS co som sem natiahol z W3schoools.com :)
+kostrou aplikacie su 3 hlavne zalozky - Clenovia, Pokladna a Klubove akcie
 
-19.7 pridana zalozka club_events.html  - tu budu planovane akcie cykloklubu a registracia clenov na tieto akcie 
+1. Clenovia:
+Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto nema zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch do databazy cez admin panel prida raz rocne predseda klubu.
+Pre tento ucel bola vytvorena databaza Members.
+Na tejto zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje.
 
-21.7 vytvorene tabulky ClubEvents a EventsSubscribe, vytvoreny prihlasovaci formular (cez footer.html) pre club_events.html
+2. Pokladna:
+Kazdy klub ma prijmy a vydavky. Prijmy nasho klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
+Na tejto zalozke je tabulka s clenskymi polatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku.
+Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na dalsej zalozke Bilancia 
 
-22.7 update na gallery - skusil som lightbox z W3Scholls.com  - je to pekne no takto to nepojde, pri vacsom pocte obrazkov je ich sprava komplikovana, potrebne ine riesenie - nahrat ako objekty do databazy ?
+3. Klubove akcie:
+Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel sluzia databazy ClubEvents a
+EventSubscribe. 
+Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili.
 
-23.7 vytvorena tabulka ClubPicture, obrazky vlozene do nej (instalacia Pillow)
+bonusove zalozky:
 
-30.7 funguje prihlasovanie clenov na akcie
+4. Klubova galeria
+po pokusoch s roznymi typmi galerii som prisiel na to ze su komplikovane na spravu pokial sa v nich nachadzalo vacsie mnozstvo obrazkov. Tento problem som vyriesil vytvorenim databazy ClubPicture do ktorej sa obrazky jednoducho nahravaju cez Admin panel. 
 
-31.7 funguju vsetky sekcie, treba sa pohrat s designom, mozno pridat grafy a nakoniec upratat: vymazat zbytocne stlpce z databaz: ClubEvents (event_members) a ClubPicture(description) a stare adresare v ktorych boli obrazky predtym ako isli do databazy
+4. Graficka bilancia
+Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomocou modulu Plotly.
 
-6.8 Vytvorena zalozka balance_graph.html - pouzitie grafickej kniznice Plotly pre zobrazenie grafu z databazy (potrebne instalovat Plotly aj Pandas). 
+Zaver:
 
+Myslim si ze vsetky hlavne ciele projektu sa podarilo naplnit. Kedze sa vsak jedna o moj prvy projekt s Django frameworkom a zaroven som programator samouk, je zrejme ze projekt by sa dal zvladnut aj lepsie. Hlavne Frontend s ktorym sa zatial prilis nekamaratim. Po miernych upravach a vyladeni vsak moze aplikacia sluzit ako hlavna webova stranka, ktoru klub este nema.
+Sekundarnym cielom bolo naucit sa pracovat s Django co sa mi verim podarilo. Pochopil som T-M-V model, pracoval s databazami a podaril sa mi nejaky Backend. A prave na Backend by som sa chcel aj v dalsich projektoch zamerat.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia iba k testovaniu funkcnosti systemu :)
 
 
 
