@@ -8,12 +8,12 @@ The base CSS/JS style is not mine - I took it from the Django tutorial project o
 
 O projekte:
 
-Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov cyklokubu, spravu kubovej pokladnice, oznamovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
-Ako bonus je galeria cykloklubu a graf financnej bilancie klubu. 
+Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnenie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
+Ako bonus su zatial galeria cykloklubu a graf financnej bilancie klubu. 
 
 Navrh aplikacie:
 
-kostrou aplikacie su 3 hlavne zalozky - Clenovia, Pokladna a Klubove akcie
+kostrou aplikacie su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 
 1. Clenovia:
 Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto nema zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch do databazy cez admin panel prida raz rocne predseda klubu.
@@ -22,8 +22,8 @@ Na tejto zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeh
 
 2. Pokladna:
 Kazdy klub ma prijmy a vydavky. Prijmy nasho klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
-Na tejto zalozke je tabulka s clenskymi polatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku.
-Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na dalsej zalozke Bilancia 
+Na tejto zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku.
+Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia 
 
 3. Klubove akcie:
 Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel sluzia databazy ClubEvents a
