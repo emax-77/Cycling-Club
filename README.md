@@ -85,7 +85,7 @@ bonusove zalozky:
 
 Po pokusoch s roznymi typmi galerii som prisiel na to ze su komplikovane na spravu pokial sa v nich nachadzalo vacsie mnozstvo obrazkov. Tento problem som vyriesil vytvorenim databazy ClubPicture do ktorej sa obrazky jednoducho nahravaju cez Admin panel. 
 
-4. **Graficka bilancia**
+5. **Graficka bilancia**
 
 Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomocou kniznice Plotly.
 
