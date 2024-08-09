@@ -52,7 +52,6 @@ Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomoco
 
 # Zaver:
 
-Myslim si ze hlavne ciele projektu sa podarilo naplnit. Kedze sa vsak jedna o moj prvy projekt s Django, je zrejme ze projekt by sa dal zvladnut aj lepsie. Hlavne Frontendova cast. Po miernych upravach a vyladeni vsak moze aplikacia sluzit ako hlavna webova stranka, ktoru klub este nema.
-Sekundarnym cielom bolo naucit sa pracovat s Django frameworkom co sa mi verim podarilo.
+Kedze sa jedna o moj prvy projekt s Django, je zrejme ze by sa dal zvladnut aj lepsie, hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze aplikacia sluzit ako hlavna webova stranka, ktoru klub este nema. Sekundarnym cielom bolo naucit sa pracovat s Django frameworkom.
 
 PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia iba k testovaniu funkcnosti systemu :)
