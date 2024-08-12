@@ -6,7 +6,7 @@ The aim of the project is to create a simple application for management of club 
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django, Python
-- Database: SQlite
+- Database: SQlite3
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
@@ -16,8 +16,8 @@ The aim of the project is to create a simple application for management of club 
 
 # O projekte:
 
-Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnenie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
-Ako bonus su zatial galeria cykloklubu a graf financnej bilancie klubu. 
+Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
+Ako bonus su zatial galeria cykloklubu a graf financnej bilancie klubu. Sekundarnym cielom je naucit sa pracovat s Django frameworkom.
 
 # Poziadavky na aplikaciu a jej funkcionalita:
 
@@ -33,7 +33,7 @@ Na tejto zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeh
 
 Kazdy klub ma prijmy a vydavky. Prijmy nasho klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
 Na tejto zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku.
-Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia 
+Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
 
 3. **Klubove akcie**
 
@@ -44,7 +44,7 @@ Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci form
 
 4. **Klubova galeria**
 
-Po pokusoch s roznymi typmi galerii som zistil ze su komplikovane na spravu pokial sa v nich nachadzalo vacsie mnozstvo obrazkov. Tento problem som vyriesil vytvorenim databazy ClubPicture do ktorej sa obrazky jednoducho nahravaju cez Admin panel. 
+Po pokusoch s roznymi typmi galerii som zistil ze su komplikovane na spravu ked sa v nich nachadza vacsie mnozstvo obrazkov. Tento problem sa vyriesil vytvorenim databazy ClubPicture cez ktoru sa obrazky jednoducho nahravaju v Admin paneli. 
 
 5. **Graficka bilancia**
 
@@ -52,6 +52,6 @@ Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomoco
 
 # Zaver:
 
-Kedze sa jedna o moj prvy projekt s Django, je zrejme ze by sa dal zvladnut aj lepsie, hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze aplikacia sluzit ako hlavna webova stranka, ktoru klub este nema. Sekundarnym cielom bolo naucit sa pracovat s Django frameworkom.
+Nakolko sa jedna o moj prvy projekt s Django, je zrejme ze by sa dal zvladnut aj lepsie, hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze aplikacia sluzit ako hlavna webova stranka, ktoru klub este nema. 
 
 PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia iba k testovaniu funkcnosti systemu :)
