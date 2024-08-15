@@ -1,3 +1,9 @@
+# Today (15.08) I added an authentication app into the project. It still has some bugs, but I will try to fix them ASAP. Due to new authentication system, the new features will be added soon.
+# To test login: username: testadmin, password: 12django34
+
+
+
+
 # Cyclo-Tourist Club / Member and event management, club treasury
 
 This is my first Django project. It's a platform to manage members, club events and club treasury.
@@ -15,9 +21,10 @@ The aim of the project is to create a simple application for management of club 
 
 
 # O projekte:
+***!!! upozornenie: 15.8. som do takmer hotoveho projektu pridal autentifikaciu ktora este nie je plne funkcna no zaroven sa tym bude ciastocne menit i koncept projektu ktory povodne s autentifikaciou nepocital. Vdaka nej pribudnu nove moznosti (ako pridavanie, uprava a mazanie prispevkov clenmi) ktore zatial nie su dole uvedene. Pre skusobny pristup pouzite username: testadmin, password: 12django34***
 
 Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie.
-Ako bonus su zatial galeria cykloklubu a graf financnej bilancie klubu. Sekundarnym cielom je naucit sa pracovat s Django frameworkom.
+Ako bonus su zatial galeria cykloklubu a graf financnej bilancie klubu. Sekundarnym cielom je ucit sa lepsie pracovat s Django frameworkom.
 
 # Poziadavky na aplikaciu a jej funkcionalita:
 
