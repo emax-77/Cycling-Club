@@ -28,8 +28,8 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
   
-def main(request):
-  template = loader.get_template('main.html')
+def welcome(request):
+  template = loader.get_template('welcome.html')
   return HttpResponse(template.render())
 
 def balance_graph(request):
