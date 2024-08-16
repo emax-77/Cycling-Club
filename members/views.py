@@ -12,6 +12,7 @@ from .models import EventSubscribe
 from .models import ClubPicture 
 import plotly.express as px
 
+# list of all members
 def members(request):
   mymembers = Member.objects.all().values()
   template = loader.get_template('all_members.html')
@@ -20,6 +21,7 @@ def members(request):
   }
   return HttpResponse(template.render(context, request))
   
+# member details  
 def details(request, id):
   mymember = Member.objects.get(id=id)
   template = loader.get_template('details.html')
@@ -28,18 +30,23 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
   
+# home page (displayed first after authentication)  
 def welcome(request):
   template = loader.get_template('welcome.html')
   return HttpResponse(template.render())
 
+# page with graph and balance
 def balance_graph(request):
   mymembers = Member.objects.all().values()
   myexpenses = Expenses.objects.all().values()
   sum_fees = sum([x['member_fees'] for x in mymembers])
   sum_expenses = sum([x['amount'] for x in myexpenses])
   cash_balance = sum_fees - sum_expenses
+
+  # create a bar graph
   fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury 2024')
   graph = fig.to_html(full_html=False, default_height=500, default_width=700)
+
   template = loader.get_template('balance_graph.html')
   context = {'graph':graph,
              'sum_fees': sum_fees,
@@ -48,10 +55,12 @@ def balance_graph(request):
   } 
   return HttpResponse(template.render(context, request))
 
+# test page
 def testing(request):  
   template = loader.get_template('template.html')
   return HttpResponse(template.render())
 
+# gallery page
 def gallery(request):
   club_pictures = ClubPicture.objects.all() 
   template = loader.get_template('gallery.html')
@@ -59,7 +68,8 @@ def gallery(request):
     'club_pictures': club_pictures,
   }
   return HttpResponse(template.render(context, request))
-  
+
+# club treasury page   
 def club_treasury(request):
   mymembers = Member.objects.all().values()
   myexpenses = Expenses.objects.all().values()
@@ -70,16 +80,20 @@ def club_treasury(request):
   }
   return HttpResponse(template.render(context, request))
 
+# club events page with event sign up
 def club_events(request):
   myevents = ClubEvents.objects.all().values()
   members_subscribed_for_event = EventSubscribe.objects.all().values()
   template = loader.get_template('club_events.html')
+  
+  # signing up for a club event
   if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
         event = request.POST.get('event', None)
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
+
         context = {
           'myevents': myevents,
           'members_subscribed_for_event': members_subscribed_for_event,

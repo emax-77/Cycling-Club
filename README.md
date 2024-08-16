@@ -1,6 +1,6 @@
 # Cyclo-Tourist Club / Member and event management, club treasury
 
-***!!! warning - today (15.08.2024) I added an authentication app into the project. It still has some bugs but I will try to fix them ASAP. Due to new authentication app, the new features will be added soon...***
+***!!! warning - today (15.08.2024) I added an authentication app into the project. It still has some small bugs but I will try to fix them ASAP. Due to new authentication app, the new features will be added soon...***
 
 # To login: username: testadmin, password: 12django34
 
@@ -29,20 +29,19 @@ kostrou projektu su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 
 1. **Clenovia**
 
-Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal povodne  do databazy cez admin panel pridat raz rocne predseda klubu. Po novom bude mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tuto variantu som ztial neimplementoval.Comming sooon.
+Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom bude mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tuto variantu som ztial neimplementoval (comming sooon).
 Pre tento ucel bola vytvorena databaza Members.
-Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Aj tu bude este potrebny mensi update na databazu - pridat emailovu adresu clena.
+Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Aj tu bude este potrebny mensi update na databazu - pridat emailovu adresu clena a rok narodenia.
 
 2. **Pokladna**
 
 Kazdy klub ma prijmy a vydavky. Prijmy nasho klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
-Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku.
-Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
+Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku. Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
 
 3. **Klubove akcie**
 
 Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel sluzia databazy ClubEvents a EventSubscribe. 
-Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili. Nasledne vdaka autentifikacii bude mozne upravovat alebo mazat zadane udaje samotnymi clenmi.
+Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili. Vvdaka autentifikacii bude mozne upravovat alebo mazat zadane udaje samotnymi clenmi.
 
 ***zatial bonusove zalozky:***
 
@@ -56,6 +55,6 @@ Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomoco
 
 # Zaver:
 
-Nakolko sa Django stale iba ucim, je zrejme ze by sa projekt dal zvladnut aj lepsie - hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze sluzit ako WWW stranka, ktoru klub este nema. 
+Nakolko sa Django stale iba ucim, je zrejme ze by sa projekt dal zvladnut aj lepsie - hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze sluzit ako WWW stranka, ktoru klub este nema.
 
 PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia iba k testovaniu funkcnosti systemu :)
