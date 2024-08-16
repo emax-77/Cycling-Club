@@ -6,6 +6,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
 
+@login_required # Decorator to ensure user is logged in
+
+
 # Define a view function for the home page
 def home(request):
 	return render(request, 'welcome.html')

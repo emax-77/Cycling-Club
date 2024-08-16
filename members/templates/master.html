@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,13 @@
 <body>
 
 <div class="topnav">
+
+  <!--
+  {% if user.is_authenticated %}
+  <p style="float:right"> Hello {User.username}</p>
+  {% endif %}
+  -->
+
   <a href="/welcome">HOME</a> |
   <a href="/members">MEMBERS</a> |
   <a href="/club_treasury">CLUB TREASURY</a> |
@@ -17,8 +25,6 @@
   <a style="float:right"href="/admin">| ADMIN</a> 
   <a style="float:right"href="/">LOGIN |</a> 
   <a href="/testing">TESTING</a> 
-  
-
 </div>
 
 {% block content %}

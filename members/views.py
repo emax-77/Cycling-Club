@@ -11,8 +11,12 @@ from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
 import plotly.express as px
+from django.contrib.auth.decorators import login_required
 
-# list of all members
+@login_required # decorator to ensure user is logged in
+
+
+# list of all members page
 def members(request):
   mymembers = Member.objects.all().values()
   template = loader.get_template('all_members.html')
@@ -21,7 +25,7 @@ def members(request):
   }
   return HttpResponse(template.render(context, request))
   
-# member details  
+# member details page
 def details(request, id):
   mymember = Member.objects.get(id=id)
   template = loader.get_template('details.html')
@@ -30,7 +34,7 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
   
-# home page (displayed first after authentication)  
+# home page (displayed first after login)  
 def welcome(request):
   template = loader.get_template('welcome.html')
   return HttpResponse(template.render())
