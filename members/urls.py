@@ -10,5 +10,6 @@ urlpatterns = [
     path('gallery/', views.gallery, name='gallery'),
     path('club_events/', views.club_events, name='club_events'), 
     path('balance_graph/', views.balance_graph, name='balance_graph'),   
+    #path('home/', views.home, name='home'),
 ]
 

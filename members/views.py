@@ -13,6 +13,8 @@ from .models import ClubPicture
 import plotly.express as px
 from django.contrib.auth.decorators import login_required
 
+
+
 @login_required # decorator to ensure user is logged in
 
 
@@ -38,6 +40,16 @@ def details(request, id):
 def welcome(request):
   template = loader.get_template('welcome.html')
   return HttpResponse(template.render())
+
+'''def home(request):
+  user_name = request.
+  #user_name = get_username()
+  template = loader.get_template('all_members.html')
+  context = {
+    'user_name': user_name,
+  }
+  return HttpResponse(template.render(context, request))
+  '''
 
 # page with graph and balance
 def balance_graph(request):
