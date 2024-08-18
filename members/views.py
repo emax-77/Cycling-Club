@@ -13,10 +13,7 @@ from .models import ClubPicture
 import plotly.express as px
 from django.contrib.auth.decorators import login_required
 
-
-
 @login_required # decorator to ensure user is logged in
-
 
 # list of all members page
 def members(request):
@@ -39,17 +36,7 @@ def details(request, id):
 # home page (displayed first after login)  
 def welcome(request):
   template = loader.get_template('welcome.html')
-  return HttpResponse(template.render())
-
-'''def home(request):
-  user_name = request.
-  #user_name = get_username()
-  template = loader.get_template('all_members.html')
-  context = {
-    'user_name': user_name,
-  }
-  return HttpResponse(template.render(context, request))
-  '''
+  return HttpResponse(template.render(request=request))
 
 # page with graph and balance
 def balance_graph(request):
@@ -74,7 +61,7 @@ def balance_graph(request):
 # test page
 def testing(request):  
   template = loader.get_template('template.html')
-  return HttpResponse(template.render())
+  return HttpResponse(template.render(request=request))
 
 # gallery page
 def gallery(request):
