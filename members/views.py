@@ -10,7 +10,10 @@ from django.core.exceptions import ValidationError
 from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
+from django.conf import settings
+from django.core.mail import send_mail
 import plotly.express as px
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
 @login_required # decorator to ensure user is logged in
@@ -89,13 +92,21 @@ def club_events(request):
   members_subscribed_for_event = EventSubscribe.objects.all().values()
   template = loader.get_template('club_events.html')
   
-  # signing up for a club event
+  # signing up for a club event and sending confirmation email to user
   if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
         event = request.POST.get('event', None)
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
+
+        user = User.objects.create_user(username=name, email=email)        
+        subject = 'Welcome to Cycling Club'
+        message = f'Hi {user.username}, thank you for registering for {event} event.'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = [user.email, ]
+        send_mail( subject, message, email_from, recipient_list )
+
 
         context = {
           'myevents': myevents,

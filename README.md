@@ -3,7 +3,11 @@
 This Django project is a platform to manage members, club events and club treasury.
 The aim of the project is to create a simple application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events.
 
-***on 15.08.2024 an authentication app added into the project. With this app new features will be added soon...***
+# Latest updates
+- on 15.08.2024 an Auth app added into the project. With this app new features will be added soon.
+- on 20.08.2024 a confirmation email is sent to the user after registration to club event.
+
+***preparing some more updates...***
 
 # To login both to pages and admin section: username: testadmin, password: 12django34
 
@@ -30,7 +34,7 @@ kostrou projektu su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 1. **Clenovia**
 
 Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom bude mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tuto variantu som ztial neimplementoval (comming sooon).
-Pre tento ucel bola vytvorena databaza Members.
+Pre tento ucel sluzi databaza Members.
 Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Aj tu bude este potrebny mensi update na databazu - pridat emailovu adresu clena a rok narodenia.
 
 2. **Pokladna**
@@ -40,8 +44,8 @@ Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou ta
 
 3. **Klubove akcie**
 
-Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel sluzia databazy ClubEvents a EventSubscribe. 
-Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili. Vvdaka autentifikacii bude mozne upravovat alebo mazat zadane udaje samotnymi clenmi.
+Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel su databazy ClubEvents a EventSubscribe. 
+Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili. Po prihlaseni na akciu pride clenovi potvrdzovaci email.
 
 ***zatial bonusove zalozky:***
 
