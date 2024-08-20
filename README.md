@@ -4,8 +4,8 @@ This Django project is a platform to manage members, club events and club treasu
 The aim of the project is to create a simple application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events.
 
 # Latest updates
-- on 15.08.2024 an Auth app added into the project. With this app new features will be added soon.
-- on 20.08.2024 a confirmation email is sent to the user after registration to club event.
+- Auth app added into the project. With this app new features will be added soon.
+- Confirmation email is sent to the user after registration to club event.
 
 ***preparing some more updates...***
 
@@ -23,9 +23,9 @@ The aim of the project is to create a simple application for management of club 
 
 # O projekte:
 
-***15.8.2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti (pridavanie, uprava a mazanie prispevkov clenmi atd.) ktore zatial nie su implementovane. Pre skusobny pristup aj do admin casti pouzite login - username: testadmin, password: 12django34***
+***15.8.2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti (pridavanie, uprava a mazanie prispevkov clenmi atd.) ktore zatial nie su implementovane***
 
-Kedze som clenom and sucastne aj pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu a graf financnej bilancie klubu. 
+Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu a graf financnej bilancie klubu. 
 
 # Projekt a jeho funkcionalita:
 
@@ -39,19 +39,19 @@ Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dals
 
 2. **Pokladna**
 
-Kazdy klub ma prijmy a vydavky. Prijmy nasho klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
+Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
 Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku. Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
 
 3. **Klubove akcie**
 
-Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Nakolko akcie je treba dopredu logisticky naplanovat je dolezite dopredu vediet kolko clenov sa na danu akciu prihlasi. Na tento ucel su databazy ClubEvents a EventSubscribe. 
+Klub pocas roku poriada niekolko klubovych akcii na ktorych sa clenovia mozu zucastnit. Na tento ucel su databazy ClubEvents a EventSubscribe. 
 Na tejto zalozke je preto tabulka so zoznamom klubovych akcii, prihlasovaci formular pomocou ktoreho sa clenovia na akcie mozu prihlasovat a nasledne tabulka s jednotlivymi clenmi ktory sa na klubove akcie prihlasili. Po prihlaseni na akciu pride clenovi potvrdzovaci email.
 
 ***zatial bonusove zalozky:***
 
 4. **Klubova galeria**
 
-Po pokusoch s roznymi typmi galerii som zistil ze su komplikovane na spravu ked sa v nich nachadza vacsie mnozstvo obrazkov. Tento problem sa vyriesil vytvorenim databazy ClubPicture cez ktoru sa obrazky jednoducho nahravaju v Admin paneli. 
+Obrazky sa nahravaju cez databazu ClubPicture v Admin paneli. Pouzita je kniznica Pillow.
 
 5. **Graficka bilancia**
 
