@@ -10,15 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-#to setup env values
+# setup env values and raise an error if the environment variable isn't defined
 import os
 from django.core.exceptions import ImproperlyConfigured
 def _require_env(name):
-    """Raise an error if the environment variable isn't defined"""
     value = os.getenv(name)
     if value is None:
         raise ImproperlyConfigured('Required environment variable "{}" is not set.'.format(name))
     return value
+
+email_name = _require_env('EMAIL_HOST_USER')
+email_password = _require_env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = email_name
+EMAIL_HOST_PASSWORD = email_password
 
 
 from pathlib import Path
@@ -150,12 +154,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-
-# to import env variables
-email_name = _require_env('EMAIL_HOST_USER')
-email_password = _require_env('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = email_name
-EMAIL_HOST_PASSWORD = email_password
 
 
 # Media files (uploaded user files)
