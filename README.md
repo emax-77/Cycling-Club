@@ -39,7 +39,7 @@ Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dals
 
 2. **Pokladna**
 
-Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
+Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky su peniaze ktorymi klub prispieva na jednotlove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
 Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku. Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
 
 3. **Klubove akcie**
