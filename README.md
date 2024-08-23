@@ -18,7 +18,7 @@ The aim of the project is to create a simple application for management of club 
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
-##### The basic CSS/JavaScript style is not mine - I took it from the Django tutorial project on W3schools.com because my CSS/JavaScript skills are not good enough yet. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The authentication with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
+##### The basic CSS/JavaScript style is not mine - I took it from the Django tutorial project on W3schools.com because my CSS/JavaScript skills are not good enough yet. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
 
 
 # O projekte:
