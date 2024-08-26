@@ -1,7 +1,7 @@
 # Cyclo-Tourist Club / Member and event management, club treasury
 
 This Django project is a platform to manage members, club events and club treasury.
-The aim of the project is to create a simple application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events.
+The aim of the project is to create an application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events and some other features.
 
 # Latest updates
 - Auth app added into the project. With this app new features will be added soon.
@@ -25,7 +25,7 @@ The aim of the project is to create a simple application for management of club 
 
 ***15.8.2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti (pridavanie, uprava a mazanie prispevkov clenmi atd.) ktore zatial nie su implementovane***
 
-Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu a graf financnej bilancie klubu. 
+Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular 
 
 # Projekt a jeho funkcionalita:
 
@@ -33,9 +33,9 @@ kostrou projektu su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 
 1. **Clenovia**
 
-Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom bude mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tuto variantu som ztial neimplementoval (comming sooon).
+Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom je mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tato varianta je uz ciastocne funkcna no treba dotiahnut par detailov.
 Pre tento ucel sluzi databaza Members.
-Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Aj tu bude este potrebny mensi update na databazu - pridat emailovu adresu clena a rok narodenia.
+Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Este potrebny mensi update na databazu - pridat emailovu adresu clena, rok narodenia.
 
 2. **Pokladna**
 
