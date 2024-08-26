@@ -20,19 +20,14 @@ def _require_env(name):
     return value
 
 # smtp setup
-import ssl
-import certifi
-ssl_context = ssl.create_default_context(cafile=certifi.where())
-#email_name = _require_env('EMAIL_HOST_USER')
-#email_password = _require_env('EMAIL_HOST_PASSWORD')
-EMAIL_HOST_USER = 'my.testing.email77@gmail.com'
-EMAIL_HOST_PASSWORD = 'zpzmatwuoiumwuwe'
+email_name = _require_env('EMAIL_HOST_USER')
+email_password = _require_env('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = email_name 
+EMAIL_HOST_PASSWORD = email_password 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-
-
 
 
 from pathlib import Path
@@ -54,13 +49,13 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # Application definition
 
 INSTALLED_APPS = [
-    'authentication',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'authentication',
     'members',
     'debug_toolbar'
     

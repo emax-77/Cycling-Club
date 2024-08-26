@@ -6,8 +6,8 @@ The aim of the project is to create a simple application for management of club 
 # Latest updates
 - Auth app added into the project. With this app new features will be added soon.
 - Confirmation email is sent to the user after registration to club event.
+- contact template with 'contact us' form added to the project - sending email to the club admin.
 
-***preparing some more updates...***
 
 # To login both to pages and admin section: username: testadmin, password: 12django34
 
@@ -56,6 +56,10 @@ Obrazky sa nahravaju cez databazu ClubPicture v Admin paneli. Pouzita je kniznic
 5. **Graficka bilancia**
 
 Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomocou kniznice Plotly.
+
+6. **Kontakt**
+
+Klasicky kontaktny formular ktory posle spravu na klubovu emailovu adresu. 
 
 # Zaver:
 

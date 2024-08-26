@@ -64,6 +64,7 @@ def balance_graph(request):
 # test page
 def contact(request):
     template = loader.get_template('contact.html')
+    context = {}
 
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -78,11 +79,10 @@ def contact(request):
         # Send the email
         send_mail(subject, message, email_from, recipient_list)
 
-        # You might want to render a different template or send a success message
-        return HttpResponse(template.render({'message': 'Thank you for your message!'}, request))
-    else:
-        return HttpResponse(template.render(request=request))
- 
+        # Success message
+        context['success_message'] = "Thank you! Your message has been sent successfully."
+
+    return HttpResponse(template.render(context, request))
 
 # gallery page
 def gallery(request):

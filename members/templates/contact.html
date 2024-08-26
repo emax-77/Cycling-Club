@@ -5,17 +5,9 @@
 {% endblock %}
 
 {% block content %}
-  <div>
-
-
-
+<div class="main">
+ 
     <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
-    }
     .contact-form {
         background: #fff;
         padding: 20px;
@@ -48,9 +40,20 @@
     }
     </style>
 
+    <div>
+        <h1 style="text-align: center;">Cyclo Tourist Club Tvrdosin</h1>
+    </div>
+
+    <!-- Display success message after form submission -->
+    {% if success_message %}
+        <div class="success-message", style="text-align: center;">
+            {{ success_message }}
+            <p></p>
+        </div>
+    {% endif %}
 
     <div class="contact-form">
-    <h2>Contact Me</h2>
+    <h2>leave us a message</h2>
     <form method="post" action="{% url 'contact' %}">
         {% csrf_token %}
         <label for="name">Name:</label>
@@ -65,7 +68,11 @@
         <button type="submit">Send Message</button>
     </form>
     </div>
-  </div>
-  
+    <br>
+    <br>
+    <div style="background-color: rgba(0, 0, 0, 0.2); text-align: center;">
+        <p>© {% now "Y" %} Copyright: Peter Wirth</p>
+    </div>
+</div>
 
 {% endblock %}
