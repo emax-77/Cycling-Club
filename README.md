@@ -18,7 +18,7 @@ The aim of the project is to create a simple application for management of club 
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
-##### The basic CSS/JavaScript style is not mine - I took it from the Django tutorial project on W3schools.com because my CSS/JavaScript skills are not good enough yet. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The authentication with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
+##### The basic CSS/JavaScript style is not mine - I took it from the Django tutorial project on W3schools.com because my CSS/JavaScript skills are not good enough yet. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
 
 
 # O projekte:
@@ -39,7 +39,7 @@ Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dals
 
 2. **Pokladna**
 
-Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky klubu su peniaze ktorymi klub prispieva na jednotlove klubove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
+Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky su peniaze ktorymi klub prispieva na jednotlove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
 Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku. Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
 
 3. **Klubove akcie**
