@@ -125,8 +125,8 @@ def club_events(request):
         recipient_list = [user.email, ]
         send_mail( subject, message, email_from, recipient_list )
 
-
         context = {
+          'success_message': "Thank you! You are now registered for the event.",
           'myevents': myevents,
           'members_subscribed_for_event': members_subscribed_for_event,
         }

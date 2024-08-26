@@ -7,6 +7,15 @@
 {% block content %}
   <div class="main">
     <h1> List of Events </h1>
+
+    <!-- Display success message after form submission -->
+    {% if success_message %}
+        <div class="success-message", style="text-align: center;">
+            {{ success_message }}
+            <p></p>
+        </div>
+    {% endif %}
+    
     <br>
     <div>
       <style>
@@ -46,9 +55,7 @@
       {% include 'footer.html' %}
     </div>
 
-    <br>
-
-    
+    <br>    
 
   </div>
   <div class="main">
