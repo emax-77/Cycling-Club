@@ -23,7 +23,7 @@ The aim of the project is to create an application for management of club member
 
 # O projekte:
 
-***15.8.2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti (pridavanie, uprava a mazanie prispevkov clenmi atd.) ktore zatial nie su implementovane***
+***08/2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti ktore zatial nie su implementovane***
 
 Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular 
 
