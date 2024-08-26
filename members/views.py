@@ -62,9 +62,27 @@ def balance_graph(request):
   return HttpResponse(template.render(context, request))
 
 # test page
-def testing(request):  
-  template = loader.get_template('template.html')
-  return HttpResponse(template.render(request=request))
+def contact(request):
+    template = loader.get_template('contact.html')
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message_content = request.POST.get('message')
+
+        subject = f'Message from Cycling Club, user: {name}'
+        message = f'{name} ({email}) wrote:\n\n{message_content}'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ['peter.wirth@gmail.com']
+
+        # Send the email
+        send_mail(subject, message, email_from, recipient_list)
+
+        # You might want to render a different template or send a success message
+        return HttpResponse(template.render({'message': 'Thank you for your message!'}, request))
+    else:
+        return HttpResponse(template.render(request=request))
+ 
 
 # gallery page
 def gallery(request):
@@ -120,6 +138,10 @@ def club_events(request):
         }
         return HttpResponse(template.render(context, request))
     
+# test page
+def testing(request):
+    template = loader.get_template('template.html')
+    return HttpResponse(template.render(request=request))
 
 
 
