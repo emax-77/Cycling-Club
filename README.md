@@ -8,9 +8,6 @@ The aim of the project is to create an application for management of club member
 - Confirmation email is sent to the user after registration to club event.
 - contact template with 'contact us' form added to the project - sending email to the club admin.
 
-
-# To login both to pages and admin section: username: testadmin, password: 12django34
-
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django, Python
@@ -33,7 +30,7 @@ kostrou projektu su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 
 1. **Clenovia**
 
-Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom je mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tato varianta je uz ciastocne funkcna no treba dotiahnut par detailov.
+Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom je mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi. Tato varianta je uz funkcna no treba este dotiahnut par detailov.
 Pre tento ucel sluzi databaza Members.
 Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Este potrebny mensi update na databazu - pridat emailovu adresu clena, rok narodenia.
 
