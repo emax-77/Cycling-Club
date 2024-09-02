@@ -8,9 +8,6 @@ The aim of the project is to create an application for management of club member
 - Confirmation email is sent to the user after registration to club event.
 - contact template with 'contact us' form added to the project - sending email to the club admin.
 
-
-# To login both to pages and admin section: username: testadmin, password: 12django34
-
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django, Python
@@ -18,14 +15,13 @@ The aim of the project is to create an application for management of club member
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
-##### The basic CSS/JavaScript style is not mine - I took it from the Django tutorial project on W3schools.com because my CSS/JavaScript skills are not good enough yet. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
-
+##### I took the basic CSS/JavaScript from the Django tutorial project on W3schools.com. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
 
 # O projekte:
 
 ***08/2024 som do projektu pridal prihlasovanie a registraciu co bude ciastocne menit koncept projektu ktory povodne s prihlasovanim nepocital. Vdaka tomu pribudnu nove moznosti ktore zatial nie su implementovane***
 
-Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular 
+Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie vratane emailovej notifikacie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular.
 
 # Projekt a jeho funkcionalita:
 
@@ -55,7 +51,7 @@ Obrazky sa nahravaju cez databazu ClubPicture v Admin paneli. Pouzita je kniznic
 
 5. **Graficka bilancia**
 
-Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Graf je vytvoreny pomocou kniznice Plotly.
+Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Jednoduchy graf je vytvoreny pomocou kniznice Plotly.
 
 6. **Kontakt**
 
