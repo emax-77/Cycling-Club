@@ -4,9 +4,10 @@ This Django project is a platform to manage members, club events and club treasu
 The aim of the project is to create an application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events and some other features.
 
 # Latest updates
-- Auth app added into the project. With this app new features will be added soon.
+- Auth app added into the project. With this app some new features will be added soon.
 - Confirmation email is sent to the user after registration to club event.
 - contact template with 'contact us' form added to the project - sending email to the club admin.
+- the project got a new modern look (with some new CSS) 
 
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
@@ -15,7 +16,7 @@ The aim of the project is to create an application for management of club member
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
-##### I took the basic CSS/JavaScript from the Django tutorial project on W3schools.com. However, in order to override some of the unnecessary basic styles, I had to use my own CSS as well. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
+##### I took some CSS/JavaScript from the Django tutorial project on W3schools.com. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
 
 # O projekte:
 
@@ -59,6 +60,6 @@ Klasicky kontaktny formular ktory posle spravu na klubovu emailovu adresu.
 
 # Zaver:
 
-Nakolko sa Django stale ucim, je zrejme ze by sa projekt dal zvladnut aj lepsie - hlavne frontendova cast. Po miernych upravach a vyladeni vsak moze sluzit ako WWW stranka, ktoru klub este nema.
+Po miernych upravach a vyladeni moze projekt sluzit ako WWW stranka, ktoru klub este nema.
 
 PS.: udaje a sumy v databazach su samozrejme vymyslene a sluzia k testovaniu funkcnosti systemu :)
