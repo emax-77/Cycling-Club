@@ -10,7 +10,7 @@
 
     <!-- Display success message after form submission -->
     {% if success_message %}
-        <div class="success-message", style="text-align: center;">
+        <div class="success-message" style="text-align: center;">
             {{ success_message }}
             <p></p>
         </div>
@@ -19,38 +19,78 @@
     <br>
     <div>
       <style>
-        table, td, th {
-          border: 2px solid black;
-        }
-        
-        table {
-          border-collapse: collapse;
+        .styled-table {
           width: 100%;
+          border-collapse: collapse;
+          margin: 20px 0;
+          font-size: 18px;
+          text-align: left;
+          border-radius: 8px 8px 0 0;
+          overflow: hidden;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         }
-        
-        td {
+
+        .styled-table thead tr {
+          background-color: #009879;
+          color: #ffffff;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .styled-table th, .styled-table td {
+          padding: 12px 15px;
+          border: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr {
+          border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) {
+          background-color: #f3f3f3;
+        }
+
+        .styled-table tbody tr:hover {
+          background-color: #f1f1f1;
+        }
+
+        .styled-table tbody tr:last-of-type {
+          border-bottom: 2px solid #009879;
+        }
+
+        .styled-table td {
           text-align: center;
         }
-        </style>
-      <table>
-        <tr style="position:relative; color: black;">
-            <th>Id </th>
-            <th>Event Name </th>
-            <th>Event Date </th>
-            
-        </tr>
-        {% for x in myevents %}
-          <tr>
-            <td>{{ x.id }}
-            <td>{{ x.event_name }}</td>
-            <td>{{ x.event_date }}</td>
-           
-        {% endfor %}
-          </tr>
-    </table>
+
+        .table-container {
+          margin: 20px 0;
+        }
+      </style>
+
+      <div class="table-container">
+        <table class="styled-table">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Event Name</th>
+              <th>Event Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for x in myevents %}
+              <tr>
+                <td>{{ x.id }}</td>
+                <td>{{ x.event_name }}</td>
+                <td>{{ x.event_date }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
     </div>
+
     <br>
- 
+
     <div class="main">
       {% include 'footer.html' %}
     </div>
@@ -60,28 +100,28 @@
   </div>
   <div class="main">
     <h1> Members registered for the club event </h1>
-    <table>
-      <tr style="position:relative; color: black;">
-          <th>Id </th>
-          <th>Name </th>
-          <th>Email </th>
-          <th>Event </th>
-      </tr>
-      {% for member in members_subscribed_for_event %}
-        <tr>
-          <td>{{ member.id }}
-          <td>{{ member.name }}</td>
-          <td>{{ member.email }}</td>
-          <td>{{ member.event}}</td>
-      {% endfor %}
-        </tr>
-  </table>
+    <div class="table-container">
+      <table class="styled-table">
+        <thead>
+          <tr>
+              <th>Id</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in members_subscribed_for_event %}
+            <tr>
+              <td>{{ member.id }}</td>
+              <td>{{ member.name }}</td>
+              <td>{{ member.email }}</td>
+              <td>{{ member.event }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  
-
-
-  
-
 {% endblock %}
-
