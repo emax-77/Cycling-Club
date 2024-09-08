@@ -9,59 +9,104 @@
  
 <h2 style="text-align: center; color: blue;">Membership Fees 2024</h2>
 
-<div class="main">
+<div>
   <style>
-    table, td, th {
-      border: 2px solid black;
-    }
-    
-    table {
-      border-collapse: collapse;
+    .styled-table {
       width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 18px;
+      text-align: left;
+      border-radius: 8px 8px 0 0;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     }
-    
-    td {
+
+    .styled-table thead tr {
+      background-color: #009879;
+      color: #ffffff;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .styled-table th, .styled-table td {
+      padding: 12px 15px;
+      border: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr {
+      border-bottom: 1px solid #dddddd;
+    }
+
+    .styled-table tbody tr:nth-of-type(even) {
+      background-color: #f3f3f3;
+    }
+
+    .styled-table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .styled-table tbody tr:last-of-type {
+      border-bottom: 2px solid #009879;
+    }
+
+    .styled-table td {
       text-align: center;
     }
-    </style>
-    <table>
-        <tr style="position:relative; color: black;">
-            <th>Id </th>
-            <th>First Name </th>
-            <th>Last Name </th>
-            <th>Member Fees </th>
+
+    .table-container {
+      margin: 20px 0;
+    }
+  </style>
+  
+  <div class="table-container">
+    <table class="styled-table">
+      <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Member Fees</th>
         </tr>
+      </thead>
+      <tbody>
         {% for x in mymembers %}
           <tr>
-            <td>{{ x.id }}
+            <td>{{ x.id }}</td>
             <td>{{ x.firstname }}</td>
             <td>{{ x.lastname }}</td>
-            <td>{{ x.member_fees}}</td>
-        {% endfor %}
+            <td>{{ x.member_fees }}</td>
           </tr>
+        {% endfor %}
+      </tbody>
     </table>
+  </div>
 </div>
 
 <h2 style="text-align: center; color: blue;">Club Expenses 2024</h2>
 
-<div class="main">
-  <table>
-      <tr style="color: black;">
-          <th>Id </th>
-          <th>Date </th>
-          <th>Event Name </th>
-          <th>Note </th>
-          <th>Amount </th>
+<div class="table-container">
+  <table class="styled-table">
+    <thead>
+      <tr>
+          <th>Id</th>
+          <th>Date</th>
+          <th>Event Name</th>
+          <th>Note</th>
+          <th>Amount</th>
       </tr>
+    </thead>
+    <tbody>
       {% for x in myexpenses %}
         <tr>
-          <td>{{ x.id }}
+          <td>{{ x.id }}</td>
           <td>{{ x.payment_date }}</td>
           <td>{{ x.event_name }}</td>
-          <td>{{ x.purpose}}</td>
-          <td>{{ x.amount}}</td>
-      {% endfor %}
+          <td>{{ x.purpose }}</td>
+          <td>{{ x.amount }}</td>
         </tr>
+      {% endfor %}
+    </tbody>
   </table>
 </div>
 
