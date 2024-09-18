@@ -16,8 +16,6 @@ The aim of the project is to create an application for management of club member
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
-##### I took some CSS/JavaScript from the Django tutorial project on W3schools.com. The auth app with some of my updates was taken from https://www.geeksforgeeks.org/user-authentication-system-using-django. The rest of the project is my own work.
-
 # O projekte:
 
 Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie vratane emailovej notifikacie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular.
@@ -30,7 +28,7 @@ kostrou projektu su 3 zalozky - Clenovia, Pokladna a Klubove akcie
 
 Clenov cyklokubu prijma clenska rada ako najvyssi organ klubu raz rocne na vyrocnej schodzi, preto povodne nemalo zmysel riesit registraciu clenov cez formular. Udaje o novych clenoch mal do databazy cez admin panel pridat raz rocne predseda klubu. Po novom je mozna registracia clenov cez formular s tym ze nasledne ich schvalovenie bude na clenskej schodzi.
 Pre zoznam clenov sluzi databaza Members.
-Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje. Este potrebny mensi update na databazu - pridat emailovu adresu clena, rok narodenia.
+Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dalsie udaje.
 
 2. **Pokladna**
 
@@ -58,6 +56,7 @@ Klasicky kontaktny formular ktory posle spravu na klubovu emailovu adresu.
 
 # Zaver:
 
-Po miernych upravach a vyladeni moze projekt sluzit ako WWW stranka, ktoru klub este nema.
+Bol to moj prvy vacsi Django projekt pri ktoreho budovani som sa toho moc naucil (okrem Djanga aj vela o samotnom HTTP protokole, databazach, atd).
+Je tu sice par veci ktoré by som dnes urobil inak, kazdopadne po miernych upravach moze projekt sluzit ako WWW stranka, ktoru klub este nema.
 
 PS.: udaje a sumy v databazach su vymyslene a sluzia k testovaniu funkcnosti systemu :)
