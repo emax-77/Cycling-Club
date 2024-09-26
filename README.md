@@ -6,13 +6,13 @@ The aim of the project is to create an application for the management of club me
 # Latest updates
 - Auth app added into the project.
 - A confirmation email is sent to the user after registration for the club event.
-- contact template with 'contact us' form added to the project - emailing the club admin.
-- the project got a new modern look (with some new CSS) 
+- Contact template with 'contact us' form added to the project - emailing the club admin.
+- The project got a new modern look (with some new CSS) 
 
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django, Python
-- Database: SQLite
+- Database: SQLite3
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
@@ -56,7 +56,7 @@ Klasicky kontaktny formular ktory posle spravu na klubovu emailovu adresu.
 
 # Zaver:
 
-Bol to moj prvy vacsi Django projekt pri ktoreho budovani som sa toho moc naucil (okrem Djanga aj vela o samotnom HTTP protokole, databazach, atd).
-Je tu sice par veci ktoré by som dnes urobil inak, kazdopadne po miernych upravach moze projekt sluzit ako WWW stranka, ktoru klub este nema.
+Bol to moj prvy vacsi Django projekt pri ktoreho budovani som sa vela naucil.
+Je tu par veci ktoré by som dnes urobil inak, kazdopadne po miernych upravach moze projekt sluzit ako WWW stranka, ktoru klub este nema.
 
 PS.: udaje a sumy v databazach su vymyslene a sluzia k testovaniu funkcnosti systemu :)
