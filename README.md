@@ -1,18 +1,18 @@
 # Cyclo-Tourist Club / Member and event management, club treasury
 
-This Django project is a platform to manage members, club events and club treasury.
-The aim of the project is to create an application for management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events and some other features.
+This Django project is a platform to manage members, club events, and club treasury.
+The aim of the project is to create an application for the management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events, and some other features.
 
 # Latest updates
 - Auth app added into the project.
-- Confirmation email is sent to the user after registration to club event.
-- contact template with 'contact us' form added to the project - sending email to the club admin.
+- A confirmation email is sent to the user after registration for the club event.
+- contact template with 'contact us' form added to the project - emailing the club admin.
 - the project got a new modern look (with some new CSS) 
 
 # Technology Stack
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django, Python
-- Database: SQlite
+- Database: SQLite
 - Data visualization library: Plotly
 - Image processing library: Pillow
 
