@@ -1,3 +1,5 @@
+***I am trying to clean HTML code now - moving all CSS to mystyles.css file - but I am still having some small issues with CSS (some text not centered correctly etc.) - I will fix it soon :)*** 
+
 # Cyclo-Tourist Club / Member and event management, club treasury
 
 This Django project is a platform to manage members, club events, and club treasury.
@@ -7,7 +9,9 @@ The aim of the project is to create an application for the management of club me
 - Auth app added to the project.
 - A confirmation email is sent to the user after registration for the club event.
 - Contact template with 'contact us' form added to the project - emailing the club admin.
-- The project got a new modern look (with some new CSS) 
+- The project got a new look (with some new CSS)
+- Balance_graph.html fixed (with grid container)
+   
 
 # Technology Stack
 - Frontend: HTML, CSS
