@@ -1,39 +1,33 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap');
-body {
-  margin:0;
-  font: 600 18px 'Source Sans Pro', sans-serif;
-  letter-spacing: 0.64px;
-  color: #585d74;
-} */
+
 .topnav {
-  background-color: #007BFF; /* Medium blue background */
+  background-color: #007BFF; 
   overflow: hidden;
   padding: 10px 0;
   display: flex;
   align-items: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   text-decoration: none;
 }
 
 .topnav a {
-  color: #ffffff; /* White text for contrast */
+  color: #ffffff; 
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
   font-size: 17px;
   margin: 0 5px;
   border-radius: 4px;
-  transition: background-color 0.3s ease; /* Smooth transition for hover */
+  transition: background-color 0.3s ease; 
 }
 
 .topnav a:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  color: #ffffff; /* Keep text white on hover */
+  background-color: #0056b3; 
+  color: #ffffff; 
   text-decoration: none;
 }
 
 .topnav a.active {
-  background-color: #003d7a; /* Even darker blue for active link */
+  background-color: #003d7a; 
   color: white;
 }
 
@@ -49,7 +43,7 @@ body {
 
 .topnav .welcome-text {
   margin-left: 10px;
-  color: green; /* White text color for welcome text */
+  color: green; 
   font-weight: bold;
 }
 .mycard {
@@ -89,10 +83,3 @@ li {
 li:hover {
   transform: scale(1.1);
 }
-/* a:link, a:visited {
-  color: #375BDC; 
-} */
-/* .main, .main h1 {
-  text-align:center;
-  color:#375BDC;
-} */
