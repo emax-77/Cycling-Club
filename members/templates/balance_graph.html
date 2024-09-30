@@ -23,14 +23,15 @@
 </style>
 <div class="grid-container">
   <div style="color: blue;">
-      <h4>Total amount collected from Club Members in 2024 : {{ sum_fees }} EUR</h4>
-      <h4>Total amount of all expenses in 2024 : {{ sum_expenses }} EUR </h4>
+      <br>
+      <h3>Total amount collected from Club Members in 2024 : {{ sum_fees }} EUR</h3>
+      <h3>Total amount of all expenses in 2024 : {{ sum_expenses }} EUR </h3>
       {% if cash_balance > 0 %}
-      <h3 style="color: green;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+      <h2 style="color: green;">There is {{ cash_balance }} EUR in cash treasury now</h2>
       {% elif cash_balance < 0 %}
-      <h3 style="color: red;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+      <h2 style="color: red;">There is {{ cash_balance }} EUR in cash treasury now</h2>
       {% else %}
-      <h3 style="color: blue;">There is {{ cash_balance }} EUR in cash treasury now</h3>
+      <h2 style="color: blue;">There is {{ cash_balance }} EUR in cash treasury now</h2>
       {% endif %} 
   </div>
   <div>
