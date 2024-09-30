@@ -1,15 +1,26 @@
+<style>
+    .footer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1200px; /* Adjust the max-width as per your design */
+    padding: 20px;
+    text-align: center;
+}
+</style>
 <footer>  
-    <div>
+    <div class="footer-container">
         <section>
-                <form method="post" action="{% url 'club_events' %}">
-                    {% csrf_token %}
-                    <p>Signing up for a club event</p>
-                    <input style="border: 2px solid black; border-radius: 5px;" id="name" name="name" placeholder="Your Name" required/>
-                    <input style="border: 2px solid black; border-radius: 5px;" id="email" name="email" type="email" placeholder="Email Address" required/>
-                    <input style="border: 2px solid black; border-radius: 5px;" id="event" name="event" placeholder="Club Event" required/>
-                    <button style="border: 2px solid black; border-radius: 5px;" type="submit" value="Submit">Submit</button>       
-                </form>
+            <form method="post" action="{% url 'club_events' %}">
+                {% csrf_token %}
+                <p>Signing up for a club event</p>
+                <input style="border: 2px solid black; border-radius: 5px;" id="name" name="name" placeholder="Your Name" required/>
+                <input style="border: 2px solid black; border-radius: 5px;" id="email" name="email" type="email" placeholder="Email Address" required/>
+                <input style="border: 2px solid black; border-radius: 5px;" id="event" name="event" placeholder="Club Event" required/>
+                <button style="border: 2px solid black; border-radius: 5px;" type="submit" value="Submit">Submit</button>       
+            </form>
         </section>
     </div>
-    
 </footer>
