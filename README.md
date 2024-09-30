@@ -1,5 +1,3 @@
-***I am trying to clean HTML code now - moving all CSS to mystyles.css file - but I am still having some small issues with CSS (some text not centered correctly etc.) - I will fix it soon :)*** 
-
 # Cyclo-Tourist Club / Member and event management, club treasury
 
 This Django project is a platform to manage members, club events, and club treasury.
