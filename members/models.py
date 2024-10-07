@@ -23,6 +23,7 @@ class ClubEvents(models.Model):
   event_name = models.CharField(max_length=255, null=True)
   event_date = models.DateField(null=True)
   event_members = models.CharField(max_length=255, null=True)
+  event_description = models.CharField(max_length=255, null=True)
 
 class EventSubscribe(models.Model):
   name = models.CharField(max_length=100, null=True)
