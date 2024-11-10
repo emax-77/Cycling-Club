@@ -6,7 +6,7 @@ from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, BadHeaderError
 import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -56,7 +56,8 @@ def balance_graph(request):
   } 
   return HttpResponse(template.render(context, request))
 
-# contact page
+
+# contact page - to send email to club-admin
 def contact(request):
     template = loader.get_template('contact.html')
     context = {}
@@ -71,13 +72,19 @@ def contact(request):
         email_from = settings.EMAIL_HOST_USER
         recipient_list = ['peter.wirth@gmail.com']
 
-        # Send the email
-        send_mail(subject, message, email_from, recipient_list)
-
-        # Success message
-        context['success_message'] = "Thank you! Your message has been sent successfully."
+        try:
+            # send email
+            send_mail(subject, message, email_from, recipient_list)
+            context['success_message'] = "Thank you! Your message has been sent successfully."
+        except BadHeaderError:
+            # handle email header errors
+            context['error_message'] = "Invalid header found in the email."
+        except Exception as e:
+            # general error handling
+            context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
 
     return HttpResponse(template.render(context, request))
+
 
 # gallery page
 def gallery(request):
@@ -99,39 +106,55 @@ def club_treasury(request):
   }
   return HttpResponse(template.render(context, request))
 
-# club events page with event sign up
+# club events page with event signup
 def club_events(request):
-  myevents = ClubEvents.objects.all().values()
-  members_subscribed_for_event = EventSubscribe.objects.all().values()
-  template = loader.get_template('club_events.html')
-  
-  # signing up for a club event, send confirmation email to user and print success message
-  if request.method == 'POST':
-        name = request.POST.get('name', None)
-        email = request.POST.get('email', None)
-        event = request.POST.get('event', None)
+    myevents = ClubEvents.objects.all().values()
+    members_subscribed_for_event = EventSubscribe.objects.all().values()
+    template = loader.get_template('club_events.html')
+
+    # signing up for a club event, send confirmation email to user and print success message
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        event = request.POST.get('event')
+
+        # save event subscription
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
 
-        user = User.objects.create_user(username=name, email=email)        
+        # create  user
+        user = User.objects.create_user(username=name, email=email)
+        
+        # setup email
         subject = 'Welcome to Cycling Club'
         message = f'Hi {user.username}, thank you for registering for {event} event.'
         email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.email, ]
-        send_mail( subject, message, email_from, recipient_list )
+        recipient_list = [user.email]
+
+        try:
+            # attempt to send email
+            send_mail(subject, message, email_from, recipient_list)
+            success_message = "Thank you! You are now registered for the event."
+        except BadHeaderError:
+            # handle email header errors
+            success_message = "An error occurred: Invalid email header."
+        except Exception as e:
+            # general error handling
+            success_message = f"An error occurred while sending the confirmation email. Error: {str(e)}"
 
         context = {
-          'success_message': "Thank you! You are now registered for the event.",
-          'myevents': myevents,
-          'members_subscribed_for_event': members_subscribed_for_event,
+            'success_message': success_message,
+            'myevents': myevents,
+            'members_subscribed_for_event': members_subscribed_for_event,
         }
         return HttpResponse(template.render(context, request))
-  else:
+    else:
         context = {
-          'myevents': myevents,
-          'members_subscribed_for_event': members_subscribed_for_event,
+            'myevents': myevents,
+            'members_subscribed_for_event': members_subscribed_for_event,
         }
         return HttpResponse(template.render(context, request))
+
     
 # test page
 def testing(request):
