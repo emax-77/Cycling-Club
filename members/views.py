@@ -1,12 +1,7 @@
-from pyexpat.errors import messages
 from django.http import HttpResponse
-from django.shortcuts import redirect
-from django.shortcuts import render
 from django.template import loader
 from .models import Member
 from .models import Expenses
-from django.core.validators import validate_email
-from django.core.exceptions import ValidationError
 from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
@@ -16,7 +11,12 @@ import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-@login_required # decorator to ensure user is logged in
+@login_required 
+
+# home page (displayed first after login)  
+def welcome(request):
+  template = loader.get_template('welcome.html')
+  return HttpResponse(template.render(request=request))
 
 # list of all members page
 def members(request):
@@ -36,11 +36,6 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
   
-# home page (displayed first after login)  
-def welcome(request):
-  template = loader.get_template('welcome.html')
-  return HttpResponse(template.render(request=request))
-
 # page with graph and balance
 def balance_graph(request):
   mymembers = Member.objects.all().values()
@@ -61,7 +56,7 @@ def balance_graph(request):
   } 
   return HttpResponse(template.render(context, request))
 
-# test page
+# contact page
 def contact(request):
     template = loader.get_template('contact.html')
     context = {}
@@ -110,7 +105,7 @@ def club_events(request):
   members_subscribed_for_event = EventSubscribe.objects.all().values()
   template = loader.get_template('club_events.html')
   
-  # signing up for a club event and sending confirmation email to user
+  # signing up for a club event, send confirmation email to user and print success message
   if request.method == 'POST':
         name = request.POST.get('name', None)
         email = request.POST.get('email', None)
