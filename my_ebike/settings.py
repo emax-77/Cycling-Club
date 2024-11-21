@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+APPEND_SLASH = True
+
 # env values setup / raise an error if the env variable isn't set
 import os
 from django.core.exceptions import ImproperlyConfigured
