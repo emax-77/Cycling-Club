@@ -16,9 +16,9 @@
             <form method="post" action="{% url 'club_events' %}">
                 {% csrf_token %}
                 <h3>Signing up for a club event</h3>
-                <input style="border: 2px solid black; border-radius: 5px;" id="name" name="name" placeholder="Your Name" required/>
-                <input style="border: 2px solid black; border-radius: 5px;" id="email" name="email" type="email" placeholder="Email Address" required/>
-                <input style="border: 2px solid black; border-radius: 5px;" id="event" name="event" placeholder="Club Event" required/>
+                <input style="border: 2px solid black; border-radius: 5px;" id="name" name="name" placeholder="your name" required/>
+                <input style="border: 2px solid black; border-radius: 5px;" id="email" name="email" type="email" placeholder="email address" required/>
+                <input style="border: 2px solid black; border-radius: 5px;" id="event" name="event" placeholder="event name" required/>
                 <button style="border: 2px solid black; border-radius: 5px;" type="submit" value="Submit">Submit</button>       
             </form>
         </section>

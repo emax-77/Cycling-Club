@@ -8,6 +8,17 @@
 {% block content %}
 
   <h1 style='text-align: center;'>Test Page :)</h1>
+
+  <div class="MyText"></div>
+
+  <button class="MyButton" style="position: absolute; left: 50%; top: 50%;">Click me!</button>
+
+  <script>
+    document.querySelector(".MyButton").addEventListener("click", function() {
+        document.querySelector(".MyButton").innerHTML = "Just a test :)";
+    });
+  </script>
   
+
 
 {% endblock %}
