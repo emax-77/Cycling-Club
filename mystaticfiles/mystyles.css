@@ -1,10 +1,21 @@
+/* Welcome image styles */
+.center-image {
+  display: block;
+  margin: 2rem auto;
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
 
+/* Navigation bar styles */
 .topnav {
   background-color: #007BFF; 
   overflow: hidden;
   padding: 10px 0;
   display: flex;
   align-items: center;
+  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   text-decoration: none;
 }
