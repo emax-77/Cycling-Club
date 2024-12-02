@@ -10,7 +10,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
-APPEND_SLASH = True
 
 # env values setup / raise an error if the env variable isn't set
 import os
@@ -46,7 +45,7 @@ SECRET_KEY = 'django-insecure-y%h8io-jgj1dv=wh*3&6$45el91=_x_%x-2mhgv23w!=$4oav)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -148,7 +147,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'productionfiles'
 
 STATICFILES_DIRS = [
