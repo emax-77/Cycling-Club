@@ -1,6 +1,8 @@
 # Cyclo-Tourist Club / Member and event management, club treasury
 
-The aim of the project is to create an application for the management of club members, club treasury, publication of club events with the possibility of registration of members for individual club events, and some other features.
+## !!! IMPORTANT UPDATE !!! - JANUARY 2026 - I decided to refactor most of the old code, so the project may not work properly in the next few days/weeks :)
+
+The aim of the project is to create an application for managing club members, club finances, and publishing club events, with the possibility of registering members for individual club events, as well as other features.
 
 # Latest updates
 - Auth app added to the project.
