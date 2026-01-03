@@ -9,7 +9,7 @@
 <body>
 	<div class="container mt-5">
 		<!-- Login form -->
-		<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data">
+		<form class="col-6 mx-auto card p-3 shadow-lg" method="post" enctype="multipart/form-data" action="{% url 'login' %}">
 			<h1 style="text-align: center;"><span style="color: blue;">Cyclo Tourist Club</span></h1>
 
 			{% csrf_token %} <!-- CSRF token for security -->

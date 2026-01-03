@@ -146,3 +146,8 @@ MEDIA_ROOT = BASE_DIR / ''  # Directory for storing user-uploaded files !!!
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# After login redirect here 
+LOGIN_REDIRECT_URL = '/welcome/'
+# Where to redirect after logout
+LOGOUT_REDIRECT_URL = '/'

@@ -11,8 +11,8 @@ class Member(models.Model):
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
     member_fees = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
     def __str__(self):
         return f"{self.firstname} {self.lastname}"
@@ -38,14 +38,14 @@ class Expenses(models.Model):
     event_name = models.CharField(max_length=255, null=True, blank=True)
     purpose = models.CharField(max_length=255, null=True, blank=True)
     amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
 class ClubEvents(models.Model):
     event_name = models.CharField(max_length=255, null=True, blank=True)
     event_date = models.DateField(null=True, blank=True)
     event_members = models.ManyToManyField(Member, blank=True, related_name='events')
     event_description = models.TextField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     def __str__(self):
         return self.event_name or "Event"
@@ -53,8 +53,8 @@ class ClubEvents(models.Model):
 class EventSubscribe(models.Model):
     member = models.ForeignKey(Member, null=True, blank=True, on_delete=models.SET_NULL, related_name='subscriptions')
     email = models.EmailField(max_length=100)
-    event = models.ForeignKey(ClubEvents, on_delete=models.CASCADE, related_name='subscribers')
-    subscribed_at = models.DateTimeField(auto_now_add=True)
+    event = models.ForeignKey(ClubEvents, null=True, blank=True, on_delete=models.CASCADE, related_name='subscribers')
+    subscribed_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:
         unique_together = ('email', 'event')
