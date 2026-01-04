@@ -45,7 +45,7 @@ def balance_graph(request):
   cash_balance = sum_fees - sum_expenses
 
   # create a bar graph
-  fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury 2024')
+  fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury')
   graph = fig.to_html(full_html=False, default_height=500, default_width=700)
 
   template = loader.get_template('balance_graph.html')
