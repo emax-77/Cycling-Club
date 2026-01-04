@@ -1,4 +1,3 @@
-# Import necessary modules and models
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
@@ -6,14 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
 
-@login_required # Decorator to ensure user is logged in
+@login_required 
 
 
-# Define a view function for the home page
 def home(request):
 	return render(request, 'welcome.html')
 
-# Define a view function for the login page
 def login_page(request):
     if request.method == "POST":
         username = request.POST.get('username')
@@ -34,7 +31,6 @@ def login_page(request):
 
     return render(request, 'login.html')
 
-# Define a view function for the registration page
 def register_page(request):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')

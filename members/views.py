@@ -56,7 +56,6 @@ def balance_graph(request):
   } 
   return HttpResponse(template.render(context, request))
 
-
 # contact page - to send email to club-admin
 def contact(request):
     template = loader.get_template('contact.html')
@@ -73,18 +72,14 @@ def contact(request):
         recipient_list = ['peter.wirth@gmail.com']
 
         try:
-            # send email
             send_mail(subject, message, email_from, recipient_list)
             context['success_message'] = "Thank you! Your message has been sent successfully."
         except BadHeaderError:
-            # handle email header errors
             context['error_message'] = "Invalid header found in the email."
         except Exception as e:
-            # general error handling
             context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
 
     return HttpResponse(template.render(context, request))
-
 
 # gallery page
 def gallery(request):
@@ -118,28 +113,22 @@ def club_events(request):
         email = request.POST.get('email')
         event = request.POST.get('event')
 
-        # save event subscription
         event_sub = EventSubscribe(name=name, email=email, event=event)
         event_sub.save()
 
-        # create  user
         user = User.objects.create_user(username=name, email=email)
         
-        # setup email
         subject = 'Welcome to Cycling Club'
         message = f'Hi {user.username}, thank you for registering for {event} event.'
         email_from = settings.EMAIL_HOST_USER
         recipient_list = [user.email]
 
         try:
-            # attempt to send email
             send_mail(subject, message, email_from, recipient_list)
             success_message = "Thank you! You are now registered for the event."
         except BadHeaderError:
-            # handle email header errors
             success_message = "An error occurred: Invalid email header."
         except Exception as e:
-            # general error handling
             success_message = f"An error occurred while sending the confirmation email. Error: {str(e)}"
 
         context = {
@@ -154,7 +143,6 @@ def club_events(request):
             'members_subscribed_for_event': members_subscribed_for_event,
         }
         return HttpResponse(template.render(context, request))
-
     
 # test page
 def testing(request):

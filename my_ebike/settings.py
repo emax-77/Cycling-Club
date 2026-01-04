@@ -1,4 +1,4 @@
-# env values setup / raise an error if the env variable isn't set
+# env values setup 
 import os
 from django.core.exceptions import ImproperlyConfigured
 def _require_env(name):
