@@ -10,7 +10,6 @@ class Member(models.Model):
     zipcode = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     country = models.CharField(max_length=255, null=True, blank=True)
-    member_fees = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
 
@@ -39,6 +38,35 @@ class Expenses(models.Model):
     purpose = models.CharField(max_length=255, null=True, blank=True)
     amount = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+
+class Payment(models.Model):
+    PAYMENT_TYPE_CHOICES = [
+        ('membership', 'Membership fee'),
+        ('event', 'Event fee'),
+        ('other', 'Other'),
+    ]
+
+    member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='payments')
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPE_CHOICES, default='membership')
+    # For annual membership fees use period_year (e.g. 2025). For event fees you can link `event`.
+    period_year = models.PositiveIntegerField(null=True, blank=True)
+    event = models.ForeignKey('ClubEvents', null=True, blank=True, on_delete=models.SET_NULL, related_name='payments')
+    date_paid = models.DateTimeField(auto_now_add=True)
+    method = models.CharField(max_length=50, null=True, blank=True)
+    note = models.TextField(null=True, blank=True)
+    receipt = models.FileField(upload_to='receipts/', null=True, blank=True)
+
+    class Meta:
+        ordering = ('-date_paid',)
+
+    def __str__(self):
+        if self.payment_type == 'membership' and self.period_year:
+            return f"{self.member} — {self.amount} (membership {self.period_year})"
+        if self.payment_type == 'event' and self.event:
+            return f"{self.member} — {self.amount} (event {self.event})"
+        return f"{self.member} — {self.amount} ({self.payment_type})"
 
 class ClubEvents(models.Model):
     event_name = models.CharField(max_length=255, null=True, blank=True)

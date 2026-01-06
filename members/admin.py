@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Expenses, Member
 from .models import ClubEvents, EventSubscribe
-from .models import ClubPicture, Sponsor, Sponsorship
+from .models import ClubPicture, Sponsor, Sponsorship, Payment
 
 # Register your models here.
 
@@ -27,3 +27,8 @@ admin.site.register(ClubEvents, ClubEventsAdmin)
 admin.site.register(ClubPicture, ClubPictureAdmin)
 admin.site.register(Sponsor)
 admin.site.register(Sponsorship)
+@admin.register(Payment)
+class PaymentAdmin(admin.ModelAdmin):
+  list_display = ('member', 'payment_type', 'period_year', 'event', 'amount', 'date_paid')
+  list_filter = ('payment_type', 'period_year')
+  search_fields = ('member__firstname', 'member__lastname', 'member__id')

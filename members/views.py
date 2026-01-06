@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.template import loader
 from .models import Member
+from .models import Payment
 from .models import Expenses
 from .models import ClubEvents
 from .models import EventSubscribe
@@ -10,6 +11,7 @@ from django.core.mail import send_mail, BadHeaderError
 import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 
 @login_required 
 
@@ -30,17 +32,19 @@ def members(request):
 # member details page
 def details(request, id):
   mymember = Member.objects.get(id=id)
+  total_paid = Payment.objects.filter(member=mymember, payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
   template = loader.get_template('details.html')
   context = {
     'mymember': mymember,
+    'total_paid': total_paid,
   }
   return HttpResponse(template.render(context, request))
   
 # page with graph and balance
 def balance_graph(request):
-  mymembers = Member.objects.all().values()
+  mymembers = Member.objects.all()
   myexpenses = Expenses.objects.all().values()
-  sum_fees = sum([x['member_fees'] for x in mymembers])
+  sum_fees = Payment.objects.filter(payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
   sum_expenses = sum([x['amount'] for x in myexpenses])
   cash_balance = sum_fees - sum_expenses
 
@@ -92,7 +96,12 @@ def gallery(request):
 
 # club treasury page   
 def club_treasury(request):
-  mymembers = Member.objects.all().values()
+  members = Member.objects.all()
+  mymembers = []
+  for m in members:
+      total = Payment.objects.filter(member=m, payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
+      mymembers.append({'id': m.id, 'firstname': m.firstname, 'lastname': m.lastname, 'total_paid': total})
+
   myexpenses = Expenses.objects.all().values()
   template = loader.get_template('club_treasury.html')
   context = {
