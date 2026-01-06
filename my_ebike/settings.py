@@ -7,16 +7,29 @@ def _require_env(name):
         raise ImproperlyConfigured('Required environment variable "{}" is not set.'.format(name))
     return value
 
+# ensure SSL_CERT_FILE is set to certifi's bundle if not already set
+if 'SSL_CERT_FILE' not in os.environ:
+    try:
+        import certifi
+        os.environ['SSL_CERT_FILE'] = certifi.where()
+    except Exception:
+        # If certifi is not installed, leave environment as-is and let the OS handle certs
+        pass
+
 # smtp setup
 email_name = _require_env('EMAIL_HOST_USER')
 email_password = _require_env('EMAIL_HOST_PASSWORD')
 EMAIL_HOST_USER = email_name 
 EMAIL_HOST_PASSWORD = email_password 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'my_ebike.email_backend.CertifiEmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
+EMAIL_TIMEOUT = 20
 
+# Contact form recipient(s)
+CONTACT_RECIPIENT_EMAIL = os.getenv('CONTACT_RECIPIENT_EMAIL', EMAIL_HOST_USER)
+CONTACT_RECIPIENT_LIST = [CONTACT_RECIPIENT_EMAIL]
 
 from pathlib import Path
 

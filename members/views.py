@@ -7,7 +7,16 @@ from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
 from django.conf import settings
-from django.core.mail import send_mail, BadHeaderError
+from django.core.mail import send_mail, BadHeaderError, get_connection
+from django.core.mail import EmailMessage
+import logging
+import re
+import ssl
+import smtplib
+
+logger = logging.getLogger(__name__)
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError as DjangoValidationError
 import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -62,28 +71,94 @@ def balance_graph(request):
 
 # contact page - to send email to club-admin
 def contact(request):
-    template = loader.get_template('contact.html')
-    context = {}
+  template = loader.get_template('contact.html')
+  context = {}
 
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        message_content = request.POST.get('message')
+  if request.method == 'POST':
+    name = (request.POST.get('name') or '').strip()
+    email = (request.POST.get('email') or '').strip()
+    message_content = (request.POST.get('message') or '').strip()
 
-        subject = f'Message from Cycling Club, user: {name}'
-        message = f'{name} ({email}) wrote:\n\n{message_content}'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = ['peter.wirth@gmail.com']
+    # Prevent header injection (CR/LF) in name/email
+    if any(ch in name for ch in ('\n', '\r')) or any(ch in email for ch in ('\n', '\r')):
+      context['error_message'] = 'Invalid characters in name or email.'
+      return HttpResponse(template.render(context, request))
+    name = name.replace('\r', ' ').replace('\n', ' ')
 
-        try:
-            send_mail(subject, message, email_from, recipient_list)
-            context['success_message'] = "Thank you! Your message has been sent successfully."
-        except BadHeaderError:
-            context['error_message'] = "Invalid header found in the email."
-        except Exception as e:
-            context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
+    # Validate email format
+    try:
+      validate_email(email)
+    except DjangoValidationError:
+      context['error_message'] = 'Please provide a valid email address.'
+      return HttpResponse(template.render(context, request))
 
-    return HttpResponse(template.render(context, request))
+    subject = f'Message from Cycling Club, user: {name}'
+    message = f'{name} ({email}) wrote:\n\n{message_content}'
+    email_from = str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else ''
+   
+    subject = _sanitize_header(subject)
+    email_from = _sanitize_header(email_from)
+    recipient_list = [_sanitize_header(r) for r in getattr(settings, 'CONTACT_RECIPIENT_LIST', [])]
+
+    if not recipient_list:
+      context['error_message'] = 'Contact recipient is not configured.'
+      return HttpResponse(template.render(context, request))
+
+    # validate recipient emails
+    for r in recipient_list:
+      try:
+        validate_email(r)
+      except DjangoValidationError:
+        context['error_message'] = 'Invalid recipient email configured.'
+        return HttpResponse(template.render(context, request))
+
+    try:
+      email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
+
+      debug_mode = getattr(settings, 'DEBUG', False)
+      if debug_mode:
+        # In DEBUG print the email to the console (no real SMTP).
+        conn = get_connection('django.core.mail.backends.console.EmailBackend')
+      else:
+        # In production use the configured backend (SMTP via my_ebike.email_backend).
+        conn = get_connection()
+
+      sent_count = conn.send_messages([email_msg])
+      if sent_count and sent_count > 0:
+        context['success_message'] = "Thank you! Your message has been sent successfully."
+      else:
+        context['error_message'] = "Email was not sent. Please try again later."
+
+    except BadHeaderError:
+      logger.warning('BadHeaderError when sending contact email (subject/from/to sanitized).')
+      context['error_message'] = "Invalid header found in the email. Please check header values (no newlines)."
+
+    except ssl.SSLError:
+      logger.exception('SSL error when sending contact email')
+      context['error_message'] = (
+        "Nepodarilo sa nadviazať zabezpečené TLS spojenie so SMTP serverom (SSL certifikát). "
+        "Často to spôsobí firemný proxy/antivírus, ktorý vkladá vlastný certifikát. "
+        "Skontroluj, že EMAIL_USE_OS_TRUSTSTORE=1 a reštartuj server."
+      )
+
+    except smtplib.SMTPAuthenticationError:
+      logger.exception('SMTPAuthenticationError when sending contact email')
+      context['error_message'] = (
+        "Gmail odmietol prihlásenie do SMTP. "
+        "Použi 'App password' a ulož ho do EMAIL_HOST_PASSWORD.")
+
+    except smtplib.SMTPException:
+      logger.exception('SMTPException when sending contact email')
+      context['error_message'] = "Nastala SMTP chyba pri odosielaní správy. Skús to prosím neskôr."
+
+    except Exception as e:
+      logger.exception('Unexpected error when sending contact email')
+      if getattr(settings, 'DEBUG', False):
+        context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
+      else:
+        context['error_message'] = "Nastala chyba pri odosielaní správy. Skús to prosím neskôr."
+
+  return HttpResponse(template.render(context, request))
 
 # gallery page
 def gallery(request):
@@ -127,18 +202,67 @@ def club_events(request):
 
         user = User.objects.create_user(username=name, email=email)
         
-        subject = 'Welcome to Cycling Club'
-        message = f'Hi {user.username}, thank you for registering for {event} event.'
-        email_from = settings.EMAIL_HOST_USER
-        recipient_list = [user.email]
+        subject = _sanitize_header('Welcome to Cycling Club')
+        safe_username = _sanitize_header(user.username)
+        safe_event = _sanitize_header(event)
+        message = f'Hi {safe_username}, thank you for registering for {safe_event} event.'
+        email_from = _sanitize_header(str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else '')
+        recipient_list = [_sanitize_header(user.email)]
+
+        # Validate recipient email
+        try:
+          validate_email(recipient_list[0])
+        except DjangoValidationError:
+          success_message = "An error occurred: invalid recipient email."
+          context = {
+              'success_message': success_message,
+              'myevents': myevents,
+              'members_subscribed_for_event': members_subscribed_for_event,
+          }
+          return HttpResponse(template.render(context, request))
 
         try:
-            send_mail(subject, message, email_from, recipient_list)
+          email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
+
+          if getattr(settings, 'DEBUG', False):
+            conn = get_connection('django.core.mail.backends.console.EmailBackend')
+          else:
+            conn = get_connection()
+
+          sent_count = conn.send_messages([email_msg])
+          if sent_count and sent_count > 0:
             success_message = "Thank you! You are now registered for the event."
+          else:
+            success_message = "Email was not sent. Please try again later."
+
         except BadHeaderError:
-            success_message = "An error occurred: Invalid email header."
+          logger.warning('BadHeaderError when sending club_events confirmation email.')
+          success_message = "An error occurred: Invalid email header."
+
+        except ssl.SSLError:
+          logger.exception('SSL error when sending club_events confirmation email')
+          success_message = (
+            "Nepodarilo sa nadviazať zabezpečené TLS spojenie so SMTP serverom (SSL certifikát). "
+            "Skontroluj, že EMAIL_USE_OS_TRUSTSTORE=1 a reštartuj server."
+          )
+
+        except smtplib.SMTPAuthenticationError:
+          logger.exception('SMTPAuthenticationError when sending club_events confirmation email')
+          success_message = (
+            "Gmail odmietol prihlásenie do SMTP. "
+            "Použi 'App password' a ulož ho do EMAIL_HOST_PASSWORD."
+          )
+
+        except smtplib.SMTPException:
+          logger.exception('SMTPException when sending club_events confirmation email')
+          success_message = "Nastala SMTP chyba pri odosielaní emailu. Skús to prosím neskôr."
+
         except Exception as e:
+          logger.exception('Unexpected error when sending club_events confirmation email')
+          if getattr(settings, 'DEBUG', False):
             success_message = f"An error occurred while sending the confirmation email. Error: {str(e)}"
+          else:
+            success_message = "Nastala chyba pri odosielaní potvrdzujúceho emailu. Skús to prosím neskôr."
 
         context = {
             'success_message': success_message,
@@ -158,8 +282,9 @@ def testing(request):
     template = loader.get_template('template.html')
     return HttpResponse(template.render(request=request))
 
-
-
+ # sanitize header values to prevent header injection (remove CR/LF)
+def _sanitize_header(val):
+  return re.sub(r'[\r\n]+', ' ', (val or '')).strip()
 
 
 

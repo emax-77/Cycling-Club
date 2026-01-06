@@ -78,6 +78,11 @@
             {{ success_message }}
         </div>
     {% endif %}
+    {% if error_message %}
+        <div class="success-message" style="background-color:#fdecea;color:#b71c1c;border-color:#b71c1c;">
+            {{ error_message }}
+        </div>
+    {% endif %}
 
     <div class="contact-form">
     <h2>Leave Us a Message</h2>
