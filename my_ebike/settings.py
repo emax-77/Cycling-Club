@@ -13,7 +13,6 @@ if 'SSL_CERT_FILE' not in os.environ:
         import certifi
         os.environ['SSL_CERT_FILE'] = certifi.where()
     except Exception:
-        # If certifi is not installed, leave environment as-is and let the OS handle certs
         pass
 
 # smtp setup

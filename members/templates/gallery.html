@@ -7,20 +7,19 @@
 {% block content %}
 	<title>Picture Gallery</title> 
 	<style> 
-		/* Add CSS styles for flex container and items */
 		.picture-list { 
 			display: flex; 
-			flex-wrap: wrap; /* Allow items to wrap to the next row if necessary */
-			justify-content: space-between; /* Space items evenly along the main axis */
-			list-style: none; /* Remove list styles */
+			flex-wrap: wrap; 
+			justify-content: space-between; 
+			list-style: none; 
 			padding: 0; 
 		} 
 
 		.picture-item { 
-			flex: 1; /* Grow to fill available space evenly */
-			max-width: 30%; /* Limit item width to avoid overcrowding */
-			margin: 10px; /* Add spacing between items */
-			border: 1px solid #ccc; /* Add a border for visual separation */ 
+			flex: 1; 
+			max-width: 30%; 
+			margin: 10px; 
+			border: 1px solid #ccc;  
 			padding: 10px; 
 			text-align: center; 
 		} 

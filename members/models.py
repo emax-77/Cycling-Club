@@ -50,7 +50,6 @@ class Payment(models.Model):
     member = models.ForeignKey(Member, on_delete=models.CASCADE, related_name='payments')
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_type = models.CharField(max_length=20, choices=PAYMENT_TYPE_CHOICES, default='membership')
-    # For annual membership fees use period_year (e.g. 2025). For event fees you can link `event`.
     period_year = models.PositiveIntegerField(null=True, blank=True)
     event = models.ForeignKey('ClubEvents', null=True, blank=True, on_delete=models.SET_NULL, related_name='payments')
     date_paid = models.DateTimeField(auto_now_add=True)
