@@ -7,6 +7,34 @@
 
 {% block content %}
  
+<div style="text-align: center; margin-bottom: 10px;">
+  <h2 style="color: blue;">Club Treasury</h2>
+  <form method="get" style="display: inline-block;">
+    <label for="period" style="margin-right: 6px;">Period:</label>
+    <select id="period" name="period">
+      <option value="all" {% if period == 'all' %}selected{% endif %}>All years</option>
+      <option value="this_year" {% if period == 'this_year' %}selected{% endif %}>This year{% if year_now %} ({{ year_now }}){% endif %}</option>
+      <option value="last_year" {% if period == 'last_year' %}selected{% endif %}>Last year{% if year_last %} ({{ year_last }}){% endif %}</option>
+    </select>
+    <button type="submit">Show</button>
+  </form>
+
+  <div style="margin-top: 10px;">
+    <h3 style="color: blue;">{{ period_title }}</h3>
+    <div>Membership Fees: <strong>{{ sum_membership }}</strong> EUR</div>
+    <div>Sponsorship: <strong>{{ sum_sponsorship }}</strong> EUR</div>
+    <div>Total Income: <strong>{{ sum_income }}</strong> EUR</div>
+    <div>Total Expenses: <strong>{{ sum_expenses }}</strong> EUR</div>
+    {% if cash_balance > 0 %}
+      <div style="color: green;">Balance: <strong>{{ cash_balance }}</strong> EUR</div>
+    {% elif cash_balance < 0 %}
+      <div style="color: red;">Balance: <strong>{{ cash_balance }}</strong> EUR</div>
+    {% else %}
+      <div style="color: blue;">Balance : <strong>{{ cash_balance }}</strong> EUR</div>
+    {% endif %}
+  </div>
+</div>
+
 <h2 style="text-align: center; color: blue;">Membership Fees</h2>
 
 <div>
@@ -81,6 +109,33 @@
       </tbody>
     </table>
   </div>
+</div>
+
+<h2 style="text-align: center; color: blue;">Sponsorship / Other income</h2>
+
+<div class="table-container">
+  <table class="styled-table">
+    <thead>
+      <tr>
+          <th>Id</th>
+          <th>Date</th>
+          <th>Member</th>
+          <th>Note</th>
+          <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for x in mysponsorships %}
+        <tr>
+          <td>{{ x.id }}</td>
+          <td>{{ x.date_paid }}</td>
+          <td>{{ x.member }}</td>
+          <td>{{ x.note }}</td>
+          <td>{{ x.amount }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 
 <h2 style="text-align: center; color: blue;">Club Expenses</h2>

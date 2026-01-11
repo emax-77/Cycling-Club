@@ -21,7 +21,7 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.db.models import Sum
+from django.db.models import Sum, Q
 
 @login_required 
 
@@ -240,17 +240,77 @@ def gallery(request):
 
 # Club treasury 
 def club_treasury(request):
-  members = Member.objects.all()
-  mymembers = []
-  for m in members:
-      total = Payment.objects.filter(member=m, payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
-      mymembers.append({'id': m.id, 'firstname': m.firstname, 'lastname': m.lastname, 'total_paid': total})
+  year_now = datetime.datetime.now().year
+  year_last = year_now - 1
 
-  myexpenses = Expenses.objects.all().values()
+  period = (request.GET.get('period') or 'all').strip().lower()
+  if period not in {'all', 'this_year', 'last_year'}:
+    period = 'all'
+
+  membership_qs = Payment.objects.filter(payment_type='membership')
+  sponsorship_qs = Payment.objects.filter(payment_type='other')
+  expenses_qs = Expenses.objects.all()
+
+  if period == 'this_year':
+    membership_qs = membership_qs.filter(period_year=year_now)
+    sponsorship_qs = sponsorship_qs.filter(date_paid__year=year_now)
+    expenses_qs = expenses_qs.filter(payment_date__year=year_now)
+    period_title = f"This year ({year_now})"
+  elif period == 'last_year':
+    membership_qs = membership_qs.filter(period_year=year_last)
+    sponsorship_qs = sponsorship_qs.filter(date_paid__year=year_last)
+    expenses_qs = expenses_qs.filter(payment_date__year=year_last)
+    period_title = f"Last year ({year_last})"
+  else:
+    period_title = "All years combined"
+
+  sum_membership = membership_qs.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship = sponsorship_qs.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_income = sum_membership + sum_sponsorship
+  sum_expenses = expenses_qs.aggregate(Sum('amount'))['amount__sum'] or 0
+  cash_balance = sum_income - sum_expenses
+
+  if period == 'this_year':
+    members_qs = Member.objects.all().annotate(
+      total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership', payments__period_year=year_now))
+    )
+  elif period == 'last_year':
+    members_qs = Member.objects.all().annotate(
+      total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership', payments__period_year=year_last))
+    )
+  else:
+    members_qs = Member.objects.all().annotate(
+      total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership'))
+    )
+
+  mymembers = []
+  for m in members_qs:
+    mymembers.append({
+      'id': m.id,
+      'firstname': m.firstname,
+      'lastname': m.lastname,
+      'total_paid': m.total_paid or 0,
+    })
+
+  mysponsorships = sponsorship_qs.select_related('member').all()
+  myexpenses = expenses_qs.all().values()
+
   template = loader.get_template('club_treasury.html')
   context = {
+    'period': period,
+    'period_title': period_title,
+    'year_now': year_now,
+    'year_last': year_last,
+
+    'sum_membership': sum_membership,
+    'sum_sponsorship': sum_sponsorship,
+    'sum_income': sum_income,
+    'sum_expenses': sum_expenses,
+    'cash_balance': cash_balance,
+
     'mymembers': mymembers,
-    'myexpenses': myexpenses
+    'mysponsorships': mysponsorships,
+    'myexpenses': myexpenses,
   }
   return HttpResponse(template.render(context, request))
 
