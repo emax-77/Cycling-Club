@@ -316,9 +316,12 @@ def club_treasury(request):
 
 # Club events page with event signup
 def club_events(request):
-    myevents = ClubEvents.objects.all().values()
+    events = ClubEvents.objects.all().values()
+    events_this_year = ClubEvents.objects.filter(event_date__year=datetime.datetime.now().year).values()
     members_subscribed_for_event = EventSubscribe.objects.all().values()
+    members_subscribed_for_event_this_year = EventSubscribe.objects.filter(event__event_date__year=datetime.datetime.now().year).values()
     template = loader.get_template('club_events.html')
+    year_now = datetime.datetime.now().year
 
     # signing up for a club event, send confirmation email to user and print success message
     if request.method == 'POST':
@@ -345,8 +348,11 @@ def club_events(request):
           success_message = "An error occurred: invalid recipient email."
           context = {
               'success_message': success_message,
-              'myevents': myevents,
+              'events': events,
+              'events_this_year': events_this_year,
               'members_subscribed_for_event': members_subscribed_for_event,
+              'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
+              'year_now': year_now,
           }
           return HttpResponse(template.render(context, request))
 
@@ -395,14 +401,20 @@ def club_events(request):
 
         context = {
             'success_message': success_message,
-            'myevents': myevents,
+            'events': events,
+            'events_this_year': events_this_year,
             'members_subscribed_for_event': members_subscribed_for_event,
+            'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
+            'year_now': year_now,
         }
         return HttpResponse(template.render(context, request))
     else:
         context = {
-            'myevents': myevents,
+            'events': events,
+            'events_this_year': events_this_year,
             'members_subscribed_for_event': members_subscribed_for_event,
+            'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
+            'year_now': year_now,
         }
         return HttpResponse(template.render(context, request))
     
