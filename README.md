@@ -1,10 +1,11 @@
 # Cyclo-Tourist Club / Member and event management, club treasury
 
-## !!! IMPORTANT UPDATE !!! - JANUARY 2026 - I decided to refactor most of the old code, so the project may not work properly in the next few days/weeks :)
+## !!! IMPORTANT UPDATE (JANUARY 2026) !!! - I decided to refactor most of the old code, so the project may not work properly in the next few days/weeks :)
 
-The aim of the project is to create an application for managing club members, club finances, and publishing club events, with the possibility of registering members for individual club events, as well as other features.
+The project aims to develop an application for managing club members, finances, and publishing club events, with the capability to register members for individual events, as well as other features.
 
 # Latest updates
+- Sponsor and Sponsorship models added  
 - Auth app added to the project.
 - A confirmation email is sent to the user after registration for the club event.
 - Contact template with 'contact us' form added to the project - emailing the club admin.
@@ -13,7 +14,7 @@ The aim of the project is to create an application for managing club members, cl
    
 
 # Technology Stack
-- Frontend: HTML, CSS
+- Frontend: HTML, CSS, JS
 - Backend: Django, Python
 - Database: SQLite3
 - Data visualization library: Plotly
@@ -21,7 +22,7 @@ The aim of the project is to create an application for managing club members, cl
 
 # O projekte:
 
-Kedze som pokladnikom cykloturistickeho klubu, cielom projektu je vytvorit jednoduchu aplikaciu na manazment clenov klubu, spravu klubovej pokladnice, zverejnovanie klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie vratane emailovej notifikacie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular.
+Kedze som pokladnikom cyklo-turistickeho klubu, cielom projektu je vytvorit funkcnu aplikaciu (webove stranky) na manazment clenov klubu, spravu klubovej pokladnice, spravu klubovych akcii s moznostou prihasovania clenov na jednotlive klubove akcie vratane emailovej notifikacie. Ako bonus zatial galeria cykloklubu, graf financnej bilancie klubu a kontaktny formular.
 
 # Projekt a jeho funkcionalita:
 
@@ -35,8 +36,9 @@ Na zalozke je zoznam clenov, po kliknuti na konkretneho clena sa ukazu jeho dals
 
 2. **Pokladna**
 
-Prijmy klubu pochadzaju z clenskych prispevkov. Vydavky su peniaze ktorymi klub prispieva na jednotlove akcie. Uhradeny clensky poplatok je jedna z poloziek databazy Members. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
+Prijmy klubu pochadzaju prevazne z clenskych prispevkov. Vydavky su peniaze ktorymi klub prispieva na jednotlove akcie. Na vydavky je samostatna databaza Expenses. Prijmy a vydavky eviduje pokladnik klubu cez admin panel v spomenutych databazach.
 Na zalozke je tabulka s clenskymi poplatkami od jednotlivych clenov a pod nou tabulka s vydavkami klubu v danom roku. Celkove zhrnutie prijmov a vydavkov, spolu s grafom je na zalozke Graficka bilancia.
+Novinkou (2026) je pridany model Sponsor a Sponsorship, na ich zapracovani do pokladne sa momentalne pracuje :)
 
 3. **Klubove akcie**
 
@@ -55,11 +57,11 @@ Tu je zhrnutie prijmov a vydavkov klubu spolu s grafom. Jednoduchy graf je vytvo
 
 6. **Kontakt**
 
-Klasicky kontaktny formular ktory posle spravu na klubovu emailovu adresu. 
+Klasicky kontaktny formular, ktory posle spravu na klubovu adresu. 
 
 # Zaver:
 
-Bol to moj prvy vacsi Django projekt pri ktoreho budovani som sa vela naucil.
+V roku 2024 to bol moj prvy vacsi Django projekt pri ktoreho budovani som sa vela naucil.
 Je tu par veci ktoré by som dnes urobil inak, kazdopadne po miernych upravach moze projekt sluzit ako WWW stranka, ktoru klub este nema.
+Update 01/2026 - rozhodol som sa dat tomuto projektu sancu a v najblizsom case prepisem vacsinu stareho backendu a ak bude cas, pozriem sa aj na frontend :)
 
-PS.: udaje a sumy v databazach su vymyslene a sluzia k testovaniu funkcnosti systemu :)
