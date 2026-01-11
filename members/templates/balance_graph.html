@@ -21,22 +21,70 @@
     padding: 10px;
   }
 </style>
-<div class="grid-container">
+
+<div class="grid-container" style="margin-bottom: 10px;">
   <div style="color: blue;">
       <br>
-      <h3>Total amount collected from Club Members: {{ sum_fees }} EUR</h3>
-      <h3>Total amount of all expenses: {{ sum_expenses }} EUR </h3>
-      {% if cash_balance > 0 %}
-      <h2 style="color: green;">There is {{ cash_balance }} EUR in cash treasury now</h2>
-      {% elif cash_balance < 0 %}
-      <h2 style="color: red;">There is {{ cash_balance }} EUR in cash treasury now</h2>
+      <h2>Club treasury TOTAL</h2>
+      <h3>Total amount collected from Club Members: {{ sum_fees_total }} EUR</h3>
+      <h3>Total amount of all expenses: {{ sum_expenses_total }} EUR </h3>
+      {% if cash_balance_total > 0 %}
+      <h2 style="color: green;">There is {{ cash_balance_total }} EUR in cash treasury now</h2>
+      {% elif cash_balance_total < 0 %}
+      <h2 style="color: red;">There is {{ cash_balance_total }} EUR in cash treasury now</h2>
       {% else %}
-      <h2 style="color: blue;">There is {{ cash_balance }} EUR in cash treasury now</h2>
+      <h2 style="color: blue;">There is {{ cash_balance_total }} EUR in cash treasury now</h2>
       {% endif %} 
   </div>
   <div>
-      {% if graph %}
-      {{ graph|safe }}
+      {% if graph_total %}
+      {{ graph_total|safe }}
+      {% else %}
+      <p>No graph was provided.</p>
+      {% endif %}
+  </div>
+</div>
+
+<div class="grid-container" style="margin-bottom: 10px;">
+  <div style="color: blue;">
+      <br>
+      <h2>Club treasury THIS YEAR{% if year_now %} ({{ year_now }}){% endif %}</h2>
+      <h3>Total amount collected from Club Members: {{ sum_fees_this_year }} EUR</h3>
+      <h3>Total amount of all expenses: {{ sum_expenses_this_year }} EUR </h3>
+      {% if cash_balance_this_year > 0 %}
+      <h2 style="color: green;">There is {{ cash_balance_this_year }} EUR in cash treasury now</h2>
+      {% elif cash_balance_this_year < 0 %}
+      <h2 style="color: red;">There is {{ cash_balance_this_year }} EUR in cash treasury now</h2>
+      {% else %}
+      <h2 style="color: blue;">There is {{ cash_balance_this_year }} EUR in cash treasury now</h2>
+      {% endif %}
+  </div>
+  <div>
+      {% if graph_this_year %}
+      {{ graph_this_year|safe }}
+      {% else %}
+      <p>No graph was provided.</p>
+      {% endif %}
+  </div>
+</div>
+
+<div class="grid-container">
+  <div style="color: blue;">
+      <br>
+      <h2>Club treasury LAST YEAR{% if year_last %} ({{ year_last }}){% endif %}</h2>
+      <h3>Total amount collected from Club Members: {{ sum_fees_last_year }} EUR</h3>
+      <h3>Total amount of all expenses: {{ sum_expenses_last_year }} EUR </h3>
+      {% if cash_balance_last_year > 0 %}
+      <h2 style="color: green;">There is {{ cash_balance_last_year }} EUR in cash treasury now</h2>
+      {% elif cash_balance_last_year < 0 %}
+      <h2 style="color: red;">There is {{ cash_balance_last_year }} EUR in cash treasury now</h2>
+      {% else %}
+      <h2 style="color: blue;">There is {{ cash_balance_last_year }} EUR in cash treasury now</h2>
+      {% endif %}
+  </div>
+  <div>
+      {% if graph_last_year %}
+      {{ graph_last_year|safe }}
       {% else %}
       <p>No graph was provided.</p>
       {% endif %}

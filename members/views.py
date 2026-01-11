@@ -13,6 +13,7 @@ import logging
 import re
 import ssl
 import smtplib
+import datetime
 
 logger = logging.getLogger(__name__)
 from django.core.validators import validate_email
@@ -24,12 +25,12 @@ from django.db.models import Sum
 
 @login_required 
 
-# home page (displayed first after login)  
+# Home page (displayed first after login)  
 def welcome(request):
   template = loader.get_template('welcome.html')
   return HttpResponse(template.render(request=request))
 
-# list of all members page
+# List of all members
 def members(request):
   mymembers = Member.objects.all().values()
   template = loader.get_template('all_members.html')
@@ -38,7 +39,7 @@ def members(request):
   }
   return HttpResponse(template.render(context, request))
   
-# member details page
+# Member details
 def details(request, id):
   mymember = Member.objects.get(id=id)
   total_paid = Payment.objects.filter(member=mymember, payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
@@ -49,27 +50,95 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
   
-# page with graph and balance
+#  Balance graph  / total, this year, last year
 def balance_graph(request):
-  mymembers = Member.objects.all()
-  myexpenses = Expenses.objects.all().values()
-  sum_fees = Payment.objects.filter(payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
-  sum_expenses = sum([x['amount'] for x in myexpenses])
-  cash_balance = sum_fees - sum_expenses
+  year_now = datetime.datetime.now().year
+  year_last = year_now - 1
 
-  # create a bar graph
-  fig = px.bar(x=["incomes", "payments", "result"], y=[sum_fees, sum_expenses, cash_balance], labels={"x":"balance", "y":"EUR"}, title='Club treasury')
-  graph = fig.to_html(full_html=False, default_height=500, default_width=700)
+  sum_fees_total = Payment.objects.filter(payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_total = Payment.objects.filter(payment_type='other').aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_expenses_total = Expenses.objects.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_income_total = sum_fees_total + sum_sponsorship_total
+  cash_balance_total = sum_income_total - sum_expenses_total
+
+  sum_fees_this_year = Payment.objects.filter(payment_type='membership', period_year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_this_year = Payment.objects.filter(payment_type='other', date_paid__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_expenses_this_year = Expenses.objects.filter(payment_date__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_income_this_year = sum_fees_this_year + sum_sponsorship_this_year
+  cash_balance_this_year = sum_income_this_year - sum_expenses_this_year
+
+  sum_fees_last_year = Payment.objects.filter(payment_type='membership', period_year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_last_year = Payment.objects.filter(payment_type='other', date_paid__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_expenses_last_year = Expenses.objects.filter(payment_date__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_income_last_year = sum_fees_last_year + sum_sponsorship_last_year
+  cash_balance_last_year = sum_income_last_year - sum_expenses_last_year
+
+  fig_total = px.bar(
+    x=["incomes", "payments", "result"],
+    y=[float(sum_income_total), float(sum_expenses_total), float(cash_balance_total)],
+    labels={"x": "balance", "y": "EUR"},
+    title='Club treasury TOTAL'
+  )
+  # Include Plotly.js only once (via CDN) to keep response size reasonable.
+  graph_total = fig_total.to_html(
+    full_html=False,
+    include_plotlyjs='cdn',
+    default_height=500,
+    default_width=700,
+  )
+
+  fig_this_year = px.bar(
+    x=["incomes", "payments", "result"],
+    y=[float(sum_income_this_year), float(sum_expenses_this_year), float(cash_balance_this_year)],
+    labels={"x": "balance", "y": "EUR"},
+    title='Club treasury THIS YEAR'
+  )
+  graph_this_year = fig_this_year.to_html(
+    full_html=False,
+    include_plotlyjs=False,
+    default_height=500,
+    default_width=700,
+  )
+
+  fig_last_year = px.bar(
+    x=["incomes", "payments", "result"],
+    y=[float(sum_income_last_year), float(sum_expenses_last_year), float(cash_balance_last_year)],
+    labels={"x": "balance", "y": "EUR"},
+    title='Club treasury LAST YEAR'
+  )
+  graph_last_year = fig_last_year.to_html(
+    full_html=False,
+    include_plotlyjs=False,
+    default_height=500,
+    default_width=700,
+  )
 
   template = loader.get_template('balance_graph.html')
-  context = {'graph':graph,
-             'sum_fees': sum_fees,
-             'sum_expenses': sum_expenses,
-             'cash_balance': cash_balance        
-  } 
-  return HttpResponse(template.render(context, request))
+  context = {
+    'graph_total': graph_total,
+    'graph_this_year': graph_this_year,
+    'graph_last_year': graph_last_year,
+    'year_now': year_now,
+    'year_last': year_last,
 
-# contact page - to send email to club-admin
+    # totals
+    'sum_fees_total': sum_fees_total,
+    'sum_expenses_total': sum_expenses_total,
+    'cash_balance_total': cash_balance_total,
+
+    # this year
+    'sum_fees_this_year': sum_fees_this_year,
+    'sum_expenses_this_year': sum_expenses_this_year,
+    'cash_balance_this_year': cash_balance_this_year,
+
+    # last year
+    'sum_fees_last_year': sum_fees_last_year,
+    'sum_expenses_last_year': sum_expenses_last_year,
+    'cash_balance_last_year': cash_balance_last_year,
+  }
+  return HttpResponse(template.render(context, request))
+  
+# Contact page - to send email to club-admin
 def contact(request):
   template = loader.get_template('contact.html')
   context = {}
@@ -79,13 +148,13 @@ def contact(request):
     email = (request.POST.get('email') or '').strip()
     message_content = (request.POST.get('message') or '').strip()
 
-    # Prevent header injection (CR/LF) in name/email
+    # prevent header injection (CR/LF) in name/email
     if any(ch in name for ch in ('\n', '\r')) or any(ch in email for ch in ('\n', '\r')):
       context['error_message'] = 'Invalid characters in name or email.'
       return HttpResponse(template.render(context, request))
     name = name.replace('\r', ' ').replace('\n', ' ')
 
-    # Validate email format
+    # validate email format
     try:
       validate_email(email)
     except DjangoValidationError:
@@ -160,7 +229,7 @@ def contact(request):
 
   return HttpResponse(template.render(context, request))
 
-# gallery page
+# Gallery 
 def gallery(request):
   club_pictures = ClubPicture.objects.all() 
   template = loader.get_template('gallery.html')
@@ -169,7 +238,7 @@ def gallery(request):
   }
   return HttpResponse(template.render(context, request))
 
-# club treasury page   
+# Club treasury 
 def club_treasury(request):
   members = Member.objects.all()
   mymembers = []
@@ -185,7 +254,7 @@ def club_treasury(request):
   }
   return HttpResponse(template.render(context, request))
 
-# club events page with event signup
+# Club events page with event signup
 def club_events(request):
     myevents = ClubEvents.objects.all().values()
     members_subscribed_for_event = EventSubscribe.objects.all().values()
@@ -209,7 +278,7 @@ def club_events(request):
         email_from = _sanitize_header(str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else '')
         recipient_list = [_sanitize_header(user.email)]
 
-        # Validate recipient email
+        # validate recipient email
         try:
           validate_email(recipient_list[0])
         except DjangoValidationError:
@@ -277,12 +346,12 @@ def club_events(request):
         }
         return HttpResponse(template.render(context, request))
     
-# test page
+# Test page
 def testing(request):
     template = loader.get_template('template.html')
     return HttpResponse(template.render(request=request))
 
- # sanitize header values to prevent header injection (remove CR/LF)
+ # Sanitize header values (remove CR/LF to prevent header injection)
 def _sanitize_header(val):
   return re.sub(r'[\r\n]+', ' ', (val or '')).strip()
 
