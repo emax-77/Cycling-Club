@@ -1,9 +1,18 @@
 from django.db import models
+from django.conf import settings
 from django.utils import timezone
 
 class Member(models.Model):
     firstname = models.CharField(max_length=255)
     lastname = models.CharField(max_length=255)
+    email = models.EmailField(null=True, blank=True, unique=True)
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='club_member',
+    )
     phone = models.CharField(max_length=255, null=True, blank=True)
     joined_date = models.DateField(null=True, blank=True)
     address = models.CharField(max_length=255, null=True, blank=True)

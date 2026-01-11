@@ -6,7 +6,7 @@ from .models import ClubPicture, Sponsor, Sponsorship, Payment
 # Register your models here.
 
 class MemberAdmin(admin.ModelAdmin):
-  list_display = ("firstname", "lastname", "joined_date",)
+  list_display = ("firstname", "lastname", "email", "user", "joined_date",)
 class ExpensesAdmin(admin.ModelAdmin):
   list_display = ('payment_date', 'event_name', 'purpose', 'amount',)
 class ClubEventsAdmin(admin.ModelAdmin):

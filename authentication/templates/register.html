@@ -14,11 +14,10 @@
 
 			<h1 style="text-align: center;"><span style="color: blue;">Cyclo Tourist Club</span></h1>
 			<h3 style="text-align: center;">Register</h3>
-			<span>
-				Password can't be too similar to your other personal information
-				, must contain at least 8 characters, can't be a commonly used password,
-				can't be entirely numeric, can obtain letters, digits and @/./+/-/_ only.
-			</span>
+			<div class="alert alert-info" role="alert">
+				Registration is allowed only for club members. Email must first be added by the administrator to your membership.
+			</div>
+			
 			<hr>
 
 			<!-- Display error/success messages -->
@@ -30,38 +29,36 @@
 			</div>
 			{% endif %}
 
-			<!-- First Name input field -->
+			<!-- First Name -->
 			<div class="form-group">
 				<label for="exampleInputEmail1">First name</label>
 				<input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
 					placeholder="Enter First name" name="first_name" required>
 			</div>
 
-			<!-- Last Name input field -->
+			<!-- Last Name -->
 			<div class="form-group">
 				<label for="exampleInputEmail1">Last name</label>
 				<input type="text" name="last_name" class="form-control" id="exampleInputEmail1"
 					aria-describedby="emailHelp" placeholder="Enter Last name" required>
 			</div>
 
-			<!-- Username input field -->
+			<!-- Email -->
 			<div class="form-group">
-				<label for="exampleInputEmail1">Username</label>
+				<label for="exampleInputEmail1">Email</label>
 				<input type="text" class="form-control" name="username" id="exampleInputEmail1"
 					aria-describedby="emailHelp" placeholder="Enter email" required>
 			</div>
 
-			<!-- Password input field -->
+			<!-- Password -->
 			<div class="form-group">
 				<label for="exampleInputPassword1">Password</label>
 				<input type="password" class="form-control" name="password" id="exampleInputPassword1"
 					placeholder="Password" required>
 			</div>
 
-			<!-- Link to login page for users who already have an account -->
 			<p>Already have an account <a href="/">Login</a> </p>
-
-			<!-- Submit button -->
+			
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
