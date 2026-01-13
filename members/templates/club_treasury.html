@@ -111,7 +111,8 @@
   </div>
 </div>
 
-<h2 style="text-align: center; color: blue;">Sponsorship / Other income</h2>
+{% if mysponsorships_model %}
+<h2 style="text-align: center; color: blue;">Sponsorships</h2>
 
 <div class="table-container">
   <table class="styled-table">
@@ -119,24 +120,25 @@
       <tr>
           <th>Id</th>
           <th>Date</th>
-          <th>Member</th>
-          <th>Note</th>
+          <th>Sponsor</th>
+          <th>Purpose</th>
           <th>Amount</th>
       </tr>
     </thead>
     <tbody>
-      {% for x in mysponsorships %}
+      {% for x in mysponsorships_model %}
         <tr>
           <td>{{ x.id }}</td>
-          <td>{{ x.date_paid }}</td>
-          <td>{{ x.member }}</td>
-          <td>{{ x.note }}</td>
+          <td>{{ x.date }}</td>
+          <td>{{ x.sponsor }}</td>
+          <td>{{ x.purpose }}</td>
           <td>{{ x.amount }}</td>
         </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
+{% endif %}
 
 <h2 style="text-align: center; color: blue;">Club Expenses</h2>
 

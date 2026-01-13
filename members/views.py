@@ -6,6 +6,7 @@ from .models import Expenses
 from .models import ClubEvents
 from .models import EventSubscribe
 from .models import ClubPicture 
+from .models import Sponsorship
 from django.conf import settings
 from django.core.mail import send_mail, BadHeaderError, get_connection
 from django.core.mail import EmailMessage
@@ -56,19 +57,28 @@ def balance_graph(request):
   year_last = year_now - 1
 
   sum_fees_total = Payment.objects.filter(payment_type='membership').aggregate(Sum('amount'))['amount__sum'] or 0
-  sum_sponsorship_total = Payment.objects.filter(payment_type='other').aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_total = (
+    (Payment.objects.filter(payment_type='other').aggregate(Sum('amount'))['amount__sum'] or 0)
+    + (Sponsorship.objects.aggregate(Sum('amount'))['amount__sum'] or 0)
+  )
   sum_expenses_total = Expenses.objects.aggregate(Sum('amount'))['amount__sum'] or 0
   sum_income_total = sum_fees_total + sum_sponsorship_total
   cash_balance_total = sum_income_total - sum_expenses_total
 
   sum_fees_this_year = Payment.objects.filter(payment_type='membership', period_year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
-  sum_sponsorship_this_year = Payment.objects.filter(payment_type='other', date_paid__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_this_year = (
+    (Payment.objects.filter(payment_type='other', date_paid__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0)
+    + (Sponsorship.objects.filter(date__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0)
+  )
   sum_expenses_this_year = Expenses.objects.filter(payment_date__year=year_now).aggregate(Sum('amount'))['amount__sum'] or 0
   sum_income_this_year = sum_fees_this_year + sum_sponsorship_this_year
   cash_balance_this_year = sum_income_this_year - sum_expenses_this_year
 
   sum_fees_last_year = Payment.objects.filter(payment_type='membership', period_year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
-  sum_sponsorship_last_year = Payment.objects.filter(payment_type='other', date_paid__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship_last_year = (
+    (Payment.objects.filter(payment_type='other', date_paid__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0)
+    + (Sponsorship.objects.filter(date__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0)
+  )
   sum_expenses_last_year = Expenses.objects.filter(payment_date__year=year_last).aggregate(Sum('amount'))['amount__sum'] or 0
   sum_income_last_year = sum_fees_last_year + sum_sponsorship_last_year
   cash_balance_last_year = sum_income_last_year - sum_expenses_last_year
@@ -123,16 +133,19 @@ def balance_graph(request):
 
     # totals
     'sum_fees_total': sum_fees_total,
+    'sum_sponsorship_total': sum_sponsorship_total,
     'sum_expenses_total': sum_expenses_total,
     'cash_balance_total': cash_balance_total,
 
     # this year
     'sum_fees_this_year': sum_fees_this_year,
+    'sum_sponsorship_this_year': sum_sponsorship_this_year,
     'sum_expenses_this_year': sum_expenses_this_year,
     'cash_balance_this_year': cash_balance_this_year,
 
     # last year
     'sum_fees_last_year': sum_fees_last_year,
+    'sum_sponsorship_last_year': sum_sponsorship_last_year,
     'sum_expenses_last_year': sum_expenses_last_year,
     'cash_balance_last_year': cash_balance_last_year,
   }
@@ -247,27 +260,33 @@ def club_treasury(request):
   if period not in {'all', 'this_year', 'last_year'}:
     period = 'all'
 
-  membership_qs = Payment.objects.filter(payment_type='membership')
-  sponsorship_qs = Payment.objects.filter(payment_type='other')
-  expenses_qs = Expenses.objects.all()
+  membership = Payment.objects.filter(payment_type='membership')
+  other_income = Payment.objects.filter(payment_type='other')
+  sponsorship = Sponsorship.objects.all()
+  expenses = Expenses.objects.all()
 
   if period == 'this_year':
-    membership_qs = membership_qs.filter(period_year=year_now)
-    sponsorship_qs = sponsorship_qs.filter(date_paid__year=year_now)
-    expenses_qs = expenses_qs.filter(payment_date__year=year_now)
+    membership = membership.filter(period_year=year_now)
+    other_income = other_income.filter(date_paid__year=year_now)
+    sponsorship = sponsorship.filter(date__year=year_now)
+    expenses = expenses.filter(payment_date__year=year_now)
     period_title = f"This year ({year_now})"
   elif period == 'last_year':
-    membership_qs = membership_qs.filter(period_year=year_last)
-    sponsorship_qs = sponsorship_qs.filter(date_paid__year=year_last)
-    expenses_qs = expenses_qs.filter(payment_date__year=year_last)
+    membership = membership.filter(period_year=year_last)
+    other_income = other_income.filter(date_paid__year=year_last)
+    sponsorship = sponsorship.filter(date__year=year_last)
+    expenses = expenses.filter(payment_date__year=year_last)
     period_title = f"Last year ({year_last})"
   else:
     period_title = "All years combined"
 
-  sum_membership = membership_qs.aggregate(Sum('amount'))['amount__sum'] or 0
-  sum_sponsorship = sponsorship_qs.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_membership = membership.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_sponsorship = (
+    (other_income.aggregate(Sum('amount'))['amount__sum'] or 0)
+    + (sponsorship.aggregate(Sum('amount'))['amount__sum'] or 0)
+  )
   sum_income = sum_membership + sum_sponsorship
-  sum_expenses = expenses_qs.aggregate(Sum('amount'))['amount__sum'] or 0
+  sum_expenses = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
   cash_balance = sum_income - sum_expenses
 
   if period == 'this_year':
@@ -292,8 +311,9 @@ def club_treasury(request):
       'total_paid': m.total_paid or 0,
     })
 
-  mysponsorships = sponsorship_qs.select_related('member').all()
-  myexpenses = expenses_qs.all().values()
+  mysponsorships = sponsorship.select_related('member').all()
+  mysponsorships_model = sponsorship.select_related('sponsor').all()
+  myexpenses = expenses.all().values()
 
   template = loader.get_template('club_treasury.html')
   context = {
@@ -310,6 +330,7 @@ def club_treasury(request):
 
     'mymembers': mymembers,
     'mysponsorships': mysponsorships,
+    'mysponsorships_model': mysponsorships_model,
     'myexpenses': myexpenses,
   }
   return HttpResponse(template.render(context, request))
