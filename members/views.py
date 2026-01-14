@@ -23,6 +23,7 @@ import plotly.express as px
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Q
+from django.utils import timezone
 
 @login_required 
 
@@ -218,27 +219,27 @@ def contact(request):
     except ssl.SSLError:
       logger.exception('SSL error when sending contact email')
       context['error_message'] = (
-        "Nepodarilo sa nadviazať zabezpečené TLS spojenie so SMTP serverom (SSL certifikát). "
-        "Často to spôsobí firemný proxy/antivírus, ktorý vkladá vlastný certifikát. "
-        "Skontroluj, že EMAIL_USE_OS_TRUSTSTORE=1 a reštartuj server."
+        "Secure connection failed: It was not possible to establish a secure TLS connection to the SMTP server (SSL certificate). "
+        "This is often caused by a corporate proxy/antivirus inserting its own certificate. "
+        "Check that EMAIL_USE_OS_TRUSTSTORE=1 and restart the server."
       )
 
     except smtplib.SMTPAuthenticationError:
       logger.exception('SMTPAuthenticationError when sending contact email')
       context['error_message'] = (
-        "Gmail odmietol prihlásenie do SMTP. "
-        "Použi 'App password' a ulož ho do EMAIL_HOST_PASSWORD.")
+        "Gmail refused SMTP login. "
+        "Use an 'App password' and save it in EMAIL_HOST_PASSWORD.")
 
     except smtplib.SMTPException:
       logger.exception('SMTPException when sending contact email')
-      context['error_message'] = "Nastala SMTP chyba pri odosielaní správy. Skús to prosím neskôr."
+      context['error_message'] = "An SMTP error occurred while sending the message. Please try again later."
 
     except Exception as e:
       logger.exception('Unexpected error when sending contact email')
       if getattr(settings, 'DEBUG', False):
         context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
       else:
-        context['error_message'] = "Nastala chyba pri odosielaní správy. Skús to prosím neskôr."
+        context['error_message'] = "An error occurred while sending your message. Please try again later."
 
   return HttpResponse(template.render(context, request))
 
@@ -336,108 +337,151 @@ def club_treasury(request):
   return HttpResponse(template.render(context, request))
 
 # Club events page with event signup
+@login_required
 def club_events(request):
-    events = ClubEvents.objects.all().values()
-    events_this_year = ClubEvents.objects.filter(event_date__year=datetime.datetime.now().year).values()
-    members_subscribed_for_event = EventSubscribe.objects.all().values()
-    members_subscribed_for_event_this_year = EventSubscribe.objects.filter(event__event_date__year=datetime.datetime.now().year).values()
-    template = loader.get_template('club_events.html')
-    year_now = datetime.datetime.now().year
+  template = loader.get_template('club_events.html')
+  today = timezone.localdate()
+  year_now = today.year
 
-    # signing up for a club event, send confirmation email to user and print success message
-    if request.method == 'POST':
-        name = request.POST.get('name')
-        email = request.POST.get('email')
-        event = request.POST.get('event')
+  # Show only upcoming events (today and future). Exclude events without a date.
+  events_this_year = ClubEvents.objects.filter(
+    event_date__isnull=False,
+    event_date__gte=today,
+  ).order_by('event_date', 'event_name')
 
-        event_sub = EventSubscribe(name=name, email=email, event=event)
-        event_sub.save()
+  # Show registrations for upcoming events
+  subscriptions_this_year = (
+    EventSubscribe.objects.filter(event__event_date__isnull=False, event__event_date__gte=today)
+    .select_related('member', 'event')
+    .order_by('-subscribed_at')
+  )
 
-        user = User.objects.create_user(username=name, email=email)
-        
-        subject = _sanitize_header('Welcome to Cycling Club')
-        safe_username = _sanitize_header(user.username)
-        safe_event = _sanitize_header(event)
-        message = f'Hi {safe_username}, thank you for registering for {safe_event} event.'
-        email_from = _sanitize_header(str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else '')
-        recipient_list = [_sanitize_header(user.email)]
+  # Find the Member for the logged-in user
+  member = getattr(request.user, 'club_member', None)
+  candidate_email = (request.user.email or request.user.username or '').strip()
 
-        # validate recipient email
-        try:
-          validate_email(recipient_list[0])
-        except DjangoValidationError:
-          success_message = "An error occurred: invalid recipient email."
-          context = {
-              'success_message': success_message,
-              'events': events,
-              'events_this_year': events_this_year,
-              'members_subscribed_for_event': members_subscribed_for_event,
-              'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
-              'year_now': year_now,
-          }
-          return HttpResponse(template.render(context, request))
+  if member is None:
+    member = Member.objects.filter(user=request.user).first()
+  if member is None and candidate_email:
+    member = Member.objects.filter(email__iexact=candidate_email).first()
 
-        try:
-          email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
+  success_message = None
+  error_message = None
 
-          if getattr(settings, 'DEBUG', False):
-            conn = get_connection('django.core.mail.backends.console.EmailBackend')
-          else:
-            conn = get_connection()
+  if request.method == 'POST':
+    event_id = (request.POST.get('event_id') or '').strip()
 
-          sent_count = conn.send_messages([email_msg])
-          if sent_count and sent_count > 0:
-            success_message = "Thank you! You are now registered for the event."
-          else:
-            success_message = "Email was not sent. Please try again later."
-
-        except BadHeaderError:
-          logger.warning('BadHeaderError when sending club_events confirmation email.')
-          success_message = "An error occurred: Invalid email header."
-
-        except ssl.SSLError:
-          logger.exception('SSL error when sending club_events confirmation email')
-          success_message = (
-            "Nepodarilo sa nadviazať zabezpečené TLS spojenie so SMTP serverom (SSL certifikát). "
-            "Skontroluj, že EMAIL_USE_OS_TRUSTSTORE=1 a reštartuj server."
-          )
-
-        except smtplib.SMTPAuthenticationError:
-          logger.exception('SMTPAuthenticationError when sending club_events confirmation email')
-          success_message = (
-            "Gmail odmietol prihlásenie do SMTP. "
-            "Použi 'App password' a ulož ho do EMAIL_HOST_PASSWORD."
-          )
-
-        except smtplib.SMTPException:
-          logger.exception('SMTPException when sending club_events confirmation email')
-          success_message = "Nastala SMTP chyba pri odosielaní emailu. Skús to prosím neskôr."
-
-        except Exception as e:
-          logger.exception('Unexpected error when sending club_events confirmation email')
-          if getattr(settings, 'DEBUG', False):
-            success_message = f"An error occurred while sending the confirmation email. Error: {str(e)}"
-          else:
-            success_message = "Nastala chyba pri odosielaní potvrdzujúceho emailu. Skús to prosím neskôr."
-
-        context = {
-            'success_message': success_message,
-            'events': events,
-            'events_this_year': events_this_year,
-            'members_subscribed_for_event': members_subscribed_for_event,
-            'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
-            'year_now': year_now,
-        }
-        return HttpResponse(template.render(context, request))
+    if not event_id:
+      error_message = 'Please select an event.'
+    elif member is None:
+      if getattr(settings, 'DEBUG', False):
+        error_message = (
+          'No club member is linked to your account. '
+          f"(DEBUG: username='{request.user.username}', email='{candidate_email or '—'}') "
+          'Fix: link a Member via Member.user, or set Member.email to this email.'
+        )
+      else:
+        error_message = 'No club member is linked to your account. Please contact the administrator.'
     else:
-        context = {
-            'events': events,
-            'events_this_year': events_this_year,
-            'members_subscribed_for_event': members_subscribed_for_event,
-            'members_subscribed_for_event_this_year': members_subscribed_for_event_this_year,
-            'year_now': year_now,
-        }
-        return HttpResponse(template.render(context, request))
+      # Only allow upcoming events
+      try:
+        event = ClubEvents.objects.get(id=event_id, event_date__isnull=False, event_date__gte=today)
+      except ClubEvents.DoesNotExist:
+        event = None
+        error_message = 'The selected event does not exist.'
+
+      if event is not None:
+        email = (request.user.email or member.email or request.user.username or '').strip()
+        if not email:
+          error_message = 'No email address is set for your account. Please contact the administrator.'
+        else:
+          subscription, created = EventSubscribe.objects.get_or_create(
+            email=email,
+            event=event,
+            defaults={'member': member},
+          )
+
+          if not created and subscription.member_id is None:
+            subscription.member = member
+            subscription.save(update_fields=['member'])
+
+          event.event_members.add(member)
+
+          # Send confirmation email
+          subject = _sanitize_header('Event registration')
+          safe_event_name = _sanitize_header(event.event_name)
+          safe_member_name = _sanitize_header(f'{member.firstname} {member.lastname}'.strip())
+          safe_date = _sanitize_header(str(event.event_date) if event.event_date else '')
+          message = (
+            f'Hi {safe_member_name},\n\n'
+            f'you have successfully registered for the event: {safe_event_name}'
+            f'{(" (" + safe_date + ")") if safe_date else ""}.\n\n'
+            'Thank you and see you soon.\n'
+            'Cycling Club'
+          )
+          email_from = _sanitize_header(str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else '')
+          recipient_list = [_sanitize_header(email)]
+
+          try:
+            validate_email(recipient_list[0])
+          except DjangoValidationError:
+            error_message = 'An error occurred: invalid recipient email.'
+          else:
+            try:
+              email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
+
+              if getattr(settings, 'DEBUG', False):
+                conn = get_connection('django.core.mail.backends.console.EmailBackend')
+              else:
+                conn = get_connection()
+
+              sent_count = conn.send_messages([email_msg])
+              if sent_count and sent_count > 0:
+                success_message = 'Done! You are registered for the event.'
+              else:
+                success_message = 'Registration was saved, but the email could not be sent.'
+
+            except BadHeaderError:
+              logger.warning('BadHeaderError when sending club_events confirmation email.')
+              success_message = 'Registration was saved, but the email could not be sent (invalid header).'
+
+            except ssl.SSLError:
+              logger.exception('SSL error when sending club_events confirmation email')
+              success_message = (
+                'Registration was saved, but a TLS connection to the SMTP server could not be established. '
+                'Check EMAIL_USE_OS_TRUSTSTORE=1 and restart the server.'
+              )
+
+            except smtplib.SMTPAuthenticationError:
+              logger.exception('SMTPAuthenticationError when sending club_events confirmation email')
+              success_message = (
+                'Registration was saved, but Gmail refused SMTP login. '
+                "Use an 'App password' and save it in EMAIL_HOST_PASSWORD."
+              )
+
+            except smtplib.SMTPException:
+              logger.exception('SMTPException when sending club_events confirmation email')
+              success_message = 'Registration was saved, but an SMTP error occurred while sending the email.'
+
+            except Exception:
+              logger.exception('Unexpected error when sending club_events confirmation email')
+              success_message = 'Registration was saved, but an error occurred while sending the email.'
+
+    # refresh list after POST
+    subscriptions_this_year = (
+      EventSubscribe.objects.filter(event__event_date__isnull=False, event__event_date__gte=today)
+      .select_related('member', 'event')
+      .order_by('-subscribed_at')
+    )
+
+  context = {
+    'success_message': success_message,
+    'error_message': error_message,
+    'events_this_year': events_this_year,
+    'subscriptions_this_year': subscriptions_this_year,
+    'year_now': year_now,
+  }
+  return HttpResponse(template.render(context, request))
   
  # Sanitize header values (remove CR/LF to prevent header injection)
 def _sanitize_header(val):
