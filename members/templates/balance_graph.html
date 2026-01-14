@@ -1,96 +1,346 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  Balance Graph
+  Balance Graph - Cycling Club
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .balance-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .balance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .balance-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card-header {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .card-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .card-body {
+    padding: 2rem;
+  }
+
+  .stats-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(90deg, #f8fafc, #f1f5f9);
+    border-radius: 10px;
+    border-left: 4px solid #3b82f6;
+    transition: all 0.3s ease;
+  }
+
+  .stat-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  }
+
+  .stat-label {
+    font-weight: 600;
+    color: #475569;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #1e293b;
+  }
+
+  .balance-highlight {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .balance-positive {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+  }
+
+  .balance-negative {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+  }
+
+  .balance-neutral {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+  }
+
+  .balance-highlight .label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .balance-highlight .value {
+    font-size: 2.5rem;
+    font-weight: 800;
+  }
+
+  .graph-wrapper {
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-top: 1rem;
+  }
+
+  .no-graph {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #94a3b8;
+  }
+
+  .no-graph i {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 1024px) {
+    .balance-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .balance-card {
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<style>
-  .grid-container {
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 5px;
-    background-color: #dddddd;
-    padding: 5px;
-    border-radius: 8px;
-  }
+<div class="balance-container">
+  <div class="page-header">
+    <h1><i class="bi bi-graph-up-arrow"></i> Balance Graph</h1>
+    <p style="color: #64748b; font-size: 1.1rem;">
+      <i class="bi bi-bar-chart-fill"></i> Financial overview and analytics
+    </p>
+  </div>
 
-  .grid-container > div{
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 20px 0;
-    padding: 10px;
-  }
-</style>
+  <!-- Total Balance -->
+  <div class="balance-card">
+    <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+      <h2><i class="bi bi-wallet2"></i> Club Treasury TOTAL</h2>
+    </div>
+    <div class="card-body">
+      <div class="stats-group">
+        <div class="stat-item">
+          <span class="stat-label">
+            <i class="bi bi-people-fill"></i> Membership Fees
+          </span>
+          <span class="stat-value">{{ sum_fees_total }} EUR</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">
+            <i class="bi bi-currency-euro"></i> Sponsorship
+          </span>
+          <span class="stat-value">{{ sum_sponsorship_total }} EUR</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">
+            <i class="bi bi-receipt"></i> Total Expenses
+          </span>
+          <span class="stat-value">{{ sum_expenses_total }} EUR</span>
+        </div>
+      </div>
 
-<div class="grid-container" style="margin-bottom: 10px;">
-  <div style="color: blue;">
-      <br>
-      <h2>Club treasury TOTAL</h2>
-      <h3>Total amount collected from Club Members: {{ sum_fees_total }} EUR</h3>
-      <h3>Total amount collected from Sponsorship: {{ sum_sponsorship_total }} EUR</h3>
-      <h3>Total amount of all expenses: {{ sum_expenses_total }} EUR </h3>
-      {% if cash_balance_total > 0 %}
-      <h2 style="color: green;">There is {{ cash_balance_total }} EUR in cash treasury total</h2>
-      {% elif cash_balance_total < 0 %}
-      <h2 style="color: red;">There is {{ cash_balance_total }} EUR in cash treasury total</h2>
-      {% else %}
-      <h2 style="color: blue;">There is {{ cash_balance_total }} EUR in cash treasury total</h2>
-      {% endif %} 
-  </div>
-  <div>
-      {% if graph_total %}
-      {{ graph_total|safe }}
-      {% else %}
-      <p>No graph was provided.</p>
-      {% endif %}
-  </div>
-</div>
+      <div class="balance-highlight {% if cash_balance_total > 0 %}balance-positive{% elif cash_balance_total < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
+        <div class="label">
+          <i class="bi bi-cash-coin"></i> Total Balance
+        </div>
+        <div class="value">{{ cash_balance_total }} EUR</div>
+      </div>
 
-<div class="grid-container" style="margin-bottom: 10px;">
-  <div style="color: blue;">
-      <br>
-      <h2>Club treasury THIS YEAR{% if year_now %} ({{ year_now }}){% endif %}</h2>
-      <h3>Total amount collected from Club Members: {{ sum_fees_this_year }} EUR</h3>
-      <h3>Total amount collected from Sponsorship: {{ sum_sponsorship_this_year }} EUR</h3>
-      <h3>Total amount of all expenses: {{ sum_expenses_this_year }} EUR </h3>
-      {% if cash_balance_this_year > 0 %}
-      <h2 style="color: green;">There is {{ cash_balance_this_year }} EUR in cash treasury this year</h2>
-      {% elif cash_balance_this_year < 0 %}
-      <h2 style="color: red;">There is {{ cash_balance_this_year }} EUR in cash treasury this year</h2>
-      {% else %}
-      <h2 style="color: blue;">There is {{ cash_balance_this_year }} EUR in cash treasury this year</h2>
-      {% endif %}
+      <div class="graph-wrapper">
+        {% if graph_total %}
+          {{ graph_total|safe }}
+        {% else %}
+          <div class="no-graph">
+            <i class="bi bi-graph-down"></i>
+            <p>No graph data available</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
-  <div>
-      {% if graph_this_year %}
-      {{ graph_this_year|safe }}
-      {% else %}
-      <p>No graph was provided.</p>
-      {% endif %}
-  </div>
-</div>
 
-<div class="grid-container">
-  <div style="color: blue;">
-      <br>
-      <h2>Club treasury LAST YEAR{% if year_last %} ({{ year_last }}){% endif %}</h2>
-      <h3>Total amount collected from Club Members: {{ sum_fees_last_year }} EUR</h3>
-      <h3>Total amount collected from Sponsorship: {{ sum_sponsorship_last_year }} EUR</h3>
-      <h3>Total amount of all expenses: {{ sum_expenses_last_year }} EUR </h3>
-      {% if cash_balance_last_year > 0 %}
-      <h2 style="color: green;">There was {{ cash_balance_last_year }} EUR in cash treasury last year</h2>
-      {% elif cash_balance_last_year < 0 %}
-      <h2 style="color: red;">There was {{ cash_balance_last_year }} EUR in cash treasury last year</h2>
-      {% else %}
-      <h2 style="color: blue;">There was {{ cash_balance_last_year }} EUR in cash treasury last year</h2>
-      {% endif %}
-  </div>
-  <div>
-      {% if graph_last_year %}
-      {{ graph_last_year|safe }}
-      {% else %}
-      <p>No graph was provided.</p>
-      {% endif %}
+  <!-- This Year & Last Year in Grid -->
+  <div class="balance-grid">
+    <!-- This Year -->
+    <div class="balance-card">
+      <div class="card-header">
+        <h2><i class="bi bi-calendar3"></i> This Year{% if year_now %} ({{ year_now }}){% endif %}</h2>
+      </div>
+      <div class="card-body">
+        <div class="stats-group">
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-people-fill"></i> Membership Fees
+            </span>
+            <span class="stat-value">{{ sum_fees_this_year }} EUR</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-currency-euro"></i> Sponsorship
+            </span>
+            <span class="stat-value">{{ sum_sponsorship_this_year }} EUR</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-receipt"></i> Total Expenses
+            </span>
+            <span class="stat-value">{{ sum_expenses_this_year }} EUR</span>
+          </div>
+        </div>
+
+        <div class="balance-highlight {% if cash_balance_this_year > 0 %}balance-positive{% elif cash_balance_this_year < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
+          <div class="label">
+            <i class="bi bi-cash-coin"></i> Balance This Year
+          </div>
+          <div class="value">{{ cash_balance_this_year }} EUR</div>
+        </div>
+
+        <div class="graph-wrapper">
+          {% if graph_this_year %}
+            {{ graph_this_year|safe }}
+          {% else %}
+            <div class="no-graph">
+              <i class="bi bi-graph-down"></i>
+              <p>No graph data available</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Last Year -->
+    <div class="balance-card">
+      <div class="card-header" style="background: linear-gradient(135deg, #64748b, #475569);">
+        <h2><i class="bi bi-calendar2"></i> Last Year{% if year_last %} ({{ year_last }}){% endif %}</h2>
+      </div>
+      <div class="card-body">
+        <div class="stats-group">
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-people-fill"></i> Membership Fees
+            </span>
+            <span class="stat-value">{{ sum_fees_last_year }} EUR</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-currency-euro"></i> Sponsorship
+            </span>
+            <span class="stat-value">{{ sum_sponsorship_last_year }} EUR</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <i class="bi bi-receipt"></i> Total Expenses
+            </span>
+            <span class="stat-value">{{ sum_expenses_last_year }} EUR</span>
+          </div>
+        </div>
+
+        <div class="balance-highlight {% if cash_balance_last_year > 0 %}balance-positive{% elif cash_balance_last_year < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
+          <div class="label">
+            <i class="bi bi-cash-coin"></i> Balance Last Year
+          </div>
+          <div class="value">{{ cash_balance_last_year }} EUR</div>
+        </div>
+
+        <div class="graph-wrapper">
+          {% if graph_last_year %}
+            {{ graph_last_year|safe }}
+          {% else %}
+            <div class="no-graph">
+              <i class="bi bi-graph-down"></i>
+              <p>No graph data available</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

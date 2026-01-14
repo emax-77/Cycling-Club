@@ -1,17 +1,241 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  Details about {{ mymember.firstname }} {{ mymember.lastname }}
+  {{ mymember.firstname }} {{ mymember.lastname }} - Member Details
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .details-container {
+    max-width: 800px;
+    margin: 2rem auto;
+  }
+
+  .member-detail-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .member-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid #e2e8f0;
+  }
+
+  .member-avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 auto 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .member-name-title {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .member-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+
+  .info-grid {
+    display: grid;
+    gap: 1.2rem;
+  }
+
+  .info-item {
+    background: linear-gradient(90deg, #f8fafc, #f1f5f9);
+    padding: 1.2rem;
+    border-radius: 12px;
+    border-left: 4px solid #3b82f6;
+    transition: all 0.3s ease;
+  }
+
+  .info-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    border-left-color: #06b6d4;
+  }
+
+  .info-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .info-value {
+    font-size: 1.1rem;
+    color: #1e293b;
+    font-weight: 600;
+  }
+
+  .fees-highlight {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    margin-top: 1.5rem;
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .fees-highlight .label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .fees-highlight .value {
+    font-size: 2.5rem;
+    font-weight: 700;
+  }
+
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .member-detail-card {
+      padding: 1.5rem;
+    }
+    
+    .member-name-title {
+      font-size: 1.5rem;
+    }
+    
+    .member-avatar-large {
+      width: 100px;
+      height: 100px;
+      font-size: 2.5rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-  <div class="mycard">
-    <h1>{{ mymember.firstname }} {{ mymember.lastname }}</h1>
-    <p>Phone: {{ mymember.phone }}</p>
-    <p>Member since: {{ mymember.joined_date }}</p>
-    <p>Address: {{ mymember.address }}</p>
-    <p>Zip/City: {{ mymember.zipcode}}, {{mymember.city }}</p>
-    <p>Country: {{ mymember.country }}</p>
-    <p>Member Fees paid: {{ total_paid }} EUR</p>
+<div class="details-container">
+  <div class="member-detail-card">
+    <div class="member-header">
+      <div class="member-avatar-large">
+        {{ mymember.firstname|first }}{{ mymember.lastname|first }}
+      </div>
+      <h1 class="member-name-title">
+        {{ mymember.firstname }} {{ mymember.lastname }}
+      </h1>
+      <span class="member-badge">
+        <i class="bi bi-person-check-fill"></i> Active Member
+      </span>
+    </div>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">
+          <i class="bi bi-telephone-fill"></i> Phone Number
+        </div>
+        <div class="info-value">{{ mymember.phone }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <i class="bi bi-calendar-check"></i> Member Since
+        </div>
+        <div class="info-value">{{ mymember.joined_date }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <i class="bi bi-house-fill"></i> Address
+        </div>
+        <div class="info-value">{{ mymember.address }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <i class="bi bi-geo-alt-fill"></i> Zip / City
+        </div>
+        <div class="info-value">{{ mymember.zipcode }}, {{ mymember.city }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <i class="bi bi-flag-fill"></i> Country
+        </div>
+        <div class="info-value">{{ mymember.country }}</div>
+      </div>
+    </div>
+
+    <div class="fees-highlight">
+      <div class="label">
+        <i class="bi bi-cash-coin"></i> Member Fees Paid
+      </div>
+      <div class="value">{{ total_paid }} EUR</div>
+    </div>
+
+    <div style="text-align: center;">
+      <a href="/members" class="back-button">
+        <i class="bi bi-arrow-left-circle"></i> Back to Members
+      </a>
+    </div>
   </div>
+</div>
 {% endblock %}  

@@ -2,169 +2,393 @@
 {% load static %}
 
 {% block title %}
-  Club Treasury
+  Club Treasury - Cycling Club
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .treasury-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .filter-section {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    padding: 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    border: 2px solid #3b82f6;
+  }
+
+  .filter-section label {
+    font-weight: 600;
+    color: #1e293b;
+    margin-right: 1rem;
+  }
+
+  .filter-section select {
+    border: 2px solid #3b82f6;
+    border-radius: 10px;
+    padding: 0.5rem 2.5rem 0.5rem 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .filter-section select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+
+  .btn-show {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 0.5rem 2rem;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-left: 1rem;
+  }
+
+  .btn-show:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .summary-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+  }
+
+  .summary-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .summary-card.income {
+    background: linear-gradient(135deg, #10b981, #059669);
+  }
+
+  .summary-card.expense {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+  }
+
+  .summary-card.balance-positive {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+  }
+
+  .summary-card.balance-negative {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+  }
+
+  .summary-card .label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .summary-card .value {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+
+  .summary-card .icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 2rem 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3b82f6;
+    display: inline-block;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .modern-table thead {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+  }
+
+  .modern-table thead th {
+    padding: 1.2rem 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  .modern-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .modern-table tbody tr:hover {
+    background: linear-gradient(90deg, #f0f9ff, #e0f2fe);
+    transform: scale(1.01);
+  }
+
+  .modern-table tbody td {
+    padding: 1rem;
+    text-align: center;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  .modern-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .badge-amount {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+</style>
 {% endblock %}
 
 {% block content %}
- 
-<div style="text-align: center; margin-bottom: 10px;">
-  <h2 style="color: blue;">Club Treasury</h2>
-  <form method="get" style="display: inline-block;">
-    <label for="period" style="margin-right: 6px;">Period:</label>
-    <select id="period" name="period">
-      <option value="all" {% if period == 'all' %}selected{% endif %}>All years</option>
-      <option value="this_year" {% if period == 'this_year' %}selected{% endif %}>This year{% if year_now %} ({{ year_now }}){% endif %}</option>
-      <option value="last_year" {% if period == 'last_year' %}selected{% endif %}>Last year{% if year_last %} ({{ year_last }}){% endif %}</option>
-    </select>
-    <button type="submit">Show</button>
-  </form>
+<div class="container">
+  <div class="treasury-card">
+    <!-- Page Header -->
+    <div class="page-header">
+      <h1><i class="bi bi-wallet2"></i> Club Treasury</h1>
+    </div>
 
-  <div style="margin-top: 10px;">
-    <h3 style="color: blue;">{{ period_title }}</h3>
-    <div>Membership Fees: <strong>{{ sum_membership }}</strong> EUR</div>
-    <div>Sponsorship: <strong>{{ sum_sponsorship }}</strong> EUR</div>
-    <div>Total Income: <strong>{{ sum_income }}</strong> EUR</div>
-    <div>Total Expenses: <strong>{{ sum_expenses }}</strong> EUR</div>
-    {% if cash_balance > 0 %}
-      <div style="color: green;">Balance: <strong>{{ cash_balance }}</strong> EUR</div>
-    {% elif cash_balance < 0 %}
-      <div style="color: red;">Balance: <strong>{{ cash_balance }}</strong> EUR</div>
-    {% else %}
-      <div style="color: blue;">Balance : <strong>{{ cash_balance }}</strong> EUR</div>
-    {% endif %}
+    <!-- Filter Section -->
+    <div class="filter-section">
+      <form method="get" class="d-flex justify-content-center align-items-center flex-wrap gap-2">
+        <label for="period"><i class="bi bi-calendar3"></i> Period:</label>
+        <select id="period" name="period" class="form-select" style="width: auto;">
+          <option value="all" {% if period == 'all' %}selected{% endif %}>All years</option>
+          <option value="this_year" {% if period == 'this_year' %}selected{% endif %}>This year{% if year_now %} ({{ year_now }}){% endif %} </option>
+          <option value="last_year" {% if period == 'last_year' %}selected{% endif %}>Last year{% if year_last %} ({{ year_last }}){% endif %} </option>
+        </select>
+        <button type="submit" class="btn-show">
+          <i class="bi bi-arrow-clockwise"></i> Show
+        </button>
+      </form>
+    </div>
+
+    <!-- Summary Cards -->
+    <h3 class="text-center mb-4" style="color: #1e293b; font-weight: 600;">{{ period_title }}</h3>
+    <div class="summary-cards">
+      <div class="summary-card">
+        <div class="icon"><i class="bi bi-people-fill"></i></div>
+        <div class="label">Membership Fees</div>
+        <div class="value">{{ sum_membership }} €</div>
+      </div>
+      
+      <div class="summary-card">
+        <div class="icon"><i class="bi bi-currency-euro"></i></div>
+        <div class="label">Sponsorship</div>
+        <div class="value">{{ sum_sponsorship }} €</div>
+      </div>
+      
+      <div class="summary-card income">
+        <div class="icon"><i class="bi bi-arrow-down-circle-fill"></i></div>
+        <div class="label">Total Income</div>
+        <div class="value">{{ sum_income }} €</div>
+      </div>
+      
+      <div class="summary-card expense">
+        <div class="icon"><i class="bi bi-arrow-up-circle-fill"></i></div>
+        <div class="label">Total Expenses</div>
+        <div class="value">{{ sum_expenses }} €</div>
+      </div>
+      
+      <div class="summary-card {% if cash_balance > 0 %}balance-positive{% elif cash_balance < 0 %}balance-negative{% else %}{% endif %}">
+        <div class="icon"><i class="bi bi-cash-coin"></i></div>
+        <div class="label">Balance</div>
+        <div class="value">{{ cash_balance }} €</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Membership Fees Table -->
+  <div class="treasury-card">
+    <h2 class="section-title">
+      <i class="bi bi-people"></i> Membership Fees
+    </h2>
+    <div class="table-wrapper">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th><i class="bi bi-hash"></i> ID</th>
+            <th><i class="bi bi-person"></i> First Name</th>
+            <th><i class="bi bi-person-badge"></i> Last Name</th>
+            <th><i class="bi bi-cash"></i> Member Fees</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in mymembers %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.firstname }}</td>
+            <td>{{ x.lastname }}</td>
+            <td><span class="badge-amount">{{ x.total_paid }} EUR</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="empty-state">
+              <i class="bi bi-inbox"></i>
+              <p>No membership fees data available</p>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Sponsorships Table -->
+  {% if mysponsorships_model %}
+  <div class="treasury-card">
+    <h2 class="section-title">
+      <i class="bi bi-currency-euro"></i> Sponsorships
+    </h2>
+    <div class="table-wrapper">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th><i class="bi bi-hash"></i> ID</th>
+            <th><i class="bi bi-calendar"></i> Date</th>
+            <th><i class="bi bi-building"></i> Sponsor</th>
+            <th><i class="bi bi-card-text"></i> Purpose</th>
+            <th><i class="bi bi-cash"></i> Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in mysponsorships_model %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.date }}</td>
+            <td>{{ x.sponsor }}</td>
+            <td>{{ x.purpose }}</td>
+            <td><span class="badge-amount">{{ x.amount }} EUR</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Club Expenses Table -->
+  <div class="treasury-card">
+    <h2 class="section-title">
+      <i class="bi bi-receipt"></i> Club Expenses
+    </h2>
+    <div class="table-wrapper">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th><i class="bi bi-hash"></i> ID</th>
+            <th><i class="bi bi-calendar"></i> Date</th>
+            <th><i class="bi bi-calendar-event"></i> Event Name</th>
+            <th><i class="bi bi-card-text"></i> Note</th>
+            <th><i class="bi bi-cash"></i> Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for x in myexpenses %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.payment_date }}</td>
+            <td>{{ x.event_name }}</td>
+            <td>{{ x.purpose }}</td>
+            <td><span class="badge-amount" style="background: linear-gradient(135deg, #f59e0b, #d97706);">{{ x.amount }} EUR</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="empty-state">
+              <i class="bi bi-inbox"></i>
+              <p>No expenses data available</p>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-<h2 style="text-align: center; color: blue;">Membership Fees</h2>
-
-<div>
-  <style>
-    .styled-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 18px;
-      text-align: left;
-      border-radius: 8px 8px 0 0;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    }
-
-    .styled-table thead tr {
-      background-color: #009879;
-      color: #ffffff;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .styled-table th, .styled-table td {
-      padding: 12px 15px;
-      border: 1px solid #dddddd;
-    }
-
-    .styled-table tbody tr {
-      border-bottom: 1px solid #dddddd;
-    }
-
-    .styled-table tbody tr:nth-of-type(even) {
-      background-color: #f3f3f3;
-    }
-
-    .styled-table tbody tr:hover {
-      background-color: #f1f1f1;
-    }
-
-    .styled-table tbody tr:last-of-type {
-      border-bottom: 2px solid #009879;
-    }
-
-    .styled-table td {
-      text-align: center;
-    }
-
-    .table-container {
-      margin: 20px 0;
-    }
-  </style>
-  
-  <div class="table-container">
-    <table class="styled-table">
-      <thead>
-        <tr>
-            <th>Id</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Member Fees</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for x in mymembers %}
-            <tr>
-              <td>{{ x.id }}</td>
-              <td>{{ x.firstname }}</td>
-              <td>{{ x.lastname }}</td>
-              <td>{{ x.total_paid }} EUR</td>
-            </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-</div>
-
-{% if mysponsorships_model %}
-<h2 style="text-align: center; color: blue;">Sponsorships</h2>
-
-<div class="table-container">
-  <table class="styled-table">
-    <thead>
-      <tr>
-          <th>Id</th>
-          <th>Date</th>
-          <th>Sponsor</th>
-          <th>Purpose</th>
-          <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for x in mysponsorships_model %}
-        <tr>
-          <td>{{ x.id }}</td>
-          <td>{{ x.date }}</td>
-          <td>{{ x.sponsor }}</td>
-          <td>{{ x.purpose }}</td>
-          <td>{{ x.amount }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-{% endif %}
-
-<h2 style="text-align: center; color: blue;">Club Expenses</h2>
-
-<div class="table-container">
-  <table class="styled-table">
-    <thead>
-      <tr>
-          <th>Id</th>
-          <th>Date</th>
-          <th>Event Name</th>
-          <th>Note</th>
-          <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for x in myexpenses %}
-        <tr>
-          <td>{{ x.id }}</td>
-          <td>{{ x.payment_date }}</td>
-          <td>{{ x.event_name }}</td>
-          <td>{{ x.purpose }}</td>
-          <td>{{ x.amount }}</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-
 {% endblock %}

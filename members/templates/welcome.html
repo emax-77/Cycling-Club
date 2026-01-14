@@ -2,13 +2,216 @@
 {% load static %}
 
 {% block title %}
-  My Cycling Club
+  Cycling Club Tvrdošín - Home
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .hero-section {
+    background: white;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 1200px;
+    text-align: center;
+    animation: fadeInScale 0.8s ease;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2563eb, #06b6d4, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .hero-subtitle {
+    font-size: 1.3rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    font-weight: 500;
+  }
+
+  .hero-image-container {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    margin: 2rem 0;
+    transition: all 0.4s ease;
+  }
+
+  .hero-image-container:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .feature-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+  }
+
+  .feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.9;
+  }
+
+  .feature-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-desc {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  .cta-section {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 20px;
+    border: 2px solid #3b82f6;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 1.5rem;
+  }
+
+  .cta-button {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.1rem;
+    }
+    
+    .features-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-  <div class="main">
-    <h1 style="text-align: center; color: blue;">Cyclo-Tourist Club Tvrdosin / Member and Event Management & Club Treasury</h1>
-  
-    <img class="center-image" src="{% static 'img8.jpg' %}", alt="Hynek pri Dunaji SK">
+<div class="container">
+  <div class="hero-section">
+    <h1 class="hero-title">
+      <i class="bi bi-bicycle"></i>
+      Cyclo-Tourist Club Tvrdošín
+    </h1>
+       
+    <div class="hero-image-container">
+      <img class="hero-image" src="{% static 'img8.jpg' %}" alt="Cycling Club Tvrdošín">
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
+        <div class="feature-title">Member Management</div>
+        <div class="feature-desc">Track and manage all club members</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-calendar-event-fill"></i></div>
+        <div class="feature-title">Event Planning</div>
+        <div class="feature-desc">Organize and schedule club events</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-wallet-fill"></i></div>
+        <div class="feature-title">Treasury</div>
+        <div class="feature-desc">Manage club finances and fees</div>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
+        <div class="feature-title">Analytics</div>
+        <div class="feature-desc">View financial reports and graphs</div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h3 style="color: #1e293b; margin-bottom: 0.5rem;">Get Started</h3>
+      <p style="color: #64748b;">Explore our club management features</p>
+      <div class="cta-buttons">
+        <a href="/members" class="cta-button">
+          <i class="bi bi-people"></i> View Members
+        </a>
+        <a href="/club_events" class="cta-button">
+          <i class="bi bi-calendar-event"></i> Club Events
+        </a>
+        <a href="/club_treasury" class="cta-button">
+          <i class="bi bi-wallet2"></i> Treasury
+        </a>
+      </div>
+    </div>
   </div>
+</div>
 {% endblock %}

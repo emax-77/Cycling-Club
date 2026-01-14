@@ -1,19 +1,197 @@
 {% extends "master.html" %}
-
 {% load static %}
 
 {% block title %}
-  Cycling Club - List of all members
+  Members - Cycling Club
 {% endblock %}
 
+{% block extra_css %}
+<style>
+  .members-container {
+    max-width: 900px;
+    margin: 2rem auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .members-count {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  .members-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .member-card {
+    background: white;
+    margin-bottom: 1rem;
+    border-radius: 15px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideInLeft 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  .member-card:nth-child(1) { animation-delay: 0.1s; }
+  .member-card:nth-child(2) { animation-delay: 0.15s; }
+  .member-card:nth-child(3) { animation-delay: 0.2s; }
+  .member-card:nth-child(4) { animation-delay: 0.25s; }
+  .member-card:nth-child(5) { animation-delay: 0.3s; }
+  .member-card:nth-child(n+6) { animation-delay: 0.35s; }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .member-card:hover {
+    transform: translateX(10px) scale(1.02);
+    box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+    background: linear-gradient(90deg, #f0f9ff, #e0f2fe);
+  }
+
+  .member-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .member-info {
+    flex: 1;
+  }
+
+  .member-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 0.25rem;
+  }
+
+  .member-meta {
+    color: #64748b;
+    font-size: 0.9rem;
+  }
+
+  .member-arrow {
+    color: #3b82f6;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+  }
+
+  .member-card:hover .member-arrow {
+    transform: translateX(5px);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+  }
+
+  .empty-state p {
+    color: #64748b;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .member-card {
+      padding: 1rem;
+    }
+    
+    .member-avatar {
+      width: 50px;
+      height: 50px;
+      font-size: 1.2rem;
+    }
+  }
+</style>
+{% endblock %}
 
 {% block content %}
-  <div class="mycard">
-    <h1>Members</h1>
-    <ul>
+<div class="members-container">
+  <div class="page-header">
+    <h1><i class="bi bi-people-fill"></i> Club Members</h1>
+    <p class="members-count">
+      <i class="bi bi-person-badge"></i> Total: {{ mymembers|length }} members
+    </p>
+  </div>
+
+  {% if mymembers %}
+    <ul class="members-list">
       {% for x in mymembers %}
-        <li onclick="window.location = 'details/{{ x.id }}'">{{ x.firstname }} {{ x.lastname }}</li>
+        <li class="member-card" onclick="window.location = 'details/{{ x.id }}'">
+          <div class="member-avatar">
+            {{ x.firstname|first }}{{ x.lastname|first }}
+          </div>
+          <div class="member-info">
+            <div class="member-name">{{ x.firstname }} {{ x.lastname }}</div>
+            <div class="member-meta">
+              <i class="bi bi-person-circle"></i> Member ID: {{ x.id }}
+            </div>
+          </div>
+          <div class="member-arrow">
+            <i class="bi bi-arrow-right-circle-fill"></i>
+          </div>
+        </li>
       {% endfor %}
     </ul>
-  </div>
+  {% else %}
+    <div class="empty-state">
+      <i class="bi bi-people"></i>
+      <p>No members found</p>
+    </div>
+  {% endif %}
+</div>
 {% endblock %}

@@ -1,151 +1,365 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  Club Events
+  Club Events - Cycling Club
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .events-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .year-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .success-alert {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 600;
+    animation: slideDown 0.5s ease;
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 2rem 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid #3b82f6;
+    display: inline-block;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    margin-bottom: 2rem;
+  }
+
+  .modern-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+  }
+
+  .modern-table thead {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+  }
+
+  .modern-table thead th {
+    padding: 1.2rem 1rem;
+    font-weight: 600;
+    text-align: center;
+    color: white;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+  }
+
+  .modern-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .modern-table tbody tr:hover {
+    background: linear-gradient(90deg, #f0f9ff, #e0f2fe);
+    transform: scale(1.01);
+  }
+
+  .modern-table tbody td {
+    padding: 1rem;
+    text-align: center;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  .modern-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .event-badge {
+    background: linear-gradient(135deg, #06b6d4, #0891b2);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;
+    font-size: 0.9rem;
+  }
+
+  .signup-form-container {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    border-radius: 20px;
+    padding: 2.5rem;
+    margin: 2rem 0;
+    border: 2px solid #3b82f6;
+  }
+
+  .signup-form-container h3 {
+    text-align: center;
+    color: #1e293b;
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+    display: block;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: white;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 2rem;
+    }
+    
+    .events-card {
+      padding: 1.5rem;
+    }
+    
+    .signup-form-container {
+      padding: 1.5rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-  <div class="main">
-    <h1 style="text-align: center; color: blue;"> List of Events in {{ year_now }} </h1>
-
-    <!-- Display success message after form submission -->
-    {% if success_message %}
-        <div class="success-message" style="text-align: center; color: green;">
-            {{ success_message }}
-            <p></p>
-        </div>
-    {% endif %}
-    <br>
-    <div>
-      <style>
-        .styled-table {
-          width: 100%;
-          border-collapse: collapse;
-          margin: 20px 0;
-          font-size: 18px;
-          text-align: left;
-          border-radius: 8px 8px 0 0;
-          overflow: hidden;
-          box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .styled-table thead tr {
-          background-color: #009879;
-          color: #ffffff;
-          text-align: center;
-          font-weight: bold;
-        }
-
-        .styled-table th, .styled-table td {
-          padding: 12px 15px;
-          border: 1px solid #dddddd;
-        }
-
-        .styled-table tbody tr {
-          border-bottom: 1px solid #dddddd;
-        }
-
-        .styled-table tbody tr:nth-of-type(even) {
-          background-color: #f3f3f3;
-        }
-
-        .styled-table tbody tr:hover {
-          background-color: #f1f1f1;
-        }
-
-        .styled-table tbody tr:last-of-type {
-          border-bottom: 2px solid #009879;
-        }
-
-        .styled-table td {
-          text-align: center;
-        }
-
-        .table-container {
-          margin: 20px 0;
-        }
-      </style>
-
-      <div class="table-container">
-        <table class="styled-table">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Event Date</th>
-              <th>Event Name</th>
-              <th>Event Details</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for x in events_this_year %}
-              <tr>
-                <td>{{ x.id }}</td>
-                <td>{{ x.event_date }}</td>
-                <td>{{ x.event_name }}</td>
-                <td>{{ x.event_description }}</td>
-              </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <br>
-
-    <div class="main">
-      <style>
-        .signing_up-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 1200px; 
-        padding: 10px;
-        text-align: center;
-        }
-      </style>
-  
-      <div class="signing_up-container">
-          <section>
-              <form method="post" action="{% url 'club_events' %}">
-                  {% csrf_token %}
-                  <h3>Signing up for a club event</h3>
-                  <input style="border: 2px solid black; border-radius: 5px;" id="name" name="name" placeholder="your name" required/>
-                  <input style="border: 2px solid black; border-radius: 5px;" id="email" name="email" type="email" placeholder="email address" required/>
-                  <input style="border: 2px solid black; border-radius: 5px;" id="event" name="event" placeholder="event name" required/>
-                  <button style="border: 2px solid black; border-radius: 5px;" type="submit" value="Submit">Submit</button>       
-              </form>
-          </section>
-      </div>
-    </div>
-    <br>  
+<div class="container">
+  <!-- Success Message -->
+  {% if success_message %}
+  <div class="success-alert">
+    <i class="bi bi-check-circle-fill"></i> {{ success_message }}
   </div>
+  {% endif %}
 
-  <div class="main">
-    <h1 style="text-align: center; color: blue;"> Members registered for the club event in {{ year_now }} </h1>
-    <div class="table-container">
-      <table class="styled-table">
+  <!-- Events List -->
+  <div class="events-card">
+    <div class="page-header">
+      <h1><i class="bi bi-calendar-event"></i> Club Events</h1>
+      <span class="year-badge">
+        <i class="bi bi-calendar3"></i> {{ year_now }}
+      </span>
+    </div>
+
+    <h2 class="section-title">
+      <i class="bi bi-list-task"></i> Upcoming Events
+    </h2>
+    
+    <div class="table-wrapper">
+      <table class="modern-table">
         <thead>
           <tr>
-              <th>Id</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Event</th>
+            <th><i class="bi bi-hash"></i> ID</th>
+            <th><i class="bi bi-calendar"></i> Event Date</th>
+            <th><i class="bi bi-flag-fill"></i> Event Name</th>
+            <th><i class="bi bi-info-circle"></i> Event Details</th>
           </tr>
         </thead>
         <tbody>
-          {% for member in members_subscribed_for_event_this_year %}
-            <tr>
-              <td>{{ member.id }}</td>
-              <td>{{ member.name }}</td>
-              <td>{{ member.email }}</td>
-              <td>{{ member.event }}</td>
-            </tr>
+          {% for x in events_this_year %}
+          <tr>
+            <td>{{ x.id }}</td>
+            <td>{{ x.event_date }}</td>
+            <td><span class="event-badge">{{ x.event_name }}</span></td>
+            <td>{{ x.event_description }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="empty-state">
+              <i class="bi bi-calendar-x"></i>
+              <p>No events scheduled for {{ year_now }}</p>
+            </td>
+          </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
   </div>
 
+  <!-- Signup Form -->
+  <div class="events-card">
+    <div class="signup-form-container">
+      <h3><i class="bi bi-pencil-square"></i> Sign Up for an Event</h3>
+      <form method="post" action="{% url 'club_events' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="name">
+            <i class="bi bi-person"></i> Your Name
+          </label>
+          <input type="text" class="form-control" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">
+            <i class="bi bi-envelope"></i> Email Address
+          </label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="event">
+            <i class="bi bi-calendar-event"></i> Event Name
+          </label>
+          <input type="text" class="form-control" id="event" name="event" placeholder="Enter the event name" required>
+        </div>
+        
+        <button type="submit" class="btn-submit">
+          <i class="bi bi-check-circle"></i> Submit Registration
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Registered Members -->
+  <div class="events-card">
+    <h2 class="section-title">
+      <i class="bi bi-people"></i> Registered Members
+    </h2>
+    
+    <div class="table-wrapper">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th><i class="bi bi-hash"></i> ID</th>
+            <th><i class="bi bi-person"></i> Name</th>
+            <th><i class="bi bi-envelope"></i> Email</th>
+            <th><i class="bi bi-flag"></i> Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for member in members_subscribed_for_event_this_year %}
+          <tr>
+            <td>{{ member.id }}</td>
+            <td>{{ member.name }}</td>
+            <td>{{ member.email }}</td>
+            <td><span class="event-badge">{{ member.event }}</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4" class="empty-state">
+              <i class="bi bi-inbox"></i>
+              <p>No members registered yet</p>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
 {% endblock %}

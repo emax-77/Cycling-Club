@@ -1,21 +1,162 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  404 - Page not found
+  404 - Page Not Found
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .error-container {
+    max-width: 600px;
+    margin: 4rem auto;
+    text-align: center;
+  }
+
+  .error-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 3rem 2rem;
+    animation: fadeInScale 0.6s ease;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .error-icon {
+    font-size: 8rem;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .error-code {
+    font-size: 6rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .error-title {
+    font-size: 1.5rem;
+    color: #1e293b;
+    font-weight: 600;
+    margin: 1rem 0;
+  }
+
+  .error-message {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .error-links {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .error-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .error-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+    color: white;
+  }
+
+  .error-link.secondary {
+    background: linear-gradient(135deg, #64748b, #475569);
+    box-shadow: 0 5px 15px rgba(100, 116, 139, 0.3);
+  }
+
+  .error-link.secondary:hover {
+    box-shadow: 0 8px 20px rgba(100, 116, 139, 0.4);
+  }
+
+  @media (max-width: 768px) {
+    .error-code {
+      font-size: 4rem;
+    }
+    
+    .error-title {
+      font-size: 1.2rem;
+    }
+    
+    .error-icon {
+      font-size: 5rem;
+    }
+    
+    .error-card {
+      padding: 2rem 1.5rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-  <div style="max-width: 720px; margin: 60px auto; padding: 24px; text-align: center;">
-    <h1 style="margin: 0 0 10px 0; font-size: 56px;">404</h1>
-    <p style="margin: 0 0 18px 0; font-size: 18px;">
-      This page could not be found. It may have been moved or does not exist.
+<div class="error-container">
+  <div class="error-card">
+    <div class="error-icon">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+    </div>
+    
+    <h1 class="error-code">404</h1>
+    <h2 class="error-title">Page Not Found</h2>
+    
+    <p class="error-message">
+      Oops! The page you're looking for doesn't exist. It may have been moved or deleted.
     </p>
-    <p style="margin: 0; font-size: 16px;">
-      <a href="{% url 'welcome' %}">Back to Home</a>
-      &nbsp;|&nbsp;
-      <a href="{% url 'members' %}">Members</a>
-      &nbsp;|&nbsp;
-      <a href="{% url 'contact' %}">Contact </a>
-    </p>
+    
+    <div class="error-links">
+      <a href="{% url 'welcome' %}" class="error-link">
+        <i class="bi bi-house-door-fill"></i> Back to Home
+      </a>
+      <a href="{% url 'members' %}" class="error-link secondary">
+        <i class="bi bi-people-fill"></i> Members
+      </a>
+      <a href="{% url 'contact' %}" class="error-link secondary">
+        <i class="bi bi-envelope-fill"></i> Contact
+      </a>
+    </div>
   </div>
+</div>
 {% endblock %}

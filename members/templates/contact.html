@@ -1,110 +1,234 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  Contact
+  Contact - Cycling Club
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .contact-container {
+    max-width: 700px;
+    margin: 2rem auto;
+  }
+
+  .contact-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    animation: fadeInUp 0.6s ease;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .contact-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .contact-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+  }
+
+  .alert {
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideDown 0.5s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .alert-success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    box-shadow: 0 5px 20px rgba(16, 185, 129, 0.3);
+  }
+
+  .alert-error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    box-shadow: 0 5px 20px rgba(239, 68, 68, 0.3);
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 0.9rem 1.2rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: #3b82f6;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  textarea.form-control {
+    resize: vertical;
+    min-height: 150px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+  }
+
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+  }
+
+  .contact-footer {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 15px;
+    border: 2px solid #3b82f6;
+  }
+
+  .contact-footer p {
+    margin: 0;
+    color: #475569;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .contact-card {
+      padding: 1.5rem;
+    }
+    
+    .contact-header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-<div class="main">
- 
-    <style>
-    .contact-form {
-        background: #fff;
-        padding: 20px;
-        margin: auto;
-        max-width: 400px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-        border-radius: 8px;
-    }
-
-    .contact-form h2 {
-        margin-bottom: 15px;
-        color: blue;
-        text-align: center;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        border: 1px solid #dddddd;
-        border-radius: 4px;
-        font-size: 16px;
-    }
-
-    .contact-form button {
-        background-color: #009879;
-        color: #fff;
-        padding: 12px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width: 100%;
-        font-size: 18px;
-        margin-top: 10px;
-    }
-
-    .contact-form button:hover {
-        background-color: #218838;
-    }
-
-    .success-message {
-        text-align: center;
-        padding: 10px;
-        background-color: #eaf7ea;
-        color: #218838;
-        border: 1px solid #218838;
-        margin-bottom: 20px;
-        border-radius: 4px;
-    }
-
-    .footer {
-        background-color: rgba(0, 0, 0, 0.2);
-        text-align: center;
-        padding: 15px;
-        margin-top: 30px;
-        border-radius: 8px;
-    }
-    </style>
-
-    <div>
-        <h1 style="text-align: center; color: blue;">Cyclo Tourist Club Tvrdosin</h1>
+<div class="contact-container">
+  <div class="contact-card">
+    <div class="contact-header">
+      <h1><i class="bi bi-envelope-fill"></i> Contact Us</h1>
+      <p>Cyclo Tourist Club Tvrdošín</p>
     </div>
 
-    <!-- Display success message after form submission -->
+    <!-- Success/Error Messages -->
     {% if success_message %}
-        <div class="success-message">
-            {{ success_message }}
-        </div>
+    <div class="alert alert-success">
+      <i class="bi bi-check-circle-fill"></i>
+      <span>{{ success_message }}</span>
+    </div>
     {% endif %}
+
     {% if error_message %}
-        <div class="success-message" style="background-color:#fdecea;color:#b71c1c;border-color:#b71c1c;">
-            {{ error_message }}
-        </div>
+    <div class="alert alert-error">
+      <i class="bi bi-exclamation-circle-fill"></i>
+      <span>{{ error_message }}</span>
+    </div>
     {% endif %}
 
-    <div class="contact-form">
-    <h2>Leave Us a Message</h2>
+    <!-- Contact Form -->
     <form method="post" action="{% url 'contact' %}">
-        {% csrf_token %}
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
+      {% csrf_token %}
+      
+      <div class="form-group">
+        <label for="name" class="form-label">
+          <i class="bi bi-person"></i> Name
+        </label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+      </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Email Address" required>
+      <div class="form-group">
+        <label for="email" class="form-label">
+          <i class="bi bi-envelope"></i> Email
+        </label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required>
+      </div>
 
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+      <div class="form-group">
+        <label for="message" class="form-label">
+          <i class="bi bi-chat-left-text"></i> Message
+        </label>
+        <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+      </div>
 
-        <button type="submit">Send Message</button>
+      <button type="submit" class="btn-submit">
+        <i class="bi bi-send-fill"></i> Send Message
+      </button>
     </form>
-    </div>
-    <br>
 
-    <div class="footer">
-        <p>© {% now "Y" %} Copyright: Peter Wirth</p>
+    <div class="contact-footer">
+      <p><i class="bi bi-c-circle"></i> {% now "Y" %} Copyright: Peter Wirth</p>
     </div>
+  </div>
 </div>
-
 {% endblock %}

@@ -1,40 +1,208 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
-  Club Events
+  Gallery - Cycling Club
+{% endblock %}
+
+{% block extra_css %}
+<style>
+  .gallery-container {
+    max-width: 1400px;
+    margin: 2rem auto;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .page-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #2563eb, #06b6d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+
+  .page-header p {
+    color: #64748b;
+    font-size: 1.1rem;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .gallery-item {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    animation: fadeInUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+  .gallery-item:nth-child(2) { animation-delay: 0.2s; }
+  .gallery-item:nth-child(3) { animation-delay: 0.3s; }
+  .gallery-item:nth-child(4) { animation-delay: 0.4s; }
+  .gallery-item:nth-child(5) { animation-delay: 0.5s; }
+  .gallery-item:nth-child(6) { animation-delay: 0.6s; }
+  .gallery-item:nth-child(n+7) { animation-delay: 0.7s; }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .gallery-item:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%; /* 4:3 Aspect Ratio */
+    overflow: hidden;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  .gallery-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.4s ease;
+  }
+
+  .gallery-item:hover .gallery-image {
+    transform: scale(1.1);
+  }
+
+  .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.7));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .gallery-item:hover .image-overlay {
+    opacity: 1;
+  }
+
+  .view-icon {
+    color: white;
+    font-size: 3rem;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+  }
+
+  .gallery-item:hover .view-icon {
+    transform: scale(1);
+  }
+
+  .image-info {
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  .image-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  }
+
+  .empty-state i {
+    font-size: 4rem;
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+  }
+
+  .empty-state p {
+    color: #64748b;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    .page-header h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-	<title>Picture Gallery</title> 
-	<style> 
-		.picture-list { 
-			display: flex; 
-			flex-wrap: wrap; 
-			justify-content: space-between; 
-			list-style: none; 
-			padding: 0; 
-		} 
+<div class="gallery-container">
+  <div class="page-header">
+    <h1><i class="bi bi-images"></i> Club Gallery</h1>
+    <p><i class="bi bi-camera-fill"></i> Memories from our cycling adventures</p>
+  </div>
 
-		.picture-item { 
-			flex: 1; 
-			max-width: 30%; 
-			margin: 10px; 
-			border: 1px solid #ccc;  
-			padding: 10px; 
-			text-align: center; 
-		} 
-	</style> 
-  
-	<h2 style="text-align: center; color: blue;">Club Pictures</h2>
-	
-	<ul class="picture-list"> 
-		{% for picture in club_pictures %}
-			<li class="picture-item"> 
-				<a href="{{ picture.image.url }}" target="_blank"> 
-					<img src="{{ picture.image.url }}" alt="{{ picture.name }}" width="200">
-				</a> 
-				<h2>{{ picture.name }}</h2> 
-			</li> 
-		{% endfor %} 
-	</ul>
+  {% if club_pictures %}
+  <ul class="gallery-grid">
+    {% for picture in club_pictures %}
+    <li class="gallery-item">
+      <a href="{{ picture.image.url }}" target="_blank" style="text-decoration: none;">
+        <div class="image-wrapper">
+          <img src="{{ picture.image.url }}" alt="{{ picture.name }}" class="gallery-image">
+          <div class="image-overlay">
+            <i class="bi bi-zoom-in view-icon"></i>
+          </div>
+        </div>
+        <div class="image-info">
+          <h2 class="image-title">{{ picture.name }}</h2>
+        </div>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="empty-state">
+    <i class="bi bi-images"></i>
+    <p>No pictures available in the gallery</p>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}

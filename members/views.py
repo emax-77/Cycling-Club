@@ -438,12 +438,7 @@ def club_events(request):
             'year_now': year_now,
         }
         return HttpResponse(template.render(context, request))
-    
-# Test page
-def testing(request):
-    template = loader.get_template('template.html')
-    return HttpResponse(template.render(request=request))
-
+  
  # Sanitize header values (remove CR/LF to prevent header injection)
 def _sanitize_header(val):
   return re.sub(r'[\r\n]+', ' ', (val or '')).strip()
