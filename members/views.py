@@ -25,9 +25,7 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Q
 from django.utils import timezone
 
-@login_required 
-
-# Home page (displayed first after login)  
+# Home page 
 def welcome(request):
   template = loader.get_template('welcome.html')
   return HttpResponse(template.render(request=request))

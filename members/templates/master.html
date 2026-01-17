@@ -107,9 +107,31 @@
       display: inline-block;
     }
 
+    button.btn-logout {
+      cursor: pointer;
+    }
+
     .btn-logout:hover {
       transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+      color: white;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      border: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
       color: white;
     }
 
@@ -136,7 +158,7 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
     <div class="container-fluid px-4">
-      <a class="navbar-brand" href="/welcome">
+      <a class="navbar-brand" href="{% url 'welcome' %}">
         <i class="bi bi-bicycle"></i>
         Cycling Club
       </a>
@@ -148,54 +170,67 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/welcome">
+            <a class="nav-link" href="{% url 'welcome' %}">
               <i class="bi bi-house-door"></i> Home
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/members">
-              <i class="bi bi-people"></i> Members
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/club_events">
-              <i class="bi bi-calendar-event"></i> Events
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/club_treasury">
-              <i class="bi bi-wallet2"></i> Treasury
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/balance_graph">
-              <i class="bi bi-graph-up"></i> Balance
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/gallery">
-              <i class="bi bi-images"></i> Gallery
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/contact">
+            <a class="nav-link" href="{% url 'contact' %}">
               <i class="bi bi-envelope"></i> Contact
             </a>
           </li>
+          {% if request.user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'members' %}">
+                <i class="bi bi-people"></i> Members
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'club_events' %}">
+                <i class="bi bi-calendar-event"></i> Events
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'club_treasury' %}">
+                <i class="bi bi-wallet2"></i> Treasury
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'balance_graph' %}">
+                <i class="bi bi-graph-up"></i> Balance
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'gallery' %}">
+                <i class="bi bi-images"></i> Gallery
+              </a>
+            </li>
+          {% endif %}
         </ul>
         
         <div class="d-flex align-items-center gap-2 flex-wrap">
-          <a href="/admin" class="nav-link">
-            <i class="bi bi-gear"></i> Admin
-          </a>
-          <a href="/" class="btn-logout">
-            <i class="bi bi-box-arrow-right"></i> Logout
-          </a>
-          {% if request.user.first_name %}
-            <span class="user-info">
-              <i class="bi bi-person-circle"></i>
-              {{ request.user.first_name }}
-            </span>
+          {% if request.user.is_staff %}
+            <a href="{% url 'admin:index' %}" class="nav-link">
+              <i class="bi bi-gear"></i> Admin
+            </a>
+          {% endif %}
+          {% if request.user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" class="m-0">
+              {% csrf_token %}
+              <button type="submit" class="btn-logout">
+                <i class="bi bi-box-arrow-right"></i> Logout
+              </button>
+            </form>
+            {% if request.user.first_name %}
+              <span class="user-info">
+                <i class="bi bi-person-circle"></i>
+                {{ request.user.first_name }}
+              </span>
+            {% endif %}
+          {% else %}
+            <a href="{% url 'login_page' %}" class="btn-login">
+              <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
           {% endif %}
         </div>
       </div>

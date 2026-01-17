@@ -67,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'my_ebike.middleware.LoginRequiredMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
@@ -160,6 +161,22 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Directory for storing user-uploaded files
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # After login redirect here 
-LOGIN_REDIRECT_URL = '/welcome/'
-# Where to redirect after logout
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+
+# Public routes (everything else requires authentication via LoginRequiredMiddleware)
+LOGIN_REQUIRED_EXEMPT_PATHS = [
+    '/',
+    '/welcome/',
+    '/login/',
+    '/register/',
+    '/contact/',
+]
+LOGIN_REQUIRED_EXEMPT_PREFIXES = [
+    '/admin/',
+    '/accounts/',
+    '/static/',
+    '/media/',
+    '/__debug__/',
+]
