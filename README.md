@@ -2,11 +2,11 @@
 
 As the treasurer of a cycling club, the project aims to create a functional application (website) for managing club members, finances, and events, with the option for members to sign up for individual club events and receive email notifications. As a bonus, the site also features a cycling club gallery, club financial balance charts, and a contact form.
 
-## !!! IMPORTANT UPDATE (JANUARY 2026) !!! - I decided to refactor most of the old code, both frontend and backend, so the project may not work properly in the next few days :)
-
 # Latest updates
+- I rewrote a lot of both backend and frontend code in JANUARY 2026, so the app will be production-ready soon.
 - Brand new look with Bootstrap 5
-- Sponsor and Sponsorship models added  
+- New database tables added (like Sponsorship)
+- Relationships between database tables have been corrected
    
 # Technology Stack
 - Frontend: HTML, CSS (Bootstrap 5), JS
