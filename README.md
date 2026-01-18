@@ -3,12 +3,16 @@
 As the treasurer of a cycling club, the project aims to create a functional application (website) for managing club members, finances, and events, with the option for members to sign up for individual club events and receive email notifications. As a bonus, the site also features a cycling club gallery, club financial balance charts, and a contact form.
 
 # Latest updates
-- I rewrote a lot of both backend and frontend code in JANUARY 2026, so the app will be production-ready soon.
+- We are ONLINE !!! Please check www.ctk-ts.eu 
+- The page is optimized for big displays (PC, notebook, or tablet) for now. Will update soon :)
+- For testing purposes, use login test@test.sk and password Test123456 :)
+- I rewrote a lot of both backend and frontend code in JANUARY 2026
 - Brand new look with Bootstrap 5
 - New database tables added (like Sponsorship)
 - Relationships between database tables have been corrected
    
 # Technology Stack
+- Hosted by me on my Ubuntu Server 24.04.3 with CloudFlare. 
 - Frontend: HTML, CSS (Bootstrap 5), JS
 - Backend: Django, Python
 - Database: SQLite3
