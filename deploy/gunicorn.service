@@ -1,0 +1,32 @@
+[Unit]
+Description=Cycling Club Django (Gunicorn)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/srv/cycling-club
+
+# Option A: export env vars directly here (simple)
+# Environment=DJANGO_DEBUG=0
+# Environment=SECRET_KEY=...
+# Environment=DJANGO_ALLOWED_HOSTS=...
+# Environment=DJANGO_CSRF_TRUSTED_ORIGINS=...
+# Environment=DATABASE_URL=...
+# Environment=EMAIL_HOST_USER=...
+# Environment=EMAIL_HOST_PASSWORD=...
+
+# Option B: use an EnvironmentFile
+# EnvironmentFile=/etc/cycling-club.env
+
+ExecStart=/srv/cycling-club/.venv/bin/gunicorn my_ebike.wsgi:application \
+  --bind 127.0.0.1:8000 \
+  --workers 2 \
+  --timeout 60
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

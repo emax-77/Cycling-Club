@@ -1,0 +1,19 @@
+# Cloudflare Tunnel config example
+# Docs: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+#
+# Place this on the server, e.g. /etc/cloudflared/config.yml
+# Make sure the tunnel credentials JSON is stored securely.
+
+# tunnel: <TUNNEL_UUID>
+# credentials-file: /etc/cloudflared/<TUNNEL_UUID>.json
+
+# Optional: helps for troubleshooting
+# loglevel: info
+
+ingress:
+  # Route your public hostname to your local reverse proxy or app
+  - hostname: your-hostname.example.com
+    service: http://127.0.0.1:8080
+
+  # Catch-all
+  - service: http_status:404
