@@ -4,8 +4,8 @@ As the treasurer of a cycling club, the project aims to create a functional appl
 
 # Latest updates
 - We are ONLINE !!! Please check www.ctk-ts.eu 
-- The page is optimized for big displays (PC, notebook, or tablet) for now. Will update soon :)
-- For testing purposes, use login test@test.sk and password Test123456 :)
+- The page is optimized for big displays (PC, notebook, or tablet) for now. It's a test run now; some updates, including localization to the Slovak language, will arrive soon.
+- For testing purposes, use login test@test.sk and password Test123456 (only logged members can enter most sections on this web) 
 - I rewrote a lot of both backend and frontend code in JANUARY 2026
 - Brand new look with Bootstrap 5
 - New database tables added (like Sponsorship)
