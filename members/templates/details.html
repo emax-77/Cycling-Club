@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  {{ mymember.firstname }} {{ mymember.lastname }} - Member Details
+  {{ mymember.firstname }} {{ mymember.lastname }} - {% trans "Member Details" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -183,42 +184,42 @@
         {{ mymember.firstname }} {{ mymember.lastname }}
       </h1>
       <span class="member-badge">
-        <i class="bi bi-person-check-fill"></i> Active Member
+        <i class="bi bi-person-check-fill"></i> {% trans "Active Member" %}
       </span>
     </div>
 
     <div class="info-grid">
       <div class="info-item">
         <div class="info-label">
-          <i class="bi bi-telephone-fill"></i> Phone Number
+          <i class="bi bi-telephone-fill"></i> {% trans "Phone Number" %}
         </div>
         <div class="info-value">{{ mymember.phone }}</div>
       </div>
 
       <div class="info-item">
         <div class="info-label">
-          <i class="bi bi-calendar-check"></i> Member Since
+          <i class="bi bi-calendar-check"></i> {% trans "Member Since" %}
         </div>
         <div class="info-value">{{ mymember.joined_date }}</div>
       </div>
 
       <div class="info-item">
         <div class="info-label">
-          <i class="bi bi-house-fill"></i> Address
+          <i class="bi bi-house-fill"></i> {% trans "Address" %}
         </div>
         <div class="info-value">{{ mymember.address }}</div>
       </div>
 
       <div class="info-item">
         <div class="info-label">
-          <i class="bi bi-geo-alt-fill"></i> Zip / City
+          <i class="bi bi-geo-alt-fill"></i> {% trans "Zip / City" %}
         </div>
         <div class="info-value">{{ mymember.zipcode }}, {{ mymember.city }}</div>
       </div>
 
       <div class="info-item">
         <div class="info-label">
-          <i class="bi bi-flag-fill"></i> Country
+          <i class="bi bi-flag-fill"></i> {% trans "Country" %}
         </div>
         <div class="info-value">{{ mymember.country }}</div>
       </div>
@@ -226,14 +227,14 @@
 
     <div class="fees-highlight">
       <div class="label">
-        <i class="bi bi-cash-coin"></i> Member Fees Paid
+        <i class="bi bi-cash-coin"></i> {% trans "Member Fees Paid" %}
       </div>
       <div class="value">{{ total_paid }} EUR</div>
     </div>
 
     <div style="text-align: center;">
       <a href="/members" class="back-button">
-        <i class="bi bi-arrow-left-circle"></i> Back to Members
+        <i class="bi bi-arrow-left-circle"></i> {% trans "Back to Members" %}
       </a>
     </div>
   </div>

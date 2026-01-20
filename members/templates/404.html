@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  404 - Page Not Found
+  404 - {% trans "Page Not Found" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -140,21 +141,21 @@
     </div>
     
     <h1 class="error-code">404</h1>
-    <h2 class="error-title">Page Not Found</h2>
+    <h2 class="error-title">{% trans "Page Not Found" %}</h2>
     
     <p class="error-message">
-      Oops! The page you're looking for doesn't exist. It may have been moved or deleted.
+      {% trans "Oops! The page you're looking for doesn't exist. It may have been moved or deleted." %}
     </p>
     
     <div class="error-links">
       <a href="{% url 'welcome' %}" class="error-link">
-        <i class="bi bi-house-door-fill"></i> Back to Home
+        <i class="bi bi-house-door-fill"></i> {% trans "Back to Home" %}
       </a>
       <a href="{% url 'members' %}" class="error-link secondary">
-        <i class="bi bi-people-fill"></i> Members
+        <i class="bi bi-people-fill"></i> {% trans "Members" %}
       </a>
       <a href="{% url 'contact' %}" class="error-link secondary">
-        <i class="bi bi-envelope-fill"></i> Contact
+        <i class="bi bi-envelope-fill"></i> {% trans "Contact" %}
       </a>
     </div>
   </div>

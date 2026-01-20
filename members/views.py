@@ -24,6 +24,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum, Q
 from django.utils import timezone
+from django.utils.translation import gettext as _
 
 # Home page 
 def welcome(request):
@@ -83,12 +84,12 @@ def balance_graph(request):
   cash_balance_last_year = sum_income_last_year - sum_expenses_last_year
 
   fig_total = px.bar(
-    x=["incomes", "payments", "result"],
+    x=[_('incomes'), _('payments'), _('result')],
     y=[float(sum_income_total), float(sum_expenses_total), float(cash_balance_total)],
-    labels={"x": "balance", "y": "EUR"},
-    title='Club treasury TOTAL'
+    labels={"x": _('balance'), "y": "EUR"},
+    title=_('Club treasury TOTAL')
   )
-  # Include Plotly.js only once (via CDN) to keep response size reasonable.
+  
   graph_total = fig_total.to_html(
     full_html=False,
     include_plotlyjs='cdn',
@@ -97,10 +98,10 @@ def balance_graph(request):
   )
 
   fig_this_year = px.bar(
-    x=["incomes", "payments", "result"],
+    x=[_('incomes'), _('payments'), _('result')],
     y=[float(sum_income_this_year), float(sum_expenses_this_year), float(cash_balance_this_year)],
-    labels={"x": "balance", "y": "EUR"},
-    title='Club treasury THIS YEAR'
+    labels={"x": _('balance'), "y": "EUR"},
+    title=_('Club treasury THIS YEAR')
   )
   graph_this_year = fig_this_year.to_html(
     full_html=False,
@@ -110,10 +111,10 @@ def balance_graph(request):
   )
 
   fig_last_year = px.bar(
-    x=["incomes", "payments", "result"],
+    x=[_('incomes'), _('payments'), _('result')],
     y=[float(sum_income_last_year), float(sum_expenses_last_year), float(cash_balance_last_year)],
-    labels={"x": "balance", "y": "EUR"},
-    title='Club treasury LAST YEAR'
+    labels={"x": _('balance'), "y": "EUR"},
+    title=_('Club treasury LAST YEAR')
   )
   graph_last_year = fig_last_year.to_html(
     full_html=False,
@@ -162,7 +163,7 @@ def contact(request):
 
     # prevent header injection (CR/LF) in name/email
     if any(ch in name for ch in ('\n', '\r')) or any(ch in email for ch in ('\n', '\r')):
-      context['error_message'] = 'Invalid characters in name or email.'
+      context['error_message'] = _('Invalid characters in name or email.')
       return HttpResponse(template.render(context, request))
     name = name.replace('\r', ' ').replace('\n', ' ')
 
@@ -170,11 +171,11 @@ def contact(request):
     try:
       validate_email(email)
     except DjangoValidationError:
-      context['error_message'] = 'Please provide a valid email address.'
+      context['error_message'] = _('Please provide a valid email address.')
       return HttpResponse(template.render(context, request))
 
-    subject = f'Message from Cycling Club, user: {name}'
-    message = f'{name} ({email}) wrote:\n\n{message_content}'
+    subject = _('Message from Cycling Club, user: %(name)s') % {'name': name}
+    message = _('%(name)s (%(email)s) wrote:\n\n%(message)s') % {'name': name, 'email': email, 'message': message_content}
     email_from = str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else ''
    
     subject = _sanitize_header(subject)
@@ -182,7 +183,7 @@ def contact(request):
     recipient_list = [_sanitize_header(r) for r in getattr(settings, 'CONTACT_RECIPIENT_LIST', [])]
 
     if not recipient_list:
-      context['error_message'] = 'Contact recipient is not configured.'
+      context['error_message'] = _('Contact recipient is not configured.')
       return HttpResponse(template.render(context, request))
 
     # validate recipient emails
@@ -190,7 +191,7 @@ def contact(request):
       try:
         validate_email(r)
       except DjangoValidationError:
-        context['error_message'] = 'Invalid recipient email configured.'
+        context['error_message'] = _('Invalid recipient email configured.')
         return HttpResponse(template.render(context, request))
 
     try:
@@ -206,38 +207,32 @@ def contact(request):
 
       sent_count = conn.send_messages([email_msg])
       if sent_count and sent_count > 0:
-        context['success_message'] = "Thank you! Your message has been sent successfully."
+        context['success_message'] = _('Thank you! Your message has been sent successfully.')
       else:
-        context['error_message'] = "Email was not sent. Please try again later."
+        context['error_message'] = _('Email was not sent. Please try again later.')
 
     except BadHeaderError:
       logger.warning('BadHeaderError when sending contact email (subject/from/to sanitized).')
-      context['error_message'] = "Invalid header found in the email. Please check header values (no newlines)."
+      context['error_message'] = _('Invalid header found in the email. Please check header values (no newlines).')
 
     except ssl.SSLError:
       logger.exception('SSL error when sending contact email')
-      context['error_message'] = (
-        "Secure connection failed: It was not possible to establish a secure TLS connection to the SMTP server (SSL certificate). "
-        "This is often caused by a corporate proxy/antivirus inserting its own certificate. "
-        "Check that EMAIL_USE_OS_TRUSTSTORE=1 and restart the server."
-      )
+      context['error_message'] = _('Secure connection failed: It was not possible to establish a secure TLS connection to the SMTP server (SSL certificate). This is often caused by a corporate proxy/antivirus inserting its own certificate. Check that EMAIL_USE_OS_TRUSTSTORE=1 and restart the server.')
 
     except smtplib.SMTPAuthenticationError:
       logger.exception('SMTPAuthenticationError when sending contact email')
-      context['error_message'] = (
-        "Gmail refused SMTP login. "
-        "Use an 'App password' and save it in EMAIL_HOST_PASSWORD.")
+      context['error_message'] = _('Gmail refused SMTP login. Use an App password and save it in EMAIL_HOST_PASSWORD.')
 
     except smtplib.SMTPException:
       logger.exception('SMTPException when sending contact email')
-      context['error_message'] = "An SMTP error occurred while sending the message. Please try again later."
+      context['error_message'] = _('An SMTP error occurred while sending the message. Please try again later.')
 
     except Exception as e:
       logger.exception('Unexpected error when sending contact email')
       if getattr(settings, 'DEBUG', False):
-        context['error_message'] = f"An error occurred while sending your message. Error: {str(e)}"
+        context['error_message'] = _('An error occurred while sending your message. Error: %(error)s') % {'error': str(e)}
       else:
-        context['error_message'] = "An error occurred while sending your message. Please try again later."
+        context['error_message'] = _('An error occurred while sending your message. Please try again later.')
 
   return HttpResponse(template.render(context, request))
 
@@ -269,15 +264,15 @@ def club_treasury(request):
     other_income = other_income.filter(date_paid__year=year_now)
     sponsorship = sponsorship.filter(date__year=year_now)
     expenses = expenses.filter(payment_date__year=year_now)
-    period_title = f"This year ({year_now})"
+    period_title = _('This year (%(year)s)') % {'year': year_now}
   elif period == 'last_year':
     membership = membership.filter(period_year=year_last)
     other_income = other_income.filter(date_paid__year=year_last)
     sponsorship = sponsorship.filter(date__year=year_last)
     expenses = expenses.filter(payment_date__year=year_last)
-    period_title = f"Last year ({year_last})"
+    period_title = _('Last year (%(year)s)') % {'year': year_last}
   else:
-    period_title = "All years combined"
+    period_title = _('All years combined')
 
   sum_membership = membership.aggregate(Sum('amount'))['amount__sum'] or 0
   sum_sponsorship = (
@@ -370,7 +365,7 @@ def club_events(request):
     event_id = (request.POST.get('event_id') or '').strip()
 
     if not event_id:
-      error_message = 'Please select an event.'
+      error_message = _('Please select an event.')
     elif member is None:
       if getattr(settings, 'DEBUG', False):
         error_message = (
@@ -379,19 +374,19 @@ def club_events(request):
           'Fix: link a Member via Member.user, or set Member.email to this email.'
         )
       else:
-        error_message = 'No club member is linked to your account. Please contact the administrator.'
+        error_message = _('No club member is linked to your account. Please contact the administrator.')
     else:
       # Only allow upcoming events
       try:
         event = ClubEvents.objects.get(id=event_id, event_date__isnull=False, event_date__gte=today)
       except ClubEvents.DoesNotExist:
         event = None
-        error_message = 'The selected event does not exist.'
+        error_message = _('The selected event does not exist.')
 
       if event is not None:
         email = (request.user.email or member.email or request.user.username or '').strip()
         if not email:
-          error_message = 'No email address is set for your account. Please contact the administrator.'
+          error_message = _('No email address is set for your account. Please contact the administrator.')
         else:
           subscription, created = EventSubscribe.objects.get_or_create(
             email=email,
@@ -406,24 +401,27 @@ def club_events(request):
           event.event_members.add(member)
 
           # Send confirmation email
-          subject = _sanitize_header('Event registration')
+          subject = _sanitize_header(_('Event registration'))
           safe_event_name = _sanitize_header(event.event_name)
           safe_member_name = _sanitize_header(f'{member.firstname} {member.lastname}'.strip())
           safe_date = _sanitize_header(str(event.event_date) if event.event_date else '')
-          message = (
-            f'Hi {safe_member_name},\n\n'
-            f'you have successfully registered for the event: {safe_event_name}'
-            f'{(" (" + safe_date + ")") if safe_date else ""}.\n\n'
+          message = _(
+            'Hi %(member)s,\n\n'
+            'you have successfully registered for the event: %(event)s%(date)s.\n\n'
             'Thank you and see you soon.\n'
             'Cycling Club'
-          )
+          ) % {
+            'member': safe_member_name,
+            'event': safe_event_name,
+            'date': (f' ({safe_date})' if safe_date else ''),
+          }
           email_from = _sanitize_header(str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else '')
           recipient_list = [_sanitize_header(email)]
 
           try:
             validate_email(recipient_list[0])
           except DjangoValidationError:
-            error_message = 'An error occurred: invalid recipient email.'
+            error_message = _('An error occurred: invalid recipient email.')
           else:
             try:
               email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
@@ -435,35 +433,29 @@ def club_events(request):
 
               sent_count = conn.send_messages([email_msg])
               if sent_count and sent_count > 0:
-                success_message = 'Done! You are registered for the event.'
+                success_message = _('Done! You are registered for the event.')
               else:
-                success_message = 'Registration was saved, but the email could not be sent.'
+                success_message = _('Registration was saved, but the email could not be sent.')
 
             except BadHeaderError:
               logger.warning('BadHeaderError when sending club_events confirmation email.')
-              success_message = 'Registration was saved, but the email could not be sent (invalid header).'
+              success_message = _('Registration was saved, but the email could not be sent (invalid header).')
 
             except ssl.SSLError:
               logger.exception('SSL error when sending club_events confirmation email')
-              success_message = (
-                'Registration was saved, but a TLS connection to the SMTP server could not be established. '
-                'Check EMAIL_USE_OS_TRUSTSTORE=1 and restart the server.'
-              )
+              success_message = _('Registration was saved, but a TLS connection to the SMTP server could not be established. Check EMAIL_USE_OS_TRUSTSTORE=1 and restart the server.')
 
             except smtplib.SMTPAuthenticationError:
               logger.exception('SMTPAuthenticationError when sending club_events confirmation email')
-              success_message = (
-                'Registration was saved, but Gmail refused SMTP login. '
-                "Use an 'App password' and save it in EMAIL_HOST_PASSWORD."
-              )
+              success_message = _('Registration was saved, but Gmail refused SMTP login. Use an App password and save it in EMAIL_HOST_PASSWORD.')
 
             except smtplib.SMTPException:
               logger.exception('SMTPException when sending club_events confirmation email')
-              success_message = 'Registration was saved, but an SMTP error occurred while sending the email.'
+              success_message = _('Registration was saved, but an SMTP error occurred while sending the email.')
 
             except Exception:
               logger.exception('Unexpected error when sending club_events confirmation email')
-              success_message = 'Registration was saved, but an error occurred while sending the email.'
+              success_message = _('Registration was saved, but an error occurred while sending the email.')
 
     # refresh list after POST
     subscriptions_this_year = (

@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Gallery - Cycling Club
+  {% trans "Gallery" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -176,8 +177,8 @@
 {% block content %}
 <div class="gallery-container">
   <div class="page-header">
-    <h1><i class="bi bi-images"></i> Club Gallery</h1>
-    <p><i class="bi bi-camera-fill"></i> Memories from our cycling adventures</p>
+    <h1><i class="bi bi-images"></i> {% trans "Club Gallery" %}</h1>
+    <p><i class="bi bi-camera-fill"></i> {% trans "Memories from our cycling adventures" %}</p>
   </div>
 
   {% if club_pictures %}
@@ -201,7 +202,7 @@
   {% else %}
   <div class="empty-state">
     <i class="bi bi-images"></i>
-    <p>No pictures available in the gallery</p>
+    <p>{% trans "No pictures available in the gallery" %}</p>
   </div>
   {% endif %}
 </div>

@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Club Events - Cycling Club
+  {% trans "Club Events" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -256,14 +257,14 @@
   <!-- Events List -->
   <div class="events-card">
     <div class="page-header">
-      <h1><i class="bi bi-calendar-event"></i> Club Events</h1>
+      <h1><i class="bi bi-calendar-event"></i> {% trans "Club Events" %}</h1>
       <span class="year-badge">
         <i class="bi bi-calendar3"></i> {{ year_now }}
       </span>
     </div>
 
     <h2 class="section-title">
-      <i class="bi bi-list-task"></i> Upcoming Events
+      <i class="bi bi-list-task"></i> {% trans "Upcoming Events" %}
     </h2>
     
     <div class="table-wrapper">
@@ -271,9 +272,9 @@
         <thead>
           <tr>
             <th><i class="bi bi-hash"></i> ID</th>
-            <th><i class="bi bi-calendar"></i> Event Date</th>
-            <th><i class="bi bi-flag-fill"></i> Event Name</th>
-            <th><i class="bi bi-info-circle"></i> Event Details</th>
+            <th><i class="bi bi-calendar"></i> {% trans "Event Date" %}</th>
+            <th><i class="bi bi-flag-fill"></i> {% trans "Event Name" %}</th>
+            <th><i class="bi bi-info-circle"></i> {% trans "Event Details" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -288,7 +289,7 @@
           <tr>
             <td colspan="4" class="empty-state">
               <i class="bi bi-calendar-x"></i>
-              <p>No events scheduled for {{ year_now }}</p>
+              <p>{% blocktrans with year=year_now %}No events scheduled for {{ year }}{% endblocktrans %}</p>
             </td>
           </tr>
           {% endfor %}
@@ -300,15 +301,15 @@
   <!-- Signup Form -->
   <div class="events-card">
     <div class="signup-form-container">
-      <h3><i class="bi bi-pencil-square"></i> Sign Up for an Event</h3>
+      <h3><i class="bi bi-pencil-square"></i> {% trans "Sign Up for an Event" %}</h3>
       <form method="post" action="{% url 'club_events' %}">
         {% csrf_token %}
         <div class="form-group">
           <label for="event_id">
-            <i class="bi bi-calendar-event"></i> Select an event
+            <i class="bi bi-calendar-event"></i> {% trans "Select an event" %}
           </label>
           <select class="form-control" id="event_id" name="event_id" required>
-            <option value="" selected disabled>-- Choose one of the available events --</option>
+            <option value="" selected disabled>-- {% trans "Choose one of the available events" %} --</option>
             {% for e in events_this_year %}
               <option value="{{ e.id }}">{{ e.event_date }} — {{ e.event_name }}</option>
             {% endfor %}
@@ -316,7 +317,7 @@
         </div>
         
         <button type="submit" class="btn-submit">
-          <i class="bi bi-check-circle"></i> Submit Registration
+          <i class="bi bi-check-circle"></i> {% trans "Submit Registration" %}
         </button>
       </form>
     </div>
@@ -325,7 +326,7 @@
   <!-- Registered Members -->
   <div class="events-card">
     <h2 class="section-title">
-      <i class="bi bi-people"></i> Registered Members
+      <i class="bi bi-people"></i> {% trans "Registered Members" %}
     </h2>
     
     <div class="table-wrapper">
@@ -333,9 +334,9 @@
         <thead>
           <tr>
             <th><i class="bi bi-hash"></i> ID</th>
-            <th><i class="bi bi-person"></i> Name</th>
-            <th><i class="bi bi-envelope"></i> Email</th>
-            <th><i class="bi bi-flag"></i> Event</th>
+            <th><i class="bi bi-person"></i> {% trans "Name" %}</th>
+            <th><i class="bi bi-envelope"></i> {% trans "Email" %}</th>
+            <th><i class="bi bi-flag"></i> {% trans "Event" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -356,7 +357,7 @@
           <tr>
             <td colspan="4" class="empty-state">
               <i class="bi bi-inbox"></i>
-              <p>No members registered yet</p>
+              <p>{% trans "No members registered yet" %}</p>
             </td>
           </tr>
           {% endfor %}

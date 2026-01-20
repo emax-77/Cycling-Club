@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Members - Cycling Club
+  {% trans "Members" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -162,9 +163,9 @@
 {% block content %}
 <div class="members-container">
   <div class="page-header">
-    <h1><i class="bi bi-people-fill"></i> Club Members</h1>
+    <h1><i class="bi bi-people-fill"></i> {% trans "Club Members" %}</h1>
     <p class="members-count">
-      <i class="bi bi-person-badge"></i> Total: {{ mymembers|length }} members
+      <i class="bi bi-person-badge"></i> {% trans "Total members:" %} {{ mymembers|length }}
     </p>
   </div>
 
@@ -178,7 +179,7 @@
           <div class="member-info">
             <div class="member-name">{{ x.firstname }} {{ x.lastname }}</div>
             <div class="member-meta">
-              <i class="bi bi-person-circle"></i> Member ID: {{ x.id }}
+              <i class="bi bi-person-circle"></i> {% trans "Member ID:" %} {{ x.id }}
             </div>
           </div>
           <div class="member-arrow">
@@ -190,7 +191,7 @@
   {% else %}
     <div class="empty-state">
       <i class="bi bi-people"></i>
-      <p>No members found</p>
+      <p>{% trans "No members found" %}</p>
     </div>
   {% endif %}
 </div>

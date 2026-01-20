@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Balance Graph - Cycling Club
+  {% trans "Balance Graph" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -193,34 +194,34 @@
 {% block content %}
 <div class="balance-container">
   <div class="page-header">
-    <h1><i class="bi bi-graph-up-arrow"></i> Balance Graph</h1>
+    <h1><i class="bi bi-graph-up-arrow"></i> {% trans "Balance Graph" %}</h1>
     <p style="color: #64748b; font-size: 1.1rem;">
-      <i class="bi bi-bar-chart-fill"></i> Financial overview and analytics
+      <i class="bi bi-bar-chart-fill"></i> {% trans "Financial overview and analytics" %}
     </p>
   </div>
 
   <!-- Total Balance -->
   <div class="balance-card">
     <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
-      <h2><i class="bi bi-wallet2"></i> Club Treasury TOTAL</h2>
+      <h2><i class="bi bi-wallet2"></i> {% trans "Club Treasury TOTAL" %}</h2>
     </div>
     <div class="card-body">
       <div class="stats-group">
         <div class="stat-item">
           <span class="stat-label">
-            <i class="bi bi-people-fill"></i> Membership Fees
+            <i class="bi bi-people-fill"></i> {% trans "Membership Fees" %}
           </span>
           <span class="stat-value">{{ sum_fees_total }} EUR</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">
-            <i class="bi bi-currency-euro"></i> Sponsorship
+            <i class="bi bi-currency-euro"></i> {% trans "Sponsorship" %}
           </span>
           <span class="stat-value">{{ sum_sponsorship_total }} EUR</span>
         </div>
         <div class="stat-item">
           <span class="stat-label">
-            <i class="bi bi-receipt"></i> Total Expenses
+            <i class="bi bi-receipt"></i> {% trans "Total Expenses" %}
           </span>
           <span class="stat-value">{{ sum_expenses_total }} EUR</span>
         </div>
@@ -228,7 +229,7 @@
 
       <div class="balance-highlight {% if cash_balance_total > 0 %}balance-positive{% elif cash_balance_total < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
         <div class="label">
-          <i class="bi bi-cash-coin"></i> Total Balance
+          <i class="bi bi-cash-coin"></i> {% trans "Total Balance" %}
         </div>
         <div class="value">{{ cash_balance_total }} EUR</div>
       </div>
@@ -239,7 +240,7 @@
         {% else %}
           <div class="no-graph">
             <i class="bi bi-graph-down"></i>
-            <p>No graph data available</p>
+            <p>{% trans "No graph data available" %}</p>
           </div>
         {% endif %}
       </div>
@@ -251,25 +252,25 @@
     <!-- This Year -->
     <div class="balance-card">
       <div class="card-header">
-        <h2><i class="bi bi-calendar3"></i> This Year{% if year_now %} ({{ year_now }}){% endif %}</h2>
+        <h2><i class="bi bi-calendar3"></i> {% trans "This Year" %}{% if year_now %} ({{ year_now }}){% endif %}</h2>
       </div>
       <div class="card-body">
         <div class="stats-group">
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-people-fill"></i> Membership Fees
+              <i class="bi bi-people-fill"></i> {% trans "Membership Fees" %}
             </span>
             <span class="stat-value">{{ sum_fees_this_year }} EUR</span>
           </div>
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-currency-euro"></i> Sponsorship
+              <i class="bi bi-currency-euro"></i> {% trans "Sponsorship" %}
             </span>
             <span class="stat-value">{{ sum_sponsorship_this_year }} EUR</span>
           </div>
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-receipt"></i> Total Expenses
+              <i class="bi bi-receipt"></i> {% trans "Total Expenses" %}
             </span>
             <span class="stat-value">{{ sum_expenses_this_year }} EUR</span>
           </div>
@@ -277,7 +278,7 @@
 
         <div class="balance-highlight {% if cash_balance_this_year > 0 %}balance-positive{% elif cash_balance_this_year < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
           <div class="label">
-            <i class="bi bi-cash-coin"></i> Balance This Year
+            <i class="bi bi-cash-coin"></i> {% trans "Balance This Year" %}
           </div>
           <div class="value">{{ cash_balance_this_year }} EUR</div>
         </div>
@@ -288,7 +289,7 @@
           {% else %}
             <div class="no-graph">
               <i class="bi bi-graph-down"></i>
-              <p>No graph data available</p>
+              <p>{% trans "No graph data available" %}</p>
             </div>
           {% endif %}
         </div>
@@ -298,25 +299,25 @@
     <!-- Last Year -->
     <div class="balance-card">
       <div class="card-header" style="background: linear-gradient(135deg, #64748b, #475569);">
-        <h2><i class="bi bi-calendar2"></i> Last Year{% if year_last %} ({{ year_last }}){% endif %}</h2>
+        <h2><i class="bi bi-calendar2"></i> {% trans "Last Year" %}{% if year_last %} ({{ year_last }}){% endif %}</h2>
       </div>
       <div class="card-body">
         <div class="stats-group">
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-people-fill"></i> Membership Fees
+              <i class="bi bi-people-fill"></i> {% trans "Membership Fees" %}
             </span>
             <span class="stat-value">{{ sum_fees_last_year }} EUR</span>
           </div>
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-currency-euro"></i> Sponsorship
+              <i class="bi bi-currency-euro"></i> {% trans "Sponsorship" %}
             </span>
             <span class="stat-value">{{ sum_sponsorship_last_year }} EUR</span>
           </div>
           <div class="stat-item">
             <span class="stat-label">
-              <i class="bi bi-receipt"></i> Total Expenses
+              <i class="bi bi-receipt"></i> {% trans "Total Expenses" %}
             </span>
             <span class="stat-value">{{ sum_expenses_last_year }} EUR</span>
           </div>
@@ -324,7 +325,7 @@
 
         <div class="balance-highlight {% if cash_balance_last_year > 0 %}balance-positive{% elif cash_balance_last_year < 0 %}balance-negative{% else %}balance-neutral{% endif %}">
           <div class="label">
-            <i class="bi bi-cash-coin"></i> Balance Last Year
+            <i class="bi bi-cash-coin"></i> {% trans "Balance Last Year" %}
           </div>
           <div class="value">{{ cash_balance_last_year }} EUR</div>
         </div>
@@ -335,7 +336,7 @@
           {% else %}
             <div class="no-graph">
               <i class="bi bi-graph-down"></i>
-              <p>No graph data available</p>
+              <p>{% trans "No graph data available" %}</p>
             </div>
           {% endif %}
         </div>

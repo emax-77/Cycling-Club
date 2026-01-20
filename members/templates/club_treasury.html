@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Club Treasury - Cycling Club
+  {% trans "Club Treasury" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -231,54 +232,62 @@
   <div class="treasury-card">
     <!-- Page Header -->
     <div class="page-header">
-      <h1><i class="bi bi-wallet2"></i> Club Treasury</h1>
+      <h1><i class="bi bi-wallet2"></i> {% trans "Club Treasury" %}</h1>
     </div>
 
     <!-- Filter Section -->
     <div class="filter-section">
       <form method="get" class="d-flex justify-content-center align-items-center flex-wrap gap-2">
-        <label for="period"><i class="bi bi-calendar3"></i> Period:</label>
+        <label for="period"><i class="bi bi-calendar3"></i> {% trans "Period:" %}</label>
         <select id="period" name="period" class="form-select" style="width: auto;">
-          <option value="all" {% if period == 'all' %}selected{% endif %}>All years</option>
-          <option value="this_year" {% if period == 'this_year' %}selected{% endif %}>This year{% if year_now %} ({{ year_now }}){% endif %} </option>
-          <option value="last_year" {% if period == 'last_year' %}selected{% endif %}>Last year{% if year_last %} ({{ year_last }}){% endif %} </option>
+          <option value="all" {% if period == 'all' %}selected{% endif %}>{% trans "All years" %}</option>
+          <option value="this_year" {% if period == 'this_year' %}selected{% endif %}>{% trans "This year" %}{% if year_now %} ({{ year_now }}){% endif %} </option>
+          <option value="last_year" {% if period == 'last_year' %}selected{% endif %}>{% trans "Last year" %}{% if year_last %} ({{ year_last }}){% endif %} </option>
         </select>
         <button type="submit" class="btn-show">
-          <i class="bi bi-arrow-clockwise"></i> Show
+          <i class="bi bi-arrow-clockwise"></i> {% trans "Show" %}
         </button>
       </form>
     </div>
 
     <!-- Summary Cards -->
-    <h3 class="text-center mb-4" style="color: #1e293b; font-weight: 600;">{{ period_title }}</h3>
+    <h3 class="text-center mb-4" style="color: #1e293b; font-weight: 600;">
+      {% if period == 'this_year' %}
+        {% blocktrans with year=year_now %}This year ({{ year }}){% endblocktrans %}
+      {% elif period == 'last_year' %}
+        {% blocktrans with year=year_last %}Last year ({{ year }}){% endblocktrans %}
+      {% else %}
+        {% trans "All years combined" %}
+      {% endif %}
+    </h3>
     <div class="summary-cards">
       <div class="summary-card">
         <div class="icon"><i class="bi bi-people-fill"></i></div>
-        <div class="label">Membership Fees</div>
+        <div class="label">{% trans "Membership Fees" %}</div>
         <div class="value">{{ sum_membership }} €</div>
       </div>
       
       <div class="summary-card">
         <div class="icon"><i class="bi bi-currency-euro"></i></div>
-        <div class="label">Sponsorship</div>
+        <div class="label">{% trans "Sponsorship" %}</div>
         <div class="value">{{ sum_sponsorship }} €</div>
       </div>
       
       <div class="summary-card income">
         <div class="icon"><i class="bi bi-arrow-down-circle-fill"></i></div>
-        <div class="label">Total Income</div>
+        <div class="label">{% trans "Total Income" %}</div>
         <div class="value">{{ sum_income }} €</div>
       </div>
       
       <div class="summary-card expense">
         <div class="icon"><i class="bi bi-arrow-up-circle-fill"></i></div>
-        <div class="label">Total Expenses</div>
+        <div class="label">{% trans "Total Expenses" %}</div>
         <div class="value">{{ sum_expenses }} €</div>
       </div>
       
       <div class="summary-card {% if cash_balance > 0 %}balance-positive{% elif cash_balance < 0 %}balance-negative{% else %}{% endif %}">
         <div class="icon"><i class="bi bi-cash-coin"></i></div>
-        <div class="label">Balance</div>
+        <div class="label">{% trans "Balance" %}</div>
         <div class="value">{{ cash_balance }} €</div>
       </div>
     </div>
@@ -287,16 +296,16 @@
   <!-- Membership Fees Table -->
   <div class="treasury-card">
     <h2 class="section-title">
-      <i class="bi bi-people"></i> Membership Fees
+      <i class="bi bi-people"></i> {% trans "Membership Fees" %}
     </h2>
     <div class="table-wrapper">
       <table class="modern-table">
         <thead>
           <tr>
             <th><i class="bi bi-hash"></i> ID</th>
-            <th><i class="bi bi-person"></i> First Name</th>
-            <th><i class="bi bi-person-badge"></i> Last Name</th>
-            <th><i class="bi bi-cash"></i> Member Fees</th>
+            <th><i class="bi bi-person"></i> {% trans "First Name" %}</th>
+            <th><i class="bi bi-person-badge"></i> {% trans "Last Name" %}</th>
+            <th><i class="bi bi-cash"></i> {% trans "Member Fees" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -311,7 +320,7 @@
           <tr>
             <td colspan="4" class="empty-state">
               <i class="bi bi-inbox"></i>
-              <p>No membership fees data available</p>
+              <p>{% trans "No membership fees data available" %}</p>
             </td>
           </tr>
           {% endfor %}
@@ -324,17 +333,17 @@
   {% if mysponsorships_model %}
   <div class="treasury-card">
     <h2 class="section-title">
-      <i class="bi bi-currency-euro"></i> Sponsorships
+      <i class="bi bi-currency-euro"></i> {% trans "Sponsorships" %}
     </h2>
     <div class="table-wrapper">
       <table class="modern-table">
         <thead>
           <tr>
             <th><i class="bi bi-hash"></i> ID</th>
-            <th><i class="bi bi-calendar"></i> Date</th>
-            <th><i class="bi bi-building"></i> Sponsor</th>
-            <th><i class="bi bi-card-text"></i> Purpose</th>
-            <th><i class="bi bi-cash"></i> Amount</th>
+            <th><i class="bi bi-calendar"></i> {% trans "Date" %}</th>
+            <th><i class="bi bi-building"></i> {% trans "Sponsor" %}</th>
+            <th><i class="bi bi-card-text"></i> {% trans "Purpose" %}</th>
+            <th><i class="bi bi-cash"></i> {% trans "Amount" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -356,17 +365,17 @@
   <!-- Club Expenses Table -->
   <div class="treasury-card">
     <h2 class="section-title">
-      <i class="bi bi-receipt"></i> Club Expenses
+      <i class="bi bi-receipt"></i> {% trans "Club Expenses" %}
     </h2>
     <div class="table-wrapper">
       <table class="modern-table">
         <thead>
           <tr>
             <th><i class="bi bi-hash"></i> ID</th>
-            <th><i class="bi bi-calendar"></i> Date</th>
-            <th><i class="bi bi-calendar-event"></i> Event Name</th>
-            <th><i class="bi bi-card-text"></i> Note</th>
-            <th><i class="bi bi-cash"></i> Amount</th>
+            <th><i class="bi bi-calendar"></i> {% trans "Date" %}</th>
+            <th><i class="bi bi-calendar-event"></i> {% trans "Event Name" %}</th>
+            <th><i class="bi bi-card-text"></i> {% trans "Note" %}</th>
+            <th><i class="bi bi-cash"></i> {% trans "Amount" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -382,7 +391,7 @@
           <tr>
             <td colspan="5" class="empty-state">
               <i class="bi bi-inbox"></i>
-              <p>No expenses data available</p>
+              <p>{% trans "No expenses data available" %}</p>
             </td>
           </tr>
           {% endfor %}

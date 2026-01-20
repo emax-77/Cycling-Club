@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Contact - Cycling Club
+  {% trans "Contact" %} - {% trans "Cycling Club" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -177,11 +178,10 @@
 <div class="contact-container">
   <div class="contact-card">
     <div class="contact-header">
-      <h1><i class="bi bi-envelope-fill"></i> Contact Us</h1>
+      <h1><i class="bi bi-envelope-fill"></i> {% trans "Contact Us" %}</h1>
       <p>Cyclo Tourist Club Tvrdošín</p>
     </div>
 
-    <!-- Success/Error Messages -->
     {% if success_message %}
     <div class="alert alert-success">
       <i class="bi bi-check-circle-fill"></i>
@@ -196,38 +196,37 @@
     </div>
     {% endif %}
 
-    <!-- Contact Form -->
     <form method="post" action="{% url 'contact' %}">
       {% csrf_token %}
       
       <div class="form-group">
         <label for="name" class="form-label">
-          <i class="bi bi-person"></i> Name
+          <i class="bi bi-person"></i> {% trans "Name" %}
         </label>
-        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+        <input type="text" id="name" name="name" class="form-control" placeholder="{% trans "Your Name" %}" required>
       </div>
 
       <div class="form-group">
         <label for="email" class="form-label">
-          <i class="bi bi-envelope"></i> Email
+          <i class="bi bi-envelope"></i> {% trans "Email" %}
         </label>
         <input type="email" id="email" name="email" class="form-control" placeholder="your.email@example.com" required>
       </div>
 
       <div class="form-group">
         <label for="message" class="form-label">
-          <i class="bi bi-chat-left-text"></i> Message
+          <i class="bi bi-chat-left-text"></i> {% trans "Message" %}
         </label>
-        <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+        <textarea id="message" name="message" class="form-control" placeholder="{% trans "Your Message" %}" required></textarea>
       </div>
 
       <button type="submit" class="btn-submit">
-        <i class="bi bi-send-fill"></i> Send Message
+        <i class="bi bi-send-fill"></i> {% trans "Send Message" %}
       </button>
     </form>
 
     <div class="contact-footer">
-      <p><i class="bi bi-c-circle"></i> {% now "Y" %} Copyright: Peter Wirth</p>
+      <p><i class="bi bi-c-circle"></i> {% now "Y" %} {% trans "Copyright:" %} Peter Wirth</p>
     </div>
   </div>
 </div>

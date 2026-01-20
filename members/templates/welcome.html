@@ -1,8 +1,9 @@
 {% extends "master.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block title %}
-  Cycling Club Tvrdošín - Home
+  Cycling Club Tvrdošín - {% trans "Home" %}
 {% endblock %}
 
 {% block extra_css %}
@@ -164,51 +165,51 @@
   <div class="hero-section">
     <h1 class="hero-title">
       <i class="bi bi-bicycle"></i>
-      Cyclo-Tourist Club Tvrdošín
+      {% trans "Cyclo-Tourist Club Tvrdosin" %}
     </h1>
        
     <div class="hero-image-container">
-      <img class="hero-image" src="{% static 'img8.jpg' %}" alt="Cycling Club Tvrdošín">
+      <img class="hero-image" src="{% static 'img8.jpg' %}" alt="{% trans "Cyclo-Tourist Club Tvrdosin" %}">
     </div>
 
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon"><i class="bi bi-people-fill"></i></div>
-        <div class="feature-title">Member Management</div>
-        <div class="feature-desc">Track and manage all club members</div>
+        <div class="feature-title">{% trans "Member Management" %}</div>
+        <div class="feature-desc">{% trans "Track and manage all club members" %}</div>
       </div>
       
       <div class="feature-card">
         <div class="feature-icon"><i class="bi bi-calendar-event-fill"></i></div>
-        <div class="feature-title">Event Planning</div>
-        <div class="feature-desc">Organize and schedule club events</div>
+        <div class="feature-title">{% trans "Event Planning" %}</div>
+        <div class="feature-desc">{% trans "Organize and schedule club events" %}</div>
       </div>
       
       <div class="feature-card">
         <div class="feature-icon"><i class="bi bi-wallet-fill"></i></div>
-        <div class="feature-title">Treasury</div>
-        <div class="feature-desc">Manage club finances and fees</div>
+        <div class="feature-title">{% trans "Treasury" %}</div>
+        <div class="feature-desc">{% trans "Manage club finances and fees" %}</div>
       </div>
       
       <div class="feature-card">
         <div class="feature-icon"><i class="bi bi-graph-up-arrow"></i></div>
-        <div class="feature-title">Analytics</div>
-        <div class="feature-desc">View financial reports and graphs</div>
+        <div class="feature-title">{% trans "Analytics" %}</div>
+        <div class="feature-desc">{% trans "View financial reports and graphs" %}</div>
       </div>
     </div>
 
     <div class="cta-section">
-      <h3 style="color: #1e293b; margin-bottom: 0.5rem;">Get Started</h3>
-      <p style="color: #64748b;">Explore our club management features (login required)</p>
+      <h3 style="color: #1e293b; margin-bottom: 0.5rem;">{% trans "Get Started" %}</h3>
+      <p style="color: #64748b;">{% trans "Explore our club management features (login required)" %}</p>
       <div class="cta-buttons">
         <a href="/members" class="cta-button">
-          <i class="bi bi-people"></i> View Members
+          <i class="bi bi-people"></i> {% trans "View Members" %}
         </a>
         <a href="/club_events" class="cta-button">
-          <i class="bi bi-calendar-event"></i> Club Events
+          <i class="bi bi-calendar-event"></i> {% trans "Club Events" %}
         </a>
         <a href="/club_treasury" class="cta-button">
-          <i class="bi bi-wallet2"></i> Treasury
+          <i class="bi bi-wallet2"></i> {% trans "Treasury" %}
         </a>
       </div>
     </div>
