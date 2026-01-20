@@ -9,6 +9,7 @@ numpy==2.4.0
 packaging==25.0
 pandas==2.3.3
 pillow==12.1.0
+polib==1.2.0
 plotly==6.5.0
 psycopg==3.3.2
 psycopg-binary==3.3.2
