@@ -111,8 +111,10 @@ if DATABASE_URL:
     try:
         import dj_database_url
 
+        db_ssl_require = _env_bool('DJANGO_DB_SSL_REQUIRE', False)
+
         DATABASES = {
-            'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=not DEBUG),
+            'default': dj_database_url.parse(DATABASE_URL, conn_max_age=600, ssl_require=db_ssl_require),
         }
     except Exception as exc:
         raise ImproperlyConfigured('DATABASE_URL is set but dj-database-url is not installed or failed to parse it.') from exc

@@ -87,3 +87,11 @@ Still your responsibility:
 - Migrations: `python manage.py migrate`
 - Static: `python manage.py collectstatic --noinput`
 - Run (prod style): `gunicorn my_ebike.wsgi:application --bind 127.0.0.1:8000`
+
+## Docker (Windows + Ubuntu)
+
+If you prefer Docker (recommended for consistency between Windows dev and Ubuntu server):
+- Use `docker-compose.yml` (Django + Postgres)
+- Copy `.env.example` → `.env` and fill in the values
+
+Step-by-step guide: `docker/README_DOCKER.md`

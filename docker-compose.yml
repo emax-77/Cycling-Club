@@ -1,0 +1,39 @@
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cycling_club}
+      POSTGRES_USER: ${POSTGRES_USER:-cycling}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cycling_password_change_me}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      # Prefer explicit DATABASE_URL; otherwise build it from POSTGRES_* values.
+      # Note: defaults here match `.env.example`.
+      DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-cycling}:${POSTGRES_PASSWORD:-change-me}@db:5432/${POSTGRES_DB:-cycling_club}}
+    ports:
+      - "8000:8000"
+    volumes:
+      # persist user uploads and collected static
+      - media:/app/media
+      - static:/app/productionfiles
+
+volumes:
+  postgres_data:
+  media:
+  static:
