@@ -10,6 +10,15 @@
 Voliteľne (v novom termináli):
 - vytvor admin účet: `docker compose exec web python manage.py createsuperuser`
 
+### Dôležité: zmena Postgres používateľa/hesla
+
+Ak zmeníš `POSTGRES_USER` / `POSTGRES_PASSWORD` až po tom, čo sa Postgres kontajner už raz spustil, databáza ich automaticky „neprevezme“ (lebo dáta sú vo volume).
+
+Najjednoduchšie pre lokálny vývoj:
+- `docker compose down -v`
+- uprav `.env`
+- `docker compose up -d --build`
+
 ## 2) Ubuntu server (Docker Engine)
 
 1. Nainštaluj Docker + Compose plugin.
