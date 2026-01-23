@@ -26,12 +26,23 @@ services:
       # Prefer explicit DATABASE_URL; otherwise build it from POSTGRES_* values.
       # Note: defaults here match `.env.example`.
       DATABASE_URL: ${DATABASE_URL:-postgresql://${POSTGRES_USER:-cycling}:${POSTGRES_PASSWORD:-change-me}@db:5432/${POSTGRES_DB:-cycling_club}}
-    ports:
-      - "8000:8000"
     volumes:
       # persist user uploads and collected static
       - media:/app/media
       - static:/app/productionfiles
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    depends_on:
+      - web
+    ports:
+      # Local-only origin for Cloudflared (do not expose to LAN)
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - static:/srv/productionfiles:ro
+      - media:/srv/media:ro
 
 volumes:
   postgres_data:
