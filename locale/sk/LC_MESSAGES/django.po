@@ -24,10 +24,10 @@ msgid "Members"
 msgstr "Členovia"
 
 msgid "Events"
-msgstr "Udalosti"
+msgstr "Podujatia"
 
 msgid "Club Events"
-msgstr "Udalosti klubu"
+msgstr "Klubové podujatia"
 
 msgid "Treasury"
 msgstr "Pokladňa"
@@ -57,28 +57,28 @@ msgid "Member Management"
 msgstr "Správa členov"
 
 msgid "Track and manage all club members"
-msgstr "Evidujte a spravujte všetkých členov klubu"
+msgstr "Evidencia a správa členov klubu"
 
 msgid "Event Planning"
-msgstr "Plánovanie udalostí"
+msgstr "Plánovanie podujatí"
 
 msgid "Organize and schedule club events"
-msgstr "Organizujte a plánujte klubové udalosti"
+msgstr "Organizovanie a plánovanie klubových podujatí"
 
 msgid "Manage club finances and fees"
-msgstr "Spravujte klubové financie a členské"
+msgstr "Správa klubových finanancí"
 
 msgid "Analytics"
 msgstr "Analytika"
 
 msgid "View financial reports and graphs"
-msgstr "Zobraziť finančné reporty a grafy"
+msgstr "Finančné reporty a grafy"
 
 msgid "Get Started"
-msgstr "Začať"
+msgstr "Začnite tu"
 
 msgid "Explore our club management features (login required)"
-msgstr "Preskúmajte správu klubu (potrebné prihlásenie)"
+msgstr "Na vstup do kubových sekcií je potrebné prihlásenie"
 
 msgid "View Members"
 msgstr "Zobraziť členov"
@@ -162,28 +162,28 @@ msgid "Back to Home"
 msgstr "Späť domov"
 
 msgid "Upcoming Events"
-msgstr "Nadchádzajúce udalosti"
+msgstr "Nadchádzajúce podujatia"
 
 msgid "Event Date"
 msgstr "Dátum"
 
 msgid "Event Name"
-msgstr "Názov udalosti"
+msgstr "Názov podujatia"
 
 msgid "Event Details"
-msgstr "Detaily udalosti"
+msgstr "Detaily podujatia"
 
 msgid "No events scheduled for %(year)s"
-msgstr "Pre rok %(year)s nie sú naplánované žiadne udalosti"
+msgstr "Pre rok %(year)s nie sú naplánované žiadne podujatia"
 
 msgid "Sign Up for an Event"
-msgstr "Prihlásiť sa na udalosť"
+msgstr "Prihlásiť sa na podujatie"
 
 msgid "Select an event"
-msgstr "Vyberte udalosť"
+msgstr "Vyberte podujatie"
 
 msgid "Choose one of the available events"
-msgstr "Vyberte jednu z dostupných udalostí"
+msgstr "Vyberte jedno z dostupných podujatí"
 
 msgid "Submit Registration"
 msgstr "Odoslať prihlášku"
@@ -192,7 +192,7 @@ msgid "Registered Members"
 msgstr "Prihlásení členovia"
 
 msgid "Event"
-msgstr "Udalosť"
+msgstr "Podujatie"
 
 msgid "No members registered yet"
 msgstr "Zatiaľ nie sú prihlásení žiadni členovia"
@@ -279,7 +279,7 @@ msgid "Financial overview and analytics"
 msgstr "Finančný prehľad a analýza"
 
 msgid "Club Treasury TOTAL"
-msgstr "Pokladňa klubu CELKOM"
+msgstr "Pokladňa klubu celkom"
 
 msgid "Total Balance"
 msgstr "Celkový zostatok"
@@ -393,13 +393,13 @@ msgid "balance"
 msgstr "zostatok"
 
 msgid "Club treasury TOTAL"
-msgstr "Pokladňa klubu CELKOM"
+msgstr "Pokladňa klubu celkom"
 
 msgid "Club treasury THIS YEAR"
-msgstr "Pokladňa klubu TENTO ROK"
+msgstr "Pokladňa klubu tento rok"
 
 msgid "Club treasury LAST YEAR"
-msgstr "Pokladňa klubu MINULÝ ROK"
+msgstr "Pokladňa klubu minulý rok"
 
 msgid "Invalid characters in name or email."
 msgstr "Neplatné znaky v mene alebo emaile."
@@ -444,19 +444,19 @@ msgid "An error occurred while sending your message. Please try again later."
 msgstr "Pri odosielaní správy nastala chyba. Skúste to neskôr."
 
 msgid "Please select an event."
-msgstr "Vyberte udalosť."
+msgstr "Vyberte podujatie."
 
 msgid "No club member is linked to your account. Please contact the administrator."
 msgstr "K vášmu účtu nie je priradený žiadny člen klubu. Kontaktujte administrátora."
 
 msgid "The selected event does not exist."
-msgstr "Vybraná udalosť neexistuje."
+msgstr "Vybrané podujatie neexistuje."
 
 msgid "No email address is set for your account. Please contact the administrator."
 msgstr "Pre váš účet nie je nastavená emailová adresa. Kontaktujte administrátora."
 
 msgid "Event registration"
-msgstr "Registrácia na udalosť"
+msgstr "Registrácia na podujatie"
 
 msgid ""
 "Hi %(member)s,\n\n"
@@ -465,15 +465,15 @@ msgid ""
 "Cycling Club"
 msgstr ""
 "Ahoj %(member)s,\n\n"
-"úspešne ste sa zaregistrovali na udalosť: %(event)s%(date)s.\n\n"
+"úspešne ste sa zaregistrovali na podujatie: %(event)s%(date)s.\n\n"
 "Ďakujeme a tešíme sa na vás.\n"
-"Cycling Club"
+"CTK Tvrdošín"
 
 msgid "An error occurred: invalid recipient email."
 msgstr "Nastala chyba: neplatný email príjemcu."
 
 msgid "Done! You are registered for the event."
-msgstr "Hotovo! Ste zaregistrovaný na udalosť."
+msgstr "Hotovo! Ste zaregistrovaný na podujatie."
 
 msgid "Registration was saved, but the email could not be sent."
 msgstr "Registrácia bola uložená, ale email sa nepodarilo odoslať."
