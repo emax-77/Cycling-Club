@@ -11,6 +11,7 @@
   .balance-container {
     max-width: 1400px;
     margin: 2rem auto;
+    padding: 0 1rem;
   }
 
   .page-header {
@@ -155,6 +156,20 @@
     padding: 1.5rem;
     border-radius: 15px;
     margin-top: 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Plotly responsiveness */
+  .graph-wrapper .plotly-graph-div,
+  .graph-wrapper .js-plotly-plot {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  .graph-wrapper .js-plotly-plot {
+    touch-action: none;
   }
 
   .no-graph {
@@ -186,6 +201,15 @@
     
     .card-body {
       padding: 1.5rem;
+    }
+
+    .graph-wrapper {
+      padding: 1rem;
+    }
+
+    .graph-wrapper .plotly-graph-div {
+      /* a bit shorter on phones */
+      height: 320px !important;
     }
   }
 </style>
@@ -344,5 +368,34 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  (function () {
+    function resizeAllPlotlyGraphs() {
+      if (!window.Plotly || !window.Plotly.Plots) return;
+      var graphs = document.querySelectorAll('.js-plotly-plot');
+      for (var i = 0; i < graphs.length; i++) {
+        try {
+          window.Plotly.Plots.resize(graphs[i]);
+        } catch (e) {
+          // ignore
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(resizeAllPlotlyGraphs, 50);
+      setTimeout(resizeAllPlotlyGraphs, 600);
+    });
+
+    window.addEventListener('resize', resizeAllPlotlyGraphs, { passive: true });
+    window.addEventListener('orientationchange', function () {
+      setTimeout(resizeAllPlotlyGraphs, 250);
+      setTimeout(resizeAllPlotlyGraphs, 800);
+    }, { passive: true });
+  })();
+</script>
 {% endblock %}
 

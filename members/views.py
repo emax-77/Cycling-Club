@@ -83,18 +83,29 @@ def balance_graph(request):
   sum_income_last_year = sum_fees_last_year + sum_sponsorship_last_year
   cash_balance_last_year = sum_income_last_year - sum_expenses_last_year
 
+  plotly_config = {
+    'responsive': True,
+    'displayModeBar': False,
+  }
+
   fig_total = px.bar(
     x=[_('incomes'), _('payments'), _('result')],
     y=[float(sum_income_total), float(sum_expenses_total), float(cash_balance_total)],
     labels={"x": _('balance'), "y": "EUR"},
     title=_('Club treasury TOTAL')
   )
+
+  fig_total.update_layout(
+    autosize=True,
+    margin=dict(l=30, r=30, t=60, b=40),
+  )
   
   graph_total = fig_total.to_html(
     full_html=False,
     include_plotlyjs='cdn',
-    default_height=500,
-    default_width=700,
+    default_height=420,
+    default_width='100%',
+    config=plotly_config,
   )
 
   fig_this_year = px.bar(
@@ -103,11 +114,16 @@ def balance_graph(request):
     labels={"x": _('balance'), "y": "EUR"},
     title=_('Club treasury THIS YEAR')
   )
+  fig_this_year.update_layout(
+    autosize=True,
+    margin=dict(l=30, r=30, t=60, b=40),
+  )
   graph_this_year = fig_this_year.to_html(
     full_html=False,
     include_plotlyjs=False,
-    default_height=500,
-    default_width=700,
+    default_height=420,
+    default_width='100%',
+    config=plotly_config,
   )
 
   fig_last_year = px.bar(
@@ -116,11 +132,16 @@ def balance_graph(request):
     labels={"x": _('balance'), "y": "EUR"},
     title=_('Club treasury LAST YEAR')
   )
+  fig_last_year.update_layout(
+    autosize=True,
+    margin=dict(l=30, r=30, t=60, b=40),
+  )
   graph_last_year = fig_last_year.to_html(
     full_html=False,
     include_plotlyjs=False,
-    default_height=500,
-    default_width=700,
+    default_height=420,
+    default_width='100%',
+    config=plotly_config,
   )
 
   template = loader.get_template('balance_graph.html')

@@ -372,7 +372,7 @@
         <thead>
           <tr>
             {% comment %} <th><i class="bi bi-hash"></i> ID</th> {% endcomment %}
-            <th><i class="bi bi-calendar"></i> {% trans "Date" %}</th>
+            {% comment %} <th><i class="bi bi-calendar"></i> {% trans "Date" %}</th> {% endcomment %}
             <th><i class="bi bi-calendar-event"></i> {% trans "Event Name" %}</th>
             <th><i class="bi bi-card-text"></i> {% trans "Note" %}</th>
             <th><i class="bi bi-cash"></i> {% trans "Amount" %}</th>
@@ -382,7 +382,7 @@
           {% for x in myexpenses %}
           <tr>
             {% comment %} <td>{{ x.id }}</td> {% endcomment %}
-            <td>{{ x.payment_date }}</td>
+            {% comment %} <td>{{ x.payment_date }}</td> {% endcomment %}
             <td>{{ x.event_name }}</td>
             <td>{{ x.purpose }}</td>
             <td><span class="badge-amount" style="background: linear-gradient(135deg, #f59e0b, #d97706);">{{ x.amount }} EUR</span></td>
