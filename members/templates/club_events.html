@@ -271,7 +271,7 @@
       <table class="modern-table">
         <thead>
           <tr>
-            <th><i class="bi bi-hash"></i> ID</th>
+            {% comment %} <th><i class="bi bi-hash"></i> ID</th> {% endcomment %}
             <th><i class="bi bi-calendar"></i> {% trans "Event Date" %}</th>
             <th><i class="bi bi-flag-fill"></i> {% trans "Event Name" %}</th>
             <th><i class="bi bi-info-circle"></i> {% trans "Event Details" %}</th>
@@ -280,7 +280,7 @@
         <tbody>
           {% for x in events_this_year %}
           <tr>
-            <td>{{ x.id }}</td>
+            {% comment %} <td>{{ x.id }}</td> {% endcomment %}
             <td>{{ x.event_date }}</td>
             <td><span class="event-badge">{{ x.event_name }}</span></td>
             <td>{{ x.event_description }}</td>
@@ -333,16 +333,16 @@
       <table class="modern-table">
         <thead>
           <tr>
-            <th><i class="bi bi-hash"></i> ID</th>
+            {% comment %} <th><i class="bi bi-hash"></i> ID</th> {% endcomment %}
             <th><i class="bi bi-person"></i> {% trans "Name" %}</th>
-            <th><i class="bi bi-envelope"></i> {% trans "Email" %}</th>
+            {% comment %} <th><i class="bi bi-envelope"></i> {% trans "Email" %}</th> {% endcomment %}
             <th><i class="bi bi-flag"></i> {% trans "Event" %}</th>
           </tr>
         </thead>
         <tbody>
           {% for sub in subscriptions_this_year %}
           <tr>
-            <td>{{ sub.id }}</td>
+            {% comment %} <td>{{ sub.id }}</td> {% endcomment %}
             <td>
               {% if sub.member %}
                 {{ sub.member.firstname }} {{ sub.member.lastname }}
@@ -350,7 +350,7 @@
                 —
               {% endif %}
             </td>
-            <td>{{ sub.email }}</td>
+            {% comment %} <td>{{ sub.email }}</td> {% endcomment %}
             <td><span class="event-badge">{{ sub.event.event_name }}</span></td>
           </tr>
           {% empty %}
