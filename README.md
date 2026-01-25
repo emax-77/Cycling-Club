@@ -3,9 +3,9 @@
 As the treasurer of a cycling club, the project aims to create a functional application (website) for managing club members, finances, and events, with the option for members to sign up for individual club events and receive email notifications. As a bonus, the site also features a cycling club gallery, club financial balance charts, and a contact form.
 
 # Latest updates
-- We are ONLINE !!! Please check www.ctk-ts.eu
+- We are ONLINE !!! Please visit www.ctk-ts.eu
 - Slovak language added, you can now switch between Slovak and English
-- The page is optimized for big displays like PC, notebook, or tablet for now. (update for smartphones will arrive soon)
+- Adaptations for small devices (mobile phones) have been implemented. However, some additional updates are required to ensure a fully responsive design. Coming soon :)
 - For testing purposes, use login test@test.sk and password Test123456 (only logged members can enter most sections on this web) 
 - I rewrote a lot of both backend and frontend code in JANUARY 2026
 - Brand new look with Bootstrap 5
