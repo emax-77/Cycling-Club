@@ -182,6 +182,10 @@ def contact(request):
     email = (request.POST.get('email') or '').strip()
     message_content = (request.POST.get('message') or '').strip()
 
+    if not name or not email or not message_content:
+      context['error_message'] = _('Please fill in your name, email and message.')
+      return HttpResponse(template.render(context, request))
+
     # prevent header injection (CR/LF) in name/email
     if any(ch in name for ch in ('\n', '\r')) or any(ch in email for ch in ('\n', '\r')):
       context['error_message'] = _('Invalid characters in name or email.')
@@ -197,14 +201,16 @@ def contact(request):
 
     subject = _('Message from Cycling Club, user: %(name)s') % {'name': name}
     message = _('%(name)s (%(email)s) wrote:\n\n%(message)s') % {'name': name, 'email': email, 'message': message_content}
-    email_from = str(settings.EMAIL_HOST_USER) if settings.EMAIL_HOST_USER is not None else ''
+    email_from = (getattr(settings, 'DEFAULT_FROM_EMAIL', '') or str(getattr(settings, 'EMAIL_HOST_USER', '') or '')).strip()
+    if not email_from:
+      email_from = 'no-reply@example.invalid'
    
     subject = _sanitize_header(subject)
     email_from = _sanitize_header(email_from)
     recipient_list = [_sanitize_header(r) for r in getattr(settings, 'CONTACT_RECIPIENT_LIST', [])]
 
     if not recipient_list:
-      context['error_message'] = _('Contact recipient is not configured.')
+      context['error_message'] = _('Contact recipient is not configured. Set CONTACT_RECIPIENT_EMAIL in environment.')
       return HttpResponse(template.render(context, request))
 
     # validate recipient emails
@@ -216,7 +222,13 @@ def contact(request):
         return HttpResponse(template.render(context, request))
 
     try:
-      email_msg = EmailMessage(subject=subject, body=message, from_email=email_from, to=recipient_list)
+      email_msg = EmailMessage(
+        subject=subject,
+        body=message,
+        from_email=email_from,
+        to=recipient_list,
+        reply_to=[email],
+      )
 
       debug_mode = getattr(settings, 'DEBUG', False)
       if debug_mode:

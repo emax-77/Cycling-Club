@@ -3,6 +3,31 @@ from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
+def _load_dotenv_if_present(dotenv_path: Path) -> None:
+    """Minimal .env loader (does not override existing env vars)"""
+    try:
+        if not dotenv_path.exists() or not dotenv_path.is_file():
+            return
+        for raw_line in dotenv_path.read_text(encoding='utf-8').splitlines():
+            line = raw_line.strip()
+            if not line or line.startswith('#'):
+                continue
+            if '=' not in line:
+                continue
+            key, value = line.split('=', 1)
+            key = key.strip()
+            value = value.strip()
+
+            if not key:
+                continue
+           
+            if len(value) >= 2 and ((value[0] == value[-1] == '"') or (value[0] == value[-1] == "'")):
+                value = value[1:-1]
+
+            os.environ.setdefault(key, value)
+    except Exception:
+               return
+
 
 def _require_env(name: str) -> str:
     value = os.getenv(name)
@@ -26,6 +51,9 @@ def _env_list(name: str, default: list[str] | None = None) -> list[str]:
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Load local .env (for `py manage.py runserver` on Windows).
+_load_dotenv_if_present(BASE_DIR / '.env')
 
 
 # Quick-start development settings - unsuitable for production
@@ -212,10 +240,20 @@ else:
     EMAIL_TIMEOUT = int(os.getenv('EMAIL_TIMEOUT', '20'))
 
 # Contact form recipient(s)
-CONTACT_RECIPIENT_EMAIL = os.getenv('CONTACT_RECIPIENT_EMAIL', EMAIL_HOST_USER or '')
-CONTACT_RECIPIENT_LIST = [CONTACT_RECIPIENT_EMAIL] if CONTACT_RECIPIENT_EMAIL else []
+CONTACT_RECIPIENT_EMAIL = (os.getenv('CONTACT_RECIPIENT_EMAIL') or (EMAIL_HOST_USER or '')).strip()
 
-# Production security
+CONTACT_RECIPIENT_LIST = _env_list(
+    'CONTACT_RECIPIENT_LIST',
+    default=[CONTACT_RECIPIENT_EMAIL] if CONTACT_RECIPIENT_EMAIL else [],
+)
+CONTACT_RECIPIENT_LIST = [email.strip() for email in CONTACT_RECIPIENT_LIST if email.strip()]
+
+if DEBUG and not CONTACT_RECIPIENT_LIST:
+    CONTACT_RECIPIENT_LIST = ['dev-null@example.invalid']
+
+if not DEBUG and not CONTACT_RECIPIENT_LIST:
+    raise ImproperlyConfigured('CONTACT_RECIPIENT_EMAIL (or CONTACT_RECIPIENT_LIST) must be set for the contact form.')
+
 CSRF_TRUSTED_ORIGINS = _env_list('DJANGO_CSRF_TRUSTED_ORIGINS', [])
 
 if not DEBUG:
