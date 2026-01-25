@@ -11,12 +11,16 @@ As the treasurer of a cycling club, the project aims to create a functional appl
 - Brand new look with Bootstrap 5
    
 # Technology Stack
-- Hosted by me on my Ubuntu Server 24.04.3 with CloudFlare. 
 - Frontend: HTML, CSS (Bootstrap 5), JS
 - Backend: Django, Python
-- Database: SQLite3
-- Data visualization library: Plotly
-- Image processing library: Pillow
+- Database: PostgreSQL
+- Data visualization: Plotly
+- Image processing: Pillow
+
+# Deployment
+- Hosted on a self-managed Ubuntu Server 24.04.3
+- Dockerized application (Docker / Docker Compose)
+- Reverse proxy and security handled via Cloudflare
 
 ## Screenshots
 
