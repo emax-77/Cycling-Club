@@ -33,7 +33,7 @@ msgid "Treasury"
 msgstr "Pokladňa"
 
 msgid "Balance"
-msgstr "Zostatok"
+msgstr "Grafy"
 
 msgid "Gallery"
 msgstr "Galéria"
@@ -273,7 +273,7 @@ msgid "No expenses data available"
 msgstr "Nie sú dostupné údaje o výdavkoch"
 
 msgid "Balance Graph"
-msgstr "Graf zostatku"
+msgstr "Grafy pokladne"
 
 msgid "Financial overview and analytics"
 msgstr "Finančný prehľad a analýza"

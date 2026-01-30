@@ -213,6 +213,15 @@
     display: inline-block;
   }
 
+  .badge-amount-unpaid {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    display: inline-block;
+  }
+
   .empty-state {
     text-align: center;
     padding: 3rem;
@@ -314,8 +323,12 @@
             {% comment %} <td>{{ x.id }}</td> {% endcomment %}
             <td>{{ x.firstname }}</td>
             <td>{{ x.lastname }}</td>
+            {% if x.total_paid > 0 %}
             <td><span class="badge-amount">{{ x.total_paid }} EUR</span></td>
-          </tr>
+            {% else %}
+            <td><span class="badge-amount-unpaid">{{ x.total_paid }} EUR</span></td>
+            {% endif %}             
+          </tr> 
           {% empty %}
           <tr>
             <td colspan="4" class="empty-state">
