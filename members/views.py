@@ -33,7 +33,7 @@ def welcome(request):
 
 # List of all members
 def members(request):
-  mymembers = Member.objects.all().values()
+  mymembers = Member.objects.order_by('lastname', 'firstname').values()
   template = loader.get_template('all_members.html')
   context = {
     'mymembers': mymembers,
@@ -319,15 +319,15 @@ def club_treasury(request):
   if period == 'this_year':
     members_qs = Member.objects.all().annotate(
       total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership', payments__period_year=year_now))
-    )
+    ).order_by('lastname', 'firstname')
   elif period == 'last_year':
     members_qs = Member.objects.all().annotate(
       total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership', payments__period_year=year_last))
-    )
+    ).order_by('lastname', 'firstname')
   else:
     members_qs = Member.objects.all().annotate(
       total_paid=Sum('payments__amount', filter=Q(payments__payment_type='membership'))
-    )
+    ).order_by('lastname', 'firstname')
 
   mymembers = []
   for m in members_qs:
@@ -379,7 +379,7 @@ def club_events(request):
   subscriptions_this_year = (
     EventSubscribe.objects.filter(event__event_date__isnull=False, event__event_date__gte=today)
     .select_related('member', 'event')
-    .order_by('-subscribed_at')
+    .order_by('member__lastname', 'member__firstname', 'email', 'event__event_date', 'event__event_name', '-subscribed_at')
   )
 
   # Find the Member for the logged-in user
@@ -494,7 +494,7 @@ def club_events(request):
     subscriptions_this_year = (
       EventSubscribe.objects.filter(event__event_date__isnull=False, event__event_date__gte=today)
       .select_related('member', 'event')
-      .order_by('-subscribed_at')
+      .order_by('member__lastname', 'member__firstname', 'email', 'event__event_date', 'event__event_name', '-subscribed_at')
     )
 
   context = {
