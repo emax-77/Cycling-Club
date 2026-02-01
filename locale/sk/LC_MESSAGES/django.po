@@ -33,7 +33,7 @@ msgid "Treasury"
 msgstr "Pokladňa"
 
 msgid "Balance"
-msgstr "Zostatok"
+msgstr "Grafy"
 
 msgid "Gallery"
 msgstr "Galéria"
