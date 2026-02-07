@@ -238,6 +238,48 @@
     color: #0f172a;
   }
 
+  .planning-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .planning-download:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 22px rgba(37, 99, 235, 0.35);
+    color: #ffffff;
+  }
+
+  .planning-warning {
+    margin-top: 0.7rem;
+    font-size: 0.9rem;
+    color: #64748b;
+  }
+
+  .contact-footer {
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+  }
+
+  .contact-footer p {
+    margin: 0;
+    color: #475569;
+    font-weight: 500;
+  }
+
   @media (max-width: 768px) {
     .hero-title {
       font-size: 2rem;
@@ -278,6 +320,11 @@
     .planning-columns {
       grid-template-columns: 1fr;
       gap: 1rem;
+    }
+
+    .planning-download {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>
@@ -355,6 +402,7 @@
             oznámené priamo predsedom klubu.
           </p>
         </section>
+
         <section class="planning-section">
           <h3>Všeobecné informácie</h3>
           <p class="planning-note" style="margin-top: 0.9rem;">
@@ -364,8 +412,22 @@
           </p>
         </section>
 
+        <section class="planning-section">
+          <h3>Mobilná aplikácia SimpleNavigator</h3>
+          <p class="planning-note" style="margin-top: 0.9rem;">
+           Pre všetkých turistov s Android telefónmi je k dispozícii jednoduchá navigačná aplikácia SimpleNavigator.
+           Táto premení Váš telefón na kompas ktorý Vás naviguje k cieľu, ktorý si zvolíte.
+           Nepotrebuje internetové pripojenie, je k dispozícii zdarma, bez reklamy a je možné si ju stiahnuť kliknutím na tlačidlo nižšie.
+           Zatiaľ je k dispozícii v angličtine, slovenská lokalizácia bude dostupná čoskoro.
+          </p>
+          <a class="planning-download" href="{% static 'com.companyname.simplenavigator-Signed.apk' %}" download>
+            <i class="bi bi-download"></i> Stiahnuť SimpleNavigator
+          </a>
+          <div class="planning-warning">
+            Pred inštaláciou môže byť potrebné povoliť inštaláciu z neznámych zdrojov.
+          </div>
+        </section>
       </div>
-    </div>
 
 
     <div class="hero-image-container">
@@ -412,7 +474,10 @@
           <i class="bi bi-wallet2"></i> {% trans "Treasury" %}
         </a>
       </div>
-    </div>
+    </div>   
   </div>
+   <div class="contact-footer">
+      <p><i class="bi bi-c-circle"></i> {% now "Y" %} {% trans "Copyright:" %} Peter Wirth</p>
+    </div>
 </div>
 {% endblock %}
