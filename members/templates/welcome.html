@@ -171,6 +171,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 1.5rem;
+    width: 100%;
+    min-width: 0;
   }
 
   .planning-section {
@@ -179,6 +181,7 @@
     padding: 1.25rem 1.5rem;
     box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
     border: 1px solid rgba(148, 163, 184, 0.2);
+    min-width: 0;
   }
 
   .planning-section h3 {
@@ -211,6 +214,7 @@
     padding-left: 1.2rem;
     line-height: 1.5;
     color: #1f2937;
+    overflow-wrap: anywhere;
   }
 
   .planning-list li::before {
@@ -259,6 +263,23 @@
       padding: 1rem 1.1rem;
     }
   }
+
+  @media (max-width: 576px) {
+    .hero-section {
+      padding: 1.5rem;
+    }
+
+    .planning {
+      padding: 1.25rem;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .planning-columns {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
 </style>
 {% endblock %}
 
@@ -272,7 +293,7 @@
     
     <div class="planning" aria-labelledby="planning-title">
       <h2 id="planning-title" class="planning-title">
-        Plán podujatí CTK Tvrdošín na rok 2026
+        Plán podujatí na rok 2026
       </h2>
       <p class="planning-lead">
         Plán je orientačný. Termíny a realizácia sú závislé od počasia a organizátorov.
