@@ -144,6 +144,96 @@
     color: white;
   }
 
+  .planning {
+    margin: 2.5rem 0 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f8fafc, #eff6ff);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    border-radius: 24px;
+    text-align: left;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+  }
+
+  .planning-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 0.6rem;
+  }
+
+  .planning-lead {
+    font-size: 1.05rem;
+    color: #475569;
+    margin-bottom: 1.5rem;
+  }
+
+  .planning-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .planning-section {
+    background: white;
+    border-radius: 18px;
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
+    border: 1px solid rgba(148, 163, 184, 0.2);
+  }
+
+  .planning-section h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+  }
+
+  .planning-note {
+    font-size: 0.95rem;
+    color: #64748b;
+    margin-bottom: 0.75rem;
+  }
+
+  .planning-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.6rem;
+  }
+
+  .planning-list--tight {
+    gap: 0.4rem;
+  }
+
+  .planning-list li {
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.5;
+    color: #1f2937;
+  }
+
+  .planning-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #2563eb;
+    font-weight: 700;
+  }
+
+  .planning-date {
+    font-weight: 700;
+    color: #2563eb;
+    margin-right: 0.35rem;
+    white-space: nowrap;
+  }
+
+  .planning-meta {
+    font-weight: 600;
+    color: #0f172a;
+  }
+
   @media (max-width: 768px) {
     .hero-title {
       font-size: 2rem;
@@ -156,6 +246,18 @@
     .features-grid {
       grid-template-columns: 1fr;
     }
+
+    .planning {
+      padding: 1.5rem;
+    }
+
+    .planning-title {
+      font-size: 1.6rem;
+    }
+
+    .planning-section {
+      padding: 1rem 1.1rem;
+    }
   }
 </style>
 {% endblock %}
@@ -167,7 +269,84 @@
       <i class="bi bi-bicycle"></i>
       {% trans "Cyclo-Tourist Club Tvrdosin" %}
     </h1>
-       
+    
+    <div class="planning" aria-labelledby="planning-title">
+      <h2 id="planning-title" class="planning-title">
+        Plán podujatí CTK Tvrdošín na rok 2026
+      </h2>
+      <p class="planning-lead">
+        Plán je orientačný. Termíny a realizácia sú závislé od počasia a organizátorov.
+      </p>
+      <div class="planning-columns">
+        <section class="planning-section">
+          <h3>Zimné športové akcie</h3>
+          <p class="planning-note">Termíny sú podriadené organizátorom.</p>
+          <ul class="planning-list">
+            <li>Krivská podkova - bežkársky a peší pochod</li>
+            <li>Rabčice - bežkársky a peší pochod</li>
+            <li>Prechod Skorušinou - cieľ Tvrdošín družstvo</li>
+            <li>Prechod popod Babiu horu - Oravská Polhora</li>
+            <li>Prechod Bielopotockým horizontom</li>
+            <li>Prechod Chocholovskou dolinou, návšteva termálnych bazénov Witow</li>
+            <li>Lieskovským chotárom</li>
+          </ul>
+        </section>
+
+        <section class="planning-section">
+          <h3>Viacdňové cykloturistické akcie</h3>
+          <ul class="planning-list">
+            <li><span class="planning-date">12-14.6.2026</span>Okolo Tatier (Nowy Targ - Jurgów - Ždiar - T. Lomnica)</li>
+            <li><span class="planning-date">26.6-4.7.2026</span>Srbsko - Šumadija (cyklo-putovanie za vínom)</li>
+            <li><span class="planning-date">14-16.8.2026</span>Na Pieniny s rodinnými príslušníkmi (Nowy Targ - Dunajec)</li>
+          </ul>
+        </section>
+
+        <section class="planning-section">
+          <h3>Sezónne nedeľné cyklo výjazdy</h3>          
+          <ul class="planning-list planning-list--tight">
+            <li><span class="planning-date">12.4.2026</span>Tvrdošín - Suchá Hora</li>
+            <li><span class="planning-date">26.4.2026</span>Tvrdošín - Zakopané</li>
+            <li><span class="planning-date">01.5.2026</span>Po Tvrdošanskom cyklochodníku</li>
+            <li><span class="planning-date">17.5.2026</span>Okolo Or. priehrady</li>
+            <li><span class="planning-date">24.5.2026</span>Tvrdošín - Oravice</li>
+            <li>Jún - Czarny Dunajec (posedenie u „Divokého Býka“)</li>
+            <li>Jún - Jelešňa (návšteva kaplnky a opekanie klobás)</li>
+            <li>Júl - Zuberec (folklórne slávnosti)</li>
+            <li>Júl - Mesto Tvrdošín (odpust na Anny) - Oravice</li>
+            <li>September - Zákamenné (opekanie pstruhov)</li>
+            <li>September - Ukončenie cyklistických akcií (bačovské dni Oravice)</li>
+          </ul>
+          <p class="planning-note" style="margin-top: 0.9rem;">
+            Podľa počasia sa zvyčajne stretávame každú nedeľu o 10:00
+            pred budovou Mestského kultúrneho strediska na Medvedzí.
+          </p>
+        </section>
+
+        <section class="planning-section">
+          <h3>Pešia turistika</h3>
+          <ul class="planning-list">
+            <li>Kvačianska dolina - odpust na Annu (Oravice)</li>
+            <li>Výstup na Javor, Štefanovský výstup na Tatliačku a Javorové</li>
+            <li>Silvestrovský výstup na Choč (resp. Javor, Tatliačka)</li>
+          </ul>
+          <p class="planning-note" style="margin-top: 0.9rem;">
+            Všetky plánované akcie sú riadené predsedom CTK. Záväzné termíny budú
+            oznámené priamo predsedom klubu.
+          </p>
+        </section>
+        <section class="planning-section">
+          <h3>Všeobecné informácie</h3>
+          <p class="planning-note" style="margin-top: 0.9rem;">
+            Do zvyšku portálu majú prístup iba členovia klubu.
+            Členstvo je otvorené pre všetkých, ktorí majú záujem o cykloturistiku alebo pešiu turistiku.
+            V prípade záujmu o členstvo nás neváhajte kontaktovať na <a href="mailto: info@ctk-ts.eu">info@ctk-ts.eu</a>.
+          </p>
+        </section>
+
+      </div>
+    </div>
+
+
     <div class="hero-image-container">
       <img class="hero-image" src="{% static 'Wooden_Church_Tvrdosin.jpg' %}" alt="{% trans "Cyclo-Tourist Club Tvrdosin" %}">
     </div>
